@@ -6,25 +6,22 @@ CREATE DATABASE gap;
 USE gap;
 
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS answers;
-DROP TABLE IF EXISTS tag;
-DROP TABLE IF EXISTS question_has_tags;
+
 
 
 
 CREATE TABLE users (
 	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    super_user BOOLEAN NOT NULL,
+    super_user BOOLEAN DEFAULT 0,
     name_user VARCHAR(255) NOT NULL,
     email VARCHAR(45) NOT NULL UNIQUE,
     password_user VARCHAR(255) NOT NULL,
-    reg_date TIMESTAMP NOT NULL,
+    reg_date TIMESTAMP,
     foto MEDIUMBLOB,
     show_mail CHAR BINARY,
-    validate boolean NOT NULL DEFAULT 0,
+    validate boolean DEFAULT 0,
     descritpion VARCHAR(1000),
-    sum INT
+    sum INT DEFAULT 0
     );
    
    CREATE TABLE questions (

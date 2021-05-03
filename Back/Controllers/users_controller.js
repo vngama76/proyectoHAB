@@ -7,18 +7,23 @@ const userRepository = require('../Repositories/user_repository');
 
 async function register(req, res, next) {
     try {
-        const { name, email, password, repeatedPassword } = req.body;
+        const { name_user, email, password_user, repeatedPassword } = req.body;
 
         const schema = Joi.object({
-            name: Joi.string(),
-            email: Joi.string().email().required(),
-            password: Joi.string().min(5).max(20).required(),
+            name_user: Joi.string(),
+            email: Joi.string().email().required(),            
+            password_user: Joi.string().min(5).max(20).required(),
             repeatedPassword: Joi.string().min(5).max(20).required(),
         });
 
-        await schema.validateAsync({ name, email, password, repeatedPassword });
+        await schema.validateAsync({
+            name_user,
+            email,
+            password_user,
+            repeatedPassword,
+        });
 
-        if (password !== repeatedPassword) {
+        if (password_user !== repeatedPassword) {
             const err = new Error(
                 'Password y repeatedPassword deben coincidir'
             );
@@ -35,19 +40,20 @@ async function register(req, res, next) {
             throw err;
         }
 
-        const passwordHash = await bcrypt.hash(password, 10);
+        const passwordHash = await bcrypt.hash(password_user, 10);
 
         const createdUser = await userRepository.createUser({
-            name,
+            name_user,
             email,
-            password: passwordHash,
+            password_user: passwordHash,
         });
         res.status(201);
-        res.send({
-            id: createdUser.id,
-            name: createdUser.name,
-            email: createdUser.email,
-        });
+        // res.send({
+        //     id: createdUser.id_user,
+        //     name: createdUser.name_user,
+        //     email: createdUser.email,
+        // });
+        res.send({createdUser})
     } catch (err) {
         next(err);
     }

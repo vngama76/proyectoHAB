@@ -8,7 +8,7 @@ const findUserByEmail = async (email) => {
 };
 
 async function createUser(data) {
-    const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
+    const query = 'INSERT INTO users (name_user, email, password_user) VALUES (?, ?, ?)';
     await database.pool.query(query, [
         data.name_user,
         data.email,
