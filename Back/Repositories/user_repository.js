@@ -18,8 +18,16 @@ async function createUser(data) {
     return findUserByEmail(data.email);
 }
 
+async function findUserById(id) {
+
+    const query = 'SELECT * FROM users WHERE id_user = ?';
+    const [user] = await database.pool.query(query, id);
+    return user;
+    
+}
 
 module.exports = {
     findUserByEmail,
     createUser,
+    findUserById,
 };

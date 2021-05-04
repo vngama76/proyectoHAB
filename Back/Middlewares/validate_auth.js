@@ -11,13 +11,12 @@ async function validateAuthorization(req, res, next) {
             throw error;
         }
 
-        const token = authorization.slice(7, authorization.length);//Corta el Bearer y se queda con el token de la auth
+        const token = authorization.slice(7, authorization.length);//Corta el 'Bearer ' y se queda con el token de la auth.
         const decodedToken = jwt.verify(token, process.env.SECRET);//Verificamos que el token coincida con nuestro Secret del .env
 
-        // Comprobamos que el usuario para el que fue emitido
-        // el token todavía existe.
-        const query = 'SELECT * FROM users WHERE id = ?';
-        const [users] = await database.pool.query(query, decodedToken.id);//decodedToken es el id.
+        // Comprobamos que el usuario para el que fue emitido el token todavía existe.
+        const query = 'SELECT * FROM users WHERE id_user = ?';
+        const [users] = await database.pool.query(query, decodedToken.id);//decodedToken esta formado por el body que es devuelto en Login 
 
         if (!users || !users.length) {
             const error = new Error('El usuario ya no existe');
