@@ -19,7 +19,7 @@ CREATE TABLE users (
     reg_date TIMESTAMP,
     foto MEDIUMBLOB,
     show_mail CHAR BINARY,
-    validate boolean DEFAULT 0,
+    isVerify VARCHAR(10) DEFAULT "false",
     descritpion VARCHAR(1000),
     sum INT DEFAULT 0
     );

@@ -126,6 +126,28 @@ async function getUserById(req, res, next) {
     }
 }
 
+
+
+
+
+
+
+
+
+
+async function validateUser(req, res, next) {
+    try {
+        // leer datos del req.body
+        // hacer el get del usuario por id
+        // validar el token
+        // y confirmar la cuenta
+        // devolver una respuesta en función de la validación
+        // UPDATE users SET isVerify = "true" WHERE id_user = 1;
+    } catch (err) {
+        next(err)        
+    }
+}
+
 module.exports = {
     register,
     login,
