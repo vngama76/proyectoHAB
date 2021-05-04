@@ -1,0 +1,243 @@
+
+Preguntas:
+
+-¿Como tratamos a una pregunta?
+
+	* La pregunta es realizada por un usuario registrado.
+	
+	* Preguntas mas habituales? FAQs? incluir un espacio donde se muestren las ultimas preguntas mejor puntuadas por los usuarios? NO SOBRECARGAR LA PAGINA.
+	* se trata de codigo por lo que el espacio de escritura debe ser similar al de visual? 
+	* Debe estar diseñada para hacer la pregunta debe llegar de la manera mas urgente posible al usuario, (yo me vuelvo loco cuando tengo 
+	  cualquier duda y necesito escribirla no podemos perder ese momento de "entusiasmo inducido por la necesida del usuario").
+	* Fomentar a que escriban es nuestra primera regla. 
+	* Ademas de agrupar las preguntas por lenguaje de programacion, el usuario podría buscar preguntas mediante filtros, seleccion de palabras claves, 
+	  tags, cómo podríamos facilitar las preguntas al usuario. en esta parte me suena realmente a una pagina de FAQs.
+	* "Los pequeños cambios en la forma en que se formulan las preguntas pueden dar respuestas totalmente diferentes." de alguna manera explicarle esto al usuario
+		
+
+Respuestas: 
+	
+-¿Como tratamos a una respuesta? 
+
+	* Responde a una pregunta unicamente un experto registrado
+	* Usuarios pueden ver la respuesta y...
+	* Puntúa la respuesta, de 0 a 5 estrellas, 3 posibles elecciones entre mala, neutra y buena? 
+	* Puntúa al experto? 
+	* Respuestas "desvaloradas" equiz veces se eliminan y dejan a la pregunta nuevamente disponible a ser respuesta. 
+	* Respuestas "desvaloradas" no se eliminan pero retornan a la pregunta a la fase de 'por responder'
+	* Fases por las que pasa una pregunta y una respuesta. 
+	* Solo expertos pueden responder una pregunta pero cualquier usuario puede dejar su comentario y consultar dentro de otra pregunta.
+	* Al final de la respuesta se dejaria enlaces a preguntas similares. la idea es mantener al usuario navegando en la pagina. 
+	* Expertos podran responder preguntas con enlace a otra pregunta. Se puede suplantar a un enlace por un boton de link mas atractivo para el usuario?
+	* Expertos tendrán su propia pagina? (Existe una pagina llamada Musixmatch donde te puedes logear como traductor o transcriptor de letras de canciones
+	  y utilizan Slack para conectar a los traductores entre ellos. 
+	* Las respuestas deben ser escritas en el mismo leguaje del usuario que las realizó, de nada sirve utilizar lenguaje extra-tecnico con un alumno de 
+	  segunda semana de un bootcamp.
+	* Expertos tendrian un raking? : -Answer Resourcer
+					  -Answer Administrator	
+					  -Answer Managment
+					  -Answer Excecutive
+					  -Answer God¿ jaja
+	* Podrían anexar su ranking de experto en su linkedIn?
+	* Expertos podrian responder utilizando enlaces a paginas externas o la idea es que ellos mismos se encarguen de responder la pregunta
+	  tomando la documentacion y pegandola en la respuesta y dandole una mejor explicacion, sin enlaces. 
+	* Responde a ésta pregunta? "Invita a un amigo a responder" y la posibilidad de enviarla por mail a alguien conocido?
+	* Respuestas consideradas, puntuadas, tildadas como "muy buenas" podrian tener contenido de valor (codigo elaborado por el experto, 
+	  una explicacion concisa y amena, etc...) y deberian ser salvadas o pasar a formar parte de las respuestas atadas a preguntas "modelo". 
+	  		  
+	  
+Interfaz:
+
+-¿Cuantas, a quienes apuntan?
+	
+	* Color Primario ("dominante"),
+	* Color Secundario
+	* Color de Acento
+	* Logotipo de nuestra pagina
+	* "WE PROMOTE CODERS TO ENCOURAGE NEW CODERS TO CODE", "PROMOTING CODE", "ENCOURAGE NEW CODERS".
+	  En fin, me parece buena idea adoptar un lema en el que demos a entender la importancia que tiene para nosotros que los 
+	  mas expertos ayuden a los nuevos y de esa forma eliminar la competitividad entre coders, formar mas bien una comunidad. 
+	* Cada área de preguntas podria adoptar los colores del simbolo del lenguaje, manteniendo el color dominante que elijamos. 
+	* Nuestro logotipo debe estar visible en todo momento?
+	* Pagina de expertos debe ser de entusiasmo a seguir educando.
+	* Pagina de usuario debe ser sencilla, atractiva, veloz, el usuario llega con la necesidad de discipar una duda, darle la 
+	  posibilidad de escribirla cuánto antes. 
+	* Usuarios no registrados deben llegar al landing donde vean nuestro top 10 de preguntas colgadas (ejemplo de Coca Cola) 
+	  y las pregunta excacta que realizó en el buscador con su respuesta oculta, opaca, lo que fuera y la opcion de "Registrate para ver
+	  la respuesta, solo llevará unos segundos", luego de logearse y confirmar su mail se le daria una calida bienvenida y mostraria urgentemente
+	  la pagina en donde podrá hacer su pregunta dependiendo el lenguaje que elija. 
+	* Posibilidad de rellenar un perfil de usuario con foto, avatar y tambien se lo podría rankear como usuario.
+	* "Comparte tu respuesta", "añade pagina a marcadores"... incitar / invitar a compartir la pagina. 
+	* Como se mostrarían las consultas a los expertos? 
+	* Interfaz con los simbolos de cada lenguaje que lleven a su propia seccion de preguntas (podriamos utilizar los colores primarios del simbolo en cada sección).
+	
+	
+	
+	
+	
+Analisis funcional: 
+
+* Landing con preguntas random estilo stickers colgados y su respuesta "borrossa".
+
+* Una pagina donde te puedas inscribir como experto de alguna de las categorias o "alumno, usuario".
+
+* Pagina principal con registro de usuario o experto, si no te registras, no puedes hacer mas que ver preguntas hechas.
+
+* La pregunta es realizada por un usuario registrado.
+
+* apenas llega al Landing ya sea con la pregunta formulada o no, se le permite preguntar, sele muestra un "listado"  de preguntas similares sin dejarse ver la respuesta 
+  y se lo invita a registrarse "muy rapidamente".
+
+* Usuario NO REGISTRADO podrá ver las preguntas relacionadas a su pregunta realizada pero no podrá ver la respuesta, en cambio se lo invita a inscribirse de manera veloz
+  (email, google account, git?,...).
+
+* El form para hacer la consulta deberia permitir al usuario seleccionar entre las categorias basicas disponibles, pero además "tagear" con hasta 5 palabras clave. 
+
+* BUSCADOR DE PREGUNTAS: El usuario llega con una necesidad a la pagina, necesita una respuesta acerca de algo que no puede solucionar o encontrar por lo que deberia tener
+  la posibilidad de buscar la pregunta relacionada. 
+
+* Inducir al usuario a formular preguntas de calidad. "Los pequeños cambios en la forma en que se formulan las preguntas pueden dar respuestas totalmente diferentes."  
+  You’re ready to ask your first question and the community is here to help! To get you the best answers, we’ve provided some guidance:
+
+  Before you post, search the site to make sure your question hasn’t been answered.
+
+  1. Summarize the problem
+  2. Provide details and any research
+  3. When appropriate, describe what you’ve tried
+  You’ll find more tips in the sidebar.
+
+* Pagina de usuario debe ser sencilla, atractiva, veloz, el usuario llega con la necesidad de discipar una duda, darle la 
+  posibilidad de escribirla cuánto antes. 
+
+* Debería aparecer un cartel de sugerencias 
+
+* Notificaciones de preguntas respondidas, valoraciones recibidas, etc 
+
+* El Usuario al registrarse recibe un email de confirmacion y solo despues de validar tiene acceso a la web completa. 
+
+* Que se le pregunte al usuario al registrarse si le gustaria responder a preguntas y acerca de que area para poder relacionarlo a futuras preguntas.
+
+* Perfil de Usuario. Foto, Profesión, etc...
+
+* Tanto usuario como experto tendran la posibilidad de ser "rankeados" con un sistema de puntuacion. 
+
+* Posibilidad de rellenar un perfil de usuario con foto, avatar, etc...
+
+* Llegado a "tantas" respuestas puntuadas recibes un mensaje de LevelUp Experto. 
+
+* Responde a una pregunta unicamente un usuario registrado
+
+* Puntúa la respuesta, de 0 a 5 estrellas, 3 posibles elecciones entre mala, neutra y buena?
+
+* Respuestas "desvaloradas" equiz veces dejan a la pregunta nuevamente disponible a ser respuesta. 
+
+* Chat con expertos conectados disponibles y relacionados a temas especificos de areas por preguntas respuestas.
+
+* Fases por las que pasa una pregunta. Cuando el usuario la realiza, elige acerca de qué materia está preguntando. Cada pregunta toma un curso hacia los expertos que sepan
+  responderla. 
+
+* Solo expertos pueden responder una pregunta pero cualquier usuario puede dejar su comentario y consultar dentro de otra pregunta.
+
+* Buscador al top de la pagina una vez registrado el usuario o hecho el login.
+
+* Al final de la respuesta se dejaria enlaces a preguntas similares. la idea es mantener al usuario navegando en la pagina. 
+
+* Deben aparecer mensajes en diferentes momentos como una guia tanto para quienes formulan preguntas como para quienes las responden de como formularl@s.
+
+* En vez de crear un chat, una conexion a slack. Entre quienes???
+
+* Responde a ésta pregunta? "Invita a un amigo a responder" y la posibilidad de enviarla por mail a alguien conocido?.
+
+* Respuestas consideradas, puntuadas, tildadas como "muy buenas" podrian tener contenido de valor (codigo elaborado por el experto, 
+  una explicacion concisa y amena, etc...) y deberian ser salvadas o pasar a formar parte de las respuestas atadas a preguntas "modelo" .-RESPUESTAS HOT-.
+  
+* ¿Como se visualiza la pregunta?:
+
+ - 3 votes | 2 answers | 40 views | ¿Qué quiere decir “espinazo partido”?  |  expresiones significado cuerpo  humano | answered | 1 hour ago user28828 | Reputacion: 11.
+ 
+* Utilizar un "SCHEMA" (schema.org) -- Microdata.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+LANDING
+
+PAGINA LOGUEADO 
+
+PAGINA SIN LOGEARSE
+
+PAGINA Segun Categoria con preguntas con y sin respuesta. 
+
+PERFIL de USUARIO
+
+
+SETTINGS del perfil: validacion de mnail? cambiar password, etc....
+nombre de usuario será el mail hasta el simbolo @.
+
+TOPICS: son clickleables y te llevan a una pagina donde se mostrartian las preguntas hechas y respondidas acerca de esa categoria. 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Preguntas para Berto: FIGMA
+
+	
+-preguntas de ejemplo en la pagina principal deberian aparecer las mejores puntuadas sin respuesta implicita.
+
+-preguntas mas votadas
+
+-compartir preguntas
+
+-usuario superpoderoso administrador
+
+-sistema de puntuación
+
+-como ven las paginas los usuarios, los expertos, el administrador.
+
+-el administrador puede modificar los votos recibidos o puntos recibidos de un usuario manualmente. 
+
+-haciendo un listado de sql con los tags podriamos contabilizar las respuestas dependiendo su filtro para dar un porcentaje acerca de qué tecnologias maneja el experto ( en su perfil)
+
+-en el main quitar "HAZ UNA PREGUNTA" y directamente dejar un boton que te lleve a esa pagina de hacer una pregunta para cetralizar 
+
+-el usuario que hizo la pregunta deberia poder elegir la respuesta que mejor le sirvió, y se cambie la pregunta a resuelta y ver si permitimos mas respuestas.
+
+- comentarios a las respuestas, pero no comentarios de comentarios. 
+
+- algoritmo interno del sistema de puntuacion de la pagina. 
+
+-
+
+-
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
