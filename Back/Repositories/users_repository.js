@@ -1,4 +1,3 @@
-const { func } = require('joi');
 const { database } = require('../infrastructure/index');
 
 const findUserByEmail = async (email) => {

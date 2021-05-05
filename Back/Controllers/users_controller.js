@@ -2,7 +2,7 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const userRepository = require('../Repositories/user_repository');
+const userRepository = require('../Repositories/users_repository');
 
 async function register(req, res, next) {
     try {

@@ -6,7 +6,7 @@ const express = require('express');
 
 // const multer = require('multer');
 
-const { usersController } = require('./Controllers/index');
+const { usersController, questionsController } = require('./Controllers/index');
 
 const { validateAuthorization } = require('./Middlewares/validate_auth');
 
@@ -20,8 +20,18 @@ app.post('/api/users/login', usersController.login);
 app.get('/api/users/:id_user', validateAuthorization, usersController.getUserById);
 app.put('/api/users', validateAuthorization, usersController.updateUser);
 app.delete('/api/users/:id_user', validateAuthorization, usersController.deleteUser);
-
 // app.post('/api/users/activar_cuenta', );
+// app.put('/api/users/cambiar_contraseña', );
+
+//Questions
+app.post(
+    '/api/questions/',
+    validateAuthorization,
+    questionsController.createQuestion
+);
+
+
+
 
 app.use(async (err, req, res, next) => {
     const status = err.isJoi ? 400 : err.code || 500;
