@@ -53,7 +53,28 @@ async function getQuestionById(req, res, next) {
   }
 }
 
+async function removeQuestion(req, res, next) {
+  try {
+    const { id_question } = req.params;
+    const { rol, id } = req.auth;
+    const userId = await questionsRepository.findUserByQuestionId(id_question);
+    if (userId !== id && rol !== "admin") {
+      const error = new Error('Acceso denegado');
+      error.code = 401;
+      throw error;
+    }
+    await questionsRepository.deleteQuestionById(id_question);
+    res.status(201);
+    res.send('pregunta borrada');
+
+
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   createQuestion,
   getQuestionById,
+  removeQuestion,
 };

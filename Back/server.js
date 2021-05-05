@@ -47,6 +47,11 @@ app.get(
   validateAuthorization,
   questionsController.getQuestionById
 );
+app.delete(
+  '/api/questions/:id_question',
+  validateAuthorization,
+  questionsController.removeQuestion
+);
 
 app.use(async (err, req, res, next) => {
   const status = err.isJoi ? 400 : err.code || 500;

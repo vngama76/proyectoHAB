@@ -21,8 +21,22 @@ async function findQuestionByUserId(id) {
   return question;
 }
 
+async function findUserByQuestionId(id) {
+  // const query = 'SELECT id_user FROM questions WHERE id_question = ?';
+  // const userId = await database.pool.query(query, id);
+  // return userId;
+  const [question] = await findQuestionById(id);
+  return question.id_user;
+}
+async function deleteQuestionById(id) {
+  const query = 'DELETE FROM questions WHERE id_question = ?';
+  await database.pool.query(query, id);
+  return;
+}
 module.exports = {
   findQuestionById,
   addQuestion,
   findQuestionByUserId,
+  findUserByQuestionId,
+  deleteQuestionById,
 };
