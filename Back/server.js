@@ -19,6 +19,7 @@ app.post('/api/users/register', usersController.register);
 app.post('/api/users/login', usersController.login);
 app.get('/api/users/:id_user', validateAuthorization, usersController.getUserById);
 app.put('/api/users', validateAuthorization, usersController.updateUser);
+app.delete('/api/users/:id_user', validateAuthorization, usersController.deleteUser);
 
 // app.post('/api/users/activar_cuenta', );
 
@@ -29,3 +30,4 @@ app.use(async (err, req, res, next) => {
 });
 
 app.listen(PORT, () => console.log(`Gapp-API listening at port ${PORT}`));
+
