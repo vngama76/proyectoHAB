@@ -18,6 +18,7 @@ app.use(express.json());
 app.post('/api/users/register', usersController.register);
 app.post('/api/users/login', usersController.login);
 app.get('/api/users/:id_user', validateAuthorization, usersController.getUserById);
+app.put('/api/users', validateAuthorization, usersController.updateUser);
 
 // app.post('/api/users/activar_cuenta', );
 
@@ -27,4 +28,4 @@ app.use(async (err, req, res, next) => {
     res.send({ error: err.message });
 });
 
-app.listen(PORT, () => console.log(`Restaurant-API listening at port ${PORT}`));
+app.listen(PORT, () => console.log(`Gapp-API listening at port ${PORT}`));
