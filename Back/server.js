@@ -6,7 +6,7 @@ const express = require('express');
 
 // const multer = require('multer');
 
-const { usersController, questionsController } = require('./Controllers/index');
+const { usersController, questionsController, answersController } = require('./Controllers/index');
 
 const { validateAuthorization } = require('./Middlewares/validate_auth');
 
@@ -29,8 +29,17 @@ app.post(
     validateAuthorization,
     questionsController.createQuestion
 );
+app.get(
+    '/api/questions/:id_question',
+    validateAuthorization,
+    questionsController.getQuestionById
+);
+app.put('/api/questions/')
+app.delete(
+    '/api/questions/:id_question', validateAuthorization, questionsController.removeQuestion);
 
-
+//Answers
+app.post('/api/answers/:id_question', validateAuthorization, answersController.createAnswer);
 
 
 app.use(async (err, req, res, next) => {
@@ -38,6 +47,7 @@ app.use(async (err, req, res, next) => {
     res.status(status);
     res.send({ error: err.message });
 });
+
 
 app.listen(PORT, () => console.log(`Gapp-API listening at port ${PORT}`));
 

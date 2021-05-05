@@ -29,23 +29,25 @@ CREATE TABLE users (
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,    
     id_user INT NOT NULL,
     status_enum ENUM('NO TIENE RESPUESTAS', 'TIENE RESPUESTAS', 'PREGUNTA CERRADA') NOT NULL,
+    id_answer_acepted INT,
     CONSTRAINT fk_questions_users FOREIGN KEY (id_user) REFERENCES users(id_user)    
     );
 
-    INSERT INTO questions (title, body, id_user) VALUES ('blabla', 'gigi dàgostino', '1');
+    INSERT INTO questions (title, body, id_user) VALUES ('blabla', 'gigi dàgostino', 1);
     
 	CREATE TABLE answers (
 	id_answer INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    text_answer VARCHAR(1000) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
-    votes_nr_answer INT,
-    votes_nr_answer_with_father INT,
+    body VARCHAR(1000) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,  
     id_question INT NOT NULL,
     id_user INT NOT NULL,
+    id_answer_father INT,
     CONSTRAINT fk_answers_questions FOREIGN KEY (id_question) REFERENCES questions(id_question),
     CONSTRAINT fk_answers_users FOREIGN KEY (id_user) REFERENCES users(id_user)
     );
     
+    INSERT INTO answers (body, id_question, id_user) VALUES ('bla bla bla', 1, 1);
+
     CREATE TABLE tags (
 	id_tag INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     tag_name VARCHAR(20) NOT NULL
