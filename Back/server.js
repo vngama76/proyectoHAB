@@ -37,6 +37,16 @@ app.post(
   validateAuthorization,
   questionsController.createQuestion
 );
+// app.get(
+//   '/api/questions/:id_question',
+//   validateAuthorization,
+//   questionsController.getQuestionById
+// );
+app.get(
+  '/api/questions/:id_question',
+  validateAuthorization,
+  questionsController.getQuestionById
+);
 
 app.use(async (err, req, res, next) => {
   const status = err.isJoi ? 400 : err.code || 500;
