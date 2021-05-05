@@ -12,18 +12,20 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
 	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    super_user BOOLEAN DEFAULT 0,
     name_user VARCHAR(255) NOT NULL,
     email VARCHAR(45) NOT NULL UNIQUE,
     password_user VARCHAR(255) NOT NULL,
     reg_date TIMESTAMP,
     foto MEDIUMBLOB,
-    show_mail CHAR BINARY,
+    show_mail VARCHAR(10) DEFAULT "false",
     isVerify VARCHAR(10) DEFAULT "false",
     descritpion VARCHAR(1000),
-    sum INT DEFAULT 0
+    sum INT DEFAULT 0,
+    rol VARCHAR(10) DEFAULT "user"
     );
    
+   INSERT INTO users (name_user, email, password_user, reg_date, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', '2021-04-23 10:16:23', 'true', 'The Boss', 'admin');
+
    CREATE TABLE questions (
 	id_question INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(250) NOT NULL,

@@ -32,9 +32,23 @@ async function changeUserData(id, name_user, email, show_mail) {
   return user;
 }
 
+async function changeUserData(id, name_user, show_mail) {
+    const query = `UPDATE users SET name_user = ?, show_mail = ? WHERE id_user = ${id}`;
+    await database.pool.query(query, [name_user, show_mail]);
+    const [user] = await findUserById(id);
+    return user;
+}
+
 module.exports = {
+<<<<<<< HEAD
   findUserByEmail,
   createUser,
   findUserById,
   changeUserData,
+=======
+    findUserByEmail,
+    createUser,
+    findUserById,
+    changeUserData,
+>>>>>>> main
 };
