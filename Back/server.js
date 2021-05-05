@@ -17,27 +17,41 @@ app.use(express.json());
 //User
 app.post('/api/users/register', usersController.register);
 app.post('/api/users/login', usersController.login);
-app.get('/api/users/:id_user', validateAuthorization, usersController.getUserById);
+app.get(
+  '/api/users/:id_user',
+  validateAuthorization,
+  usersController.getUserById
+);
 app.put('/api/users', validateAuthorization, usersController.updateUser);
-app.delete('/api/users/:id_user', validateAuthorization, usersController.deleteUser);
+app.delete(
+  '/api/users/:id_user',
+  validateAuthorization,
+  usersController.deleteUser
+);
 // app.post('/api/users/activar_cuenta', );
 // app.put('/api/users/cambiar_contraseña', );
 
 //Questions
 app.post(
-    '/api/questions/',
-    validateAuthorization,
-    questionsController.createQuestion
+  '/api/questions/',
+  validateAuthorization,
+  questionsController.createQuestion
+);
+// app.get(
+//   '/api/questions/:id_question',
+//   validateAuthorization,
+//   questionsController.getQuestionById
+// );
+app.get(
+  '/api/questions/:id_question',
+  validateAuthorization,
+  questionsController.getQuestionById
 );
 
-
-
-
 app.use(async (err, req, res, next) => {
-    const status = err.isJoi ? 400 : err.code || 500;
-    res.status(status);
-    res.send({ error: err.message });
+  const status = err.isJoi ? 400 : err.code || 500;
+  res.status(status);
+  res.send({ error: err.message });
 });
 
 app.listen(PORT, () => console.log(`Gapp-API listening at port ${PORT}`));
-
