@@ -2,20 +2,16 @@ DROP DATABASE IF EXISTS gap;
 
 CREATE DATABASE gap;
 
-
 USE gap;
 
 DROP TABLE IF EXISTS users;
-
-
-
 
 CREATE TABLE users (
 	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name_user VARCHAR(255) NOT NULL,
     email VARCHAR(45) NOT NULL UNIQUE,
     password_user VARCHAR(255) NOT NULL,
-    reg_date TIMESTAMP,
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, 
     foto MEDIUMBLOB,
     show_mail VARCHAR(10) DEFAULT "false",
     isVerify VARCHAR(10) DEFAULT "false",
@@ -24,18 +20,19 @@ CREATE TABLE users (
     rol VARCHAR(10) DEFAULT "user"
     );
    
-   INSERT INTO users (name_user, email, password_user, reg_date, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', '2021-04-23 10:16:23', 'true', 'The Boss', 'admin');
+   INSERT INTO users (name_user, email, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 'true', 'The Boss', 'admin');
 
    CREATE TABLE questions (
 	id_question INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(250) NOT NULL,
     body VARCHAR(1000) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
-    votes_nr INT,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,    
     id_user INT NOT NULL,
-    CONSTRAINT fk_questions_users FOREIGN KEY (id_user) REFERENCES users(id_user),
-    state ENUM('NO TIENE RESPUESTAS', 'TIENE RESPUESTAS', 'PREGUNTA CERRADA') NOT NULL
+    status_enum ENUM('NO TIENE RESPUESTAS', 'TIENE RESPUESTAS', 'PREGUNTA CERRADA') NOT NULL,
+    CONSTRAINT fk_questions_users FOREIGN KEY (id_user) REFERENCES users(id_user)    
     );
+
+    INSERT INTO questions (title, body, id_user) VALUES ('blabla', 'gigi dàgostino', '1');
     
 	CREATE TABLE answers (
 	id_answer INT NOT NULL PRIMARY KEY AUTO_INCREMENT,

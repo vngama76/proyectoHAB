@@ -8,7 +8,8 @@ const findUserByEmail = async (email) => {
 };
 
 async function createUser(data) {
-    const query = 'INSERT INTO users (name_user, email, password_user) VALUES (?, ?, ?)';
+    const query =
+        'INSERT INTO users (name_user, email, password_user) VALUES (?, ?, ?)';
     await database.pool.query(query, [
         data.name_user,
         data.email,
@@ -19,18 +20,20 @@ async function createUser(data) {
 }
 
 async function findUserById(id) {
-
     const query = 'SELECT * FROM users WHERE id_user = ?';
     const [user] = await database.pool.query(query, id);
-    return user;
-    
+    return user[0];
 }
 
 async function changeUserData(id, name_user, show_mail) {
     const query = `UPDATE users SET name_user = ?, show_mail = ? WHERE id_user = ${id}`;
     await database.pool.query(query, [name_user, show_mail]);
-    const [user] = await findUserById(id);
+    const user = await findUserById(id);
     return user;
+}
+
+async function deleteUserByid(id) {
+    return await database.pool.query(`DELETE FROM users WHERE id_user = ${id}`);
 }
 
 module.exports = {
@@ -38,4 +41,5 @@ module.exports = {
     createUser,
     findUserById,
     changeUserData,
+    deleteUserByid, 
 };

@@ -2,7 +2,7 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const userRepository = require('../Repositories/user_repository');
+const userRepository = require('../Repositories/users_repository');
 
 async function register(req, res, next) {
     try {
@@ -91,7 +91,12 @@ async function login(req, res, next) {
             expiresIn: '30d',
         });
 
-        res.send({ id: user.id_user, name: user.name_user, rol: user.rol, token }); //un token es ese codigo giante
+        res.send({
+            id: user.id_user,
+            name: user.name_user,
+            rol: user.rol,
+            token,
+        }); //un token es ese codigo giante
     } catch (err) {
         next(err);
     }
@@ -103,7 +108,7 @@ async function getUserById(req, res, next) {
 
         // const userLogged = await userRepository.findUserById(id);
 
-        const [user] = await userRepository.findUserById(id_user);
+        const user = await userRepository.findUserById(id_user);
 
         if (!user) {
             const error = new Error('Usuario ya no Existe');
@@ -129,7 +134,7 @@ async function updateUser(req, res, next) {
         const { name_user, show_mail } = req.body;
         if (!id) {
             const error = new Error('Usuario ya no Existe');
-            error.code = 401;
+            error.code = 404;
             throw error;
         }
         if (!name_user || !show_mail) {
@@ -142,7 +147,7 @@ async function updateUser(req, res, next) {
             error.code = 401;
             throw error;
         }
-        
+
         //No deberíamos bajo ningún punto de vista permitir cambiar el email y password con tanta facilidad.
         //ya que el email podría corresponderse con el de otro usuario y se crearían incidencias en la tabla con mismos emails.
 
@@ -158,7 +163,7 @@ async function updateUser(req, res, next) {
 
         const user = await userRepository.changeUserData(
             id,
-            name_user,       
+            name_user,
             show_mail
         );
         res.status = 201;
@@ -168,6 +173,34 @@ async function updateUser(req, res, next) {
             email: user.email,
             show_mail: user.show_mail,
         });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function deleteUser(req, res, next) {
+    try {
+        const { rol } = req.auth;
+        const { id_user } = req.params;
+
+        if (rol !== 'admin') {
+            const error = new Error('Solo admins pueden borrar usuarios');
+            error.status = 403;
+            throw error;
+        }
+
+        const user = await userRepository.findUserById(id_user);
+
+        if (!user) {
+            const error = new Error('El usuario no existe');
+            error.status = 404;
+            throw error;
+        }
+        await userRepository.deleteUserByid(id_user);
+
+        res.status(204);
+        res.send({ message: 'Usuario Eliminado' });
+
     } catch (err) {
         next(err);
     }
@@ -191,4 +224,5 @@ module.exports = {
     login,
     getUserById,
     updateUser,
+    deleteUser,
 };
