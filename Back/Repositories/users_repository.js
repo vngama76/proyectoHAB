@@ -22,33 +22,24 @@ async function createUser(data) {
 async function findUserById(id) {
   const query = 'SELECT * FROM users WHERE id_user = ?';
   const [user] = await database.pool.query(query, id);
-  return user;
-}
-
-async function changeUserData(id, name_user, email, show_mail) {
-  const query = `UPDATE users SET name_user = ?, email = ?, show_mail = ? WHERE id_user = ${id}`;
-  await database.pool.query(query, [name_user, email, show_mail]);
-  const [user] = await findUserById(id);
-  return user;
+  return user[0];
 }
 
 async function changeUserData(id, name_user, show_mail) {
-    const query = `UPDATE users SET name_user = ?, show_mail = ? WHERE id_user = ${id}`;
-    await database.pool.query(query, [name_user, show_mail]);
-    const [user] = await findUserById(id);
-    return user;
+  const query = `UPDATE users SET name_user = ?, show_mail = ? WHERE id_user = ${id}`;
+  await database.pool.query(query, [name_user, show_mail]);
+  const user = await findUserById(id);
+  return user;
+}
+
+async function deleteUserByid(id) {
+  return await database.pool.query(`DELETE FROM users WHERE id_user = ${id}`);
 }
 
 module.exports = {
-<<<<<<< HEAD
   findUserByEmail,
   createUser,
   findUserById,
   changeUserData,
-=======
-    findUserByEmail,
-    createUser,
-    findUserById,
-    changeUserData,
->>>>>>> main
+  deleteUserByid,
 };
