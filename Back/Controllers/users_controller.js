@@ -108,7 +108,7 @@ async function getUserById(req, res, next) {
 
         // const userLogged = await userRepository.findUserById(id);
 
-        const [user] = await userRepository.findUserById(id_user);
+        const user = await userRepository.findUserById(id_user);
 
         if (!user) {
             const error = new Error('Usuario ya no Existe');
