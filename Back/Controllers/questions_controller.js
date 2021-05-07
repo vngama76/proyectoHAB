@@ -10,7 +10,7 @@ const {
 async function createQuestion(req, res, next) {
   try {
     const { id } = req.auth;
-    let { title, body } = req.body;
+    const { title, body } = req.body;
 
     const schema = Joi.object({
       title: Joi.string().max(50).required(),
@@ -58,7 +58,7 @@ async function removeQuestion(req, res, next) {
     const { id_question } = req.params;
     const { rol, id } = req.auth;
     const userId = await questionsRepository.findUserByQuestionId(id_question);
-    if (userId !== id && rol !== "admin") {
+    if (userId !== id && rol !== 'admin') {
       const error = new Error('Acceso denegado');
       error.code = 401;
       throw error;
@@ -66,8 +66,6 @@ async function removeQuestion(req, res, next) {
     await questionsRepository.deleteQuestionById(id_question);
     res.status(201);
     res.send('pregunta borrada');
-
-
   } catch (err) {
     next(err);
   }
