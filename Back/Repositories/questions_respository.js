@@ -26,23 +26,31 @@ async function findQuestionByUserId(id) {
     return question;
 }
 
-async function findUserByQuestionId(id) {    
+async function findUserByQuestionId(id) {
     const [question] = await findQuestionById(id);
+
     return question.id_user;
 }
 
-
-async function deleteQuestionById(id) {
-    const query = 'DELETE FROM questions WHERE id_question = ?';
-    await database.pool.query(query, id);
+async function closeQuestion(id_question, id_answer) {
+    const query = `UPDATE questions SET status_enum = ?, id_answer_acepted = ${id_answer} WHERE id_question = ${id_question}`;
+    await database.pool.query(query, 'PREGUNTA CERRADA');
     return;
 }
 
+async function deleteQuestionById(id) {
+    await database.pool.query(`DELETE FROM answers WHERE id_question = ${id}`);
+    const query = 'DELETE FROM questions WHERE id_question = ?';
+    await database.pool.query(query, id);
+
+    return;
+}
 
 module.exports = {
     findQuestionById,
     addQuestion,
     findQuestionByUserId,
     findUserByQuestionId,
+    closeQuestion,
     deleteQuestionById,
 };

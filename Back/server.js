@@ -1,12 +1,12 @@
 require('dotenv').config();
-const path = require('path');
-const fs = require('fs');
+// const path = require('path');
+// const fs = require('fs');
 
 const express = require('express');
 
 // const multer = require('multer');
 
-const { usersController, questionsController, answersController } = require('./Controllers/index');
+const { usersController, questionsController, answersController, commentsController } = require('./Controllers/index');
 
 const { validateAuthorization } = require('./Middlewares/validate_auth');
 
@@ -20,7 +20,7 @@ app.post('/api/users/login', usersController.login);
 app.get('/api/users/:id_user', validateAuthorization, usersController.getUserById);
 app.put('/api/users', validateAuthorization, usersController.updateUser);
 app.delete('/api/users/:id_user', validateAuthorization, usersController.deleteUser);
-// app.post('/api/users/activar_cuenta', );
+app.get('/api/users/validate/:validateCode', usersController.validateUser);
 // app.put('/api/users/cambiar_contraseña', );
 
 //Questions
@@ -34,12 +34,16 @@ app.get(
     validateAuthorization,
     questionsController.getQuestionById
 );
-app.put('/api/questions/')
+app.put('/api/questions/:id_question', validateAuthorization, questionsController.acceptAnswer);
 app.delete(
     '/api/questions/:id_question', validateAuthorization, questionsController.removeQuestion);
 
 //Answers
 app.post('/api/answers/:id_question', validateAuthorization, answersController.createAnswer);
+app.delete('/api/answers/:id_answer', validateAuthorization, answersController.removeAnswer);
+
+//Comments
+//todo app.post('/api/comments/', validateAuthorization, commentsController.createComment)
 
 
 app.use(async (err, req, res, next) => {

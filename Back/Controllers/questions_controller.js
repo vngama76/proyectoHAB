@@ -2,7 +2,11 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { questionsRepository, userRepository } = require('../Repositories/index');
+const {
+    questionsRepository,
+    userRepository,
+} = require('../Repositories/index');
+const { findUserById } = require('../Repositories/users_repository');
 
 async function createQuestion(req, res, next) {
     try {
@@ -12,7 +16,7 @@ async function createQuestion(req, res, next) {
         const schema = Joi.object({
             title: Joi.string().max(50).required(),
             body: Joi.string().max(1000).required(),
-        })
+        });
 
         await schema.validateAsync({ title, body });
 
@@ -20,7 +24,6 @@ async function createQuestion(req, res, next) {
 
         res.status(201);
         res.send(question[0]);
-
     } catch (err) {
         next(err);
     }
@@ -45,7 +48,26 @@ async function getQuestionById(req, res, next) {
             date: question[0].creation_date,
             user: user.name_user,
         });
-       
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function acceptAnswer(req, res, next) {
+    try {
+        const { rol, id } = req.auth;
+        const { id_question } = req.params;
+        const { id_answer } = req.body;
+        const userId = await findUserById(id);
+        if (userId.id_user !== id && rol !== 'admin') {
+            const error = new Error('Acceso denegado');
+            error.code = 401;
+            throw error;
+        }
+        await questionsRepository.closeQuestion(id_question, id_answer);
+
+        res.status(201);
+        res.send('Pregunta cerrada');
     } catch (err) {
         next(err);
     }
@@ -63,7 +85,9 @@ async function removeQuestion(req, res, next) {
             error.code = 401;
             throw error;
         }
+
         await questionsRepository.deleteQuestionById(id_question);
+
         res.status(201);
         res.send('pregunta borrada');
     } catch (err) {
@@ -71,10 +95,9 @@ async function removeQuestion(req, res, next) {
     }
 }
 
-
-
 module.exports = {
     createQuestion,
     getQuestionById,
+    acceptAnswer,
     removeQuestion,
 };

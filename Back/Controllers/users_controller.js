@@ -1,6 +1,9 @@
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { sendMail } = require('../helpers');
+
+const { nanoid } = require('nanoid');
 
 const userRepository = require('../Repositories/users_repository');
 
@@ -40,11 +43,25 @@ async function register(req, res, next) {
         }
 
         const passwordHash = await bcrypt.hash(password_user, 10);
+        const activationCode = nanoid(20);
 
         const createdUser = await userRepository.createUser({
             name_user,
             email,
             password_user: passwordHash,
+            activationCode,
+        });
+
+        await sendMail({
+            to: email,
+            subject: 'Confirma tu correo',
+            message: `
+            Gracias por registrar en XXXX
+
+            pulsa el siguiente enlace para activar tu usuario:
+
+            ${process.env.HOSTNAME}/verify/${activationCode}
+            `,
         });
         res.status(201);
         res.send({
@@ -55,6 +72,33 @@ async function register(req, res, next) {
         });
     } catch (err) {
         next(err);
+    }
+}
+
+async function validateUser(req, res, next){
+    try {
+        
+        const { validateCode } = req.params;
+        const {id_user} = req.body;
+        const user = await userRepository.findUserById(id_user);
+
+        if (validateCode !== user.verify_code) {
+            const error = new Error('VerifyCode no Coincide');
+            error.code = 401;
+
+            throw error;
+        }
+        await userRepository.verifyUser(id_user);
+        
+        
+        
+        res.status(201);
+        res.send('all good');
+        
+
+    } catch (err) {
+        next(err);
+        
     }
 }
 
@@ -142,12 +186,12 @@ async function updateUser(req, res, next) {
             error.code = 401;
             throw error;
         }
-        if (show_mail !== 'true' && show_mail !== 'false') {
+        if (show_mail !== '0' && show_mail !== '1') {
             const error = new Error('Valores permitidos true o false');
             error.code = 401;
             throw error;
         }
-
+        console.log('ok');
         //No deberíamos bajo ningún punto de vista permitir cambiar el email y password con tanta facilidad.
         //ya que el email podría corresponderse con el de otro usuario y se crearían incidencias en la tabla con mismos emails.
 
@@ -166,6 +210,7 @@ async function updateUser(req, res, next) {
             name_user,
             show_mail
         );
+        console.log('ok 2');
         res.status = 201;
         res.send({
             id: user.id_user,
@@ -200,27 +245,16 @@ async function deleteUser(req, res, next) {
 
         res.status(204);
         res.send({ message: 'Usuario Eliminado' });
-
     } catch (err) {
         next(err);
     }
 }
 
-async function validateUser(req, res, next) {
-    try {
-        // leer datos del req.body
-        // hacer el get del usuario por id
-        // validar el token
-        // y confirmar la cuenta
-        // devolver una respuesta en función de la validación
-        // UPDATE users SET isVerify = "true" WHERE id_user = 1;
-    } catch (err) {
-        next(err);
-    }
-}
+
 
 module.exports = {
     register,
+    validateUser,
     login,
     getUserById,
     updateUser,
