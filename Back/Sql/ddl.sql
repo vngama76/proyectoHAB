@@ -13,14 +13,15 @@ CREATE TABLE users (
     password_user VARCHAR(255) NOT NULL,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, 
     foto MEDIUMBLOB,
-    show_mail VARCHAR(10) DEFAULT "false",
-    isVerify VARCHAR(10) DEFAULT "false",
+    show_mail BOOLEAN DEFAULT 0,
+    isVerify BOOLEAN DEFAULT 0,
+    verify_code VARCHAR(20),
     descritpion VARCHAR(1000),
     sum INT DEFAULT 0,
     rol VARCHAR(10) DEFAULT "user"
     );
    
-   INSERT INTO users (name_user, email, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 'true', 'The Boss', 'admin');
+   INSERT INTO users (name_user, email, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'The Boss', 'admin');
 
    CREATE TABLE questions (
 	id_question INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -28,24 +29,26 @@ CREATE TABLE users (
     body VARCHAR(1000) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,    
     id_user INT NOT NULL,
-    status_enum ENUM('NO TIENE RESPUESTAS', 'TIENE RESPUESTAS', 'PREGUNTA CERRADA') NOT NULL,
-    CONSTRAINT fk_questions_users FOREIGN KEY (id_user) REFERENCES users(id_user)    
+    status_enum ENUM('NO TIENE RESPUESTAS', 'TIENE RESPUESTAS', 'PREGUNTA CERRADA') NOT NULL,    
+    id_answer_acepted INT,
+    CONSTRAINT fk_questions_users FOREIGN KEY (id_user) REFERENCES users(id_user)
     );
 
-    INSERT INTO questions (title, body, id_user) VALUES ('blabla', 'gigi dàgostino', '1');
+    INSERT INTO questions (title, body, id_user) VALUES ('blabla', 'gigi dàgostino', 1);
     
 	CREATE TABLE answers (
 	id_answer INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    text_answer VARCHAR(1000) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
-    votes_nr_answer INT,
-    votes_nr_answer_with_father INT,
+    body VARCHAR(1000) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,  
     id_question INT NOT NULL,
     id_user INT NOT NULL,
+    id_answer_father INT,    
     CONSTRAINT fk_answers_questions FOREIGN KEY (id_question) REFERENCES questions(id_question),
     CONSTRAINT fk_answers_users FOREIGN KEY (id_user) REFERENCES users(id_user)
     );
     
+    INSERT INTO answers (body, id_question, id_user) VALUES ('bla bla bla', 1, 1);
+
     CREATE TABLE tags (
 	id_tag INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     tag_name VARCHAR(20) NOT NULL
@@ -65,3 +68,4 @@ CREATE TABLE users (
  select * from answers;
  INSERT INTO users (name_user, super_user, email, password_user, reg_date, show_mail, descritpion) VALUES('Zé Tó', 1, 'zeto@gmail.com', '123456789', '2021-04-23 10:16:23', '1', 'que guay');
  select * from users;
+ 

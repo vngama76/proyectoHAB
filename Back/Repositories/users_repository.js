@@ -7,7 +7,13 @@ const findUserByEmail = async (email) => {
   return users[0];
 };
 
+async function verifyUser(id_user) {
+    await database.pool.query(`UPDATE users SET isVerify = 1 WHERE id_user = ${id_user}`)
+    return 
+}
+
 async function createUser(data) {
+<<<<<<< HEAD
   const query =
     'INSERT INTO users (name_user, email, password_user) VALUES (?, ?, ?)';
   await database.pool.query(query, [
@@ -17,6 +23,18 @@ async function createUser(data) {
   ]);
 
   return findUserByEmail(data.email);
+=======
+    const query =
+        'INSERT INTO users (name_user, email, password_user, verify_code) VALUES (?, ?, ?, ?)';
+    await database.pool.query(query, [
+        data.name_user,
+        data.email,
+        data.password_user,
+        data.activationCode,
+    ]);
+
+    return findUserByEmail(data.email);
+>>>>>>> ale
 }
 
 async function findUserById(id) {
@@ -37,9 +55,18 @@ async function deleteUserByid(id) {
 }
 
 module.exports = {
+<<<<<<< HEAD
   findUserByEmail,
   createUser,
   findUserById,
   changeUserData,
   deleteUserByid,
+=======
+    findUserByEmail,
+    verifyUser,
+    createUser,
+    findUserById,
+    changeUserData,
+    deleteUserByid,
+>>>>>>> ale
 };
