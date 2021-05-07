@@ -71,9 +71,13 @@ app.delete(
 );
 
 //Comments
-//todo app.post('/api/comments/', validateAuthorization, commentsController.createComment)
+app.post(
+  '/api/comments/:id_answer_father',
+  validateAuthorization,
+  commentsController.createComment
+);
 
-app.use(async (err, req, res, next) => {
+app.use(async (err, req, res) => {
   const status = err.isJoi ? 400 : err.code || 500;
   res.status(status);
   res.send({ error: err.message });

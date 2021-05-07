@@ -1,9 +1,31 @@
-// const { database } = require('../infrastructure/index');
+const { database } = require('../infrastructure/index');
 
-// async function addComment(body, id_answer) {
-//     todo cargar el comentario y ademas agregar al id_answer_father el id de la respuesta que vendrá en el params
-// }
+async function findAnswerById(id) {
+  const query = 'SELECT * FROM answers WHERE id_answer = ?';
+  const [answer] = await database.pool.query(query, [id]);
 
-// module.exports = {
-//     addcomment,   
-// }
+  return answer;
+}
+
+async function findQuestionByAnswerId(id) {
+  const [answer] = await findAnswerById(id);
+  return answer.id_question;
+}
+
+async function addComment(body, id_question, id_user, id_answer_father) {
+  const query =
+    'INSERT INTO answers (body, id_question, id_user, id_answer_father) VALUES (?, ?, ?, ?)';
+  const [result] = await database.pool.query(query, [
+    body,
+    id_question,
+    id_user,
+    id_answer_father,
+  ]);
+  const comment = await findAnswerById(result.insertId);
+  return comment;
+}
+
+module.exports = {
+  addComment,
+  findQuestionByAnswerId,
+};
