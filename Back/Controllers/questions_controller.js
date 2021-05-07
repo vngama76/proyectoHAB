@@ -9,18 +9,18 @@ const {
 const { findUserById } = require('../Repositories/users_repository');
 
 async function createQuestion(req, res, next) {
-  try {
-    const { id } = req.auth;
-    const { title, body } = req.body;
+    try {
+        const { id } = req.auth;
+        let { title, body } = req.body;
 
         const schema = Joi.object({
             title: Joi.string().max(50).required(),
             body: Joi.string().max(1000).required(),
         });
 
-    await schema.validateAsync({ title, body });
+        await schema.validateAsync({ title, body });
 
-    const question = await questionsRepository.addQuestion(title, body, id);
+        const question = await questionsRepository.addQuestion(title, body, id);
 
         res.status(201);
         res.send(question[0]);
@@ -90,13 +90,9 @@ async function removeQuestion(req, res, next) {
 
         res.status(201);
         res.send('pregunta borrada');
-   
-    await questionsRepository.deleteQuestionById(id_question);
-    res.status(201);
-    res.send('pregunta borrada');
-  } catch (err) {
-    next(err);
-  }
+    } catch (err) {
+        next(err);
+    }
 }
 
 module.exports = {

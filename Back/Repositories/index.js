@@ -4,14 +4,8 @@ const answersRepository = require('./answers_repository');
 const commentsRepository = require('./comments_repository');
 
 module.exports = {
-<<<<<<< HEAD
-  userRepository,
-  questionsRepository,
-};
-=======
     userRepository,
     questionsRepository,
     answersRepository,
     commentsRepository,
 };
->>>>>>> ale
