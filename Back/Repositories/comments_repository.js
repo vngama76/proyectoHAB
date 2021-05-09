@@ -25,7 +25,14 @@ async function addComment(body, id_question, id_user, id_answer_father) {
   return comment;
 }
 
+async function deleteComment(id_comment) {
+  return await database.pool.query(
+    `DELETE FROM answers WHERE id_answer = ${id_comment}`
+  );
+}
+
 module.exports = {
   addComment,
   findQuestionByAnswerId,
+  deleteComment,
 };

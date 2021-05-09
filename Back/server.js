@@ -77,6 +77,12 @@ app.post(
   commentsController.createComment
 );
 
+app.delete(
+  '/api/comments/:id_comment',
+  validateAuthorization,
+  commentsController.removeComment
+);
+
 app.use(async (err, req, res) => {
   const status = err.isJoi ? 400 : err.code || 500;
   res.status(status);
