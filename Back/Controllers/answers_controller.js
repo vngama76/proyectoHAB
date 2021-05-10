@@ -39,6 +39,7 @@ async function removeAnswer(req, res, next) {
     const { rol, id } = req.auth;
     const { id_answer } = req.params;
     const userId = await answersRepository.findUserByAnswerId(id_answer);
+    console.log(userId);
     if (userId !== id && rol !== 'admin') {
       const error = new Error('Acceso denegado');
       error.code = 401;
