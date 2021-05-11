@@ -11,6 +11,7 @@ const {
   questionsController,
   answersController,
   commentsController,
+  scoresController,
 } = require('./Controllers/index');
 
 const { validateAuthorization } = require('./Middlewares/validate_auth');
@@ -82,6 +83,25 @@ app.delete(
   validateAuthorization,
   commentsController.removeComment
 );
+
+// Score;
+app.put(
+  '/api/score/:id_question',
+  validateAuthorization,
+  scoresController.voteQuestion
+);
+
+// app.put(
+//   '/api/score/:id_answer',
+//   validateAuthorization,
+//   scoresController.voteAnswer
+// );
+
+// app.put(
+//   '/api/score/:id_comment',
+//   validateAuthorization,
+//   scoresController.voteComment
+// );
 
 app.use(async (err, req, res) => {
   const status = err.isJoi ? 400 : err.code || 500;

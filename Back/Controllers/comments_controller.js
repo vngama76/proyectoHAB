@@ -43,7 +43,6 @@ async function removeComment(req, res, next) {
     const { id, rol } = req.auth;
     const { id_comment } = req.params;
     const userId = await userRepository.findUserById(id);
-    console.log(userId);
     if (userId.id_user !== id && rol !== 'admin') {
       const error = new Error('Acceso denegado');
       error.code = 401;

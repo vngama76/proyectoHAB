@@ -5,6 +5,10 @@ CREATE DATABASE gap;
 USE gap;
 
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS scores;
 
 CREATE TABLE users (
 	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -62,6 +66,13 @@ CREATE TABLE users (
     CONSTRAINT fk_p_p_tag FOREIGN KEY (id_tag) REFERENCES tags(id_tag)
 	);
     
+    CREATE TABLE scores (
+        id_question INT,
+        id_answer INT,
+        score INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        FOREIGN KEY (id_question) REFERENCES questions(id_question),
+        FOREIGN KEY (id_answer) REFERENCES answers(id_answer)
+    );
  show databases;
  show tables;
  
