@@ -74,8 +74,8 @@ async function register(req, res, next) {
 async function validateUser(req, res, next) {
   try {
     const { validateCode } = req.params;
-    const { id_user } = req.body;
-    const user = await userRepository.findUserById(id_user);
+
+    const user = await userRepository.findUserByValidationCode(validateCode);
 
     if (validateCode !== user.verify_code) {
       const error = new Error('VerifyCode no Coincide');
@@ -83,10 +83,12 @@ async function validateUser(req, res, next) {
 
       throw error;
     }
-    await userRepository.verifyUser(id_user);
+    await userRepository.verifyUser(user.id_user);
 
     res.status(201);
-    res.send('all good');
+    res.send({
+      message: `Usuario ${user.name_user} verificado`,
+    });
   } catch (err) {
     next(err);
   }

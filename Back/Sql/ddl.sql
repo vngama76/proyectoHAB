@@ -73,6 +73,15 @@ CREATE TABLE users (
         FOREIGN KEY (id_question) REFERENCES questions(id_question),
         FOREIGN KEY (id_answer) REFERENCES answers(id_answer)
     );
+
+    CREATE TABLE questions_points (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        id_question INT,
+        id_user INT,
+        FOREIGN KEY (id_question) REFERENCES questions(id_question),
+        FOREIGN KEY (id_user) REFERENCES users(id_user)
+        
+    );
  show databases;
  show tables;
  
