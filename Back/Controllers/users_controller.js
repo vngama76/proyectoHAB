@@ -1,11 +1,11 @@
-const Joi = require('joi');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { sendMail } = require('../helpers');
+const Joi = require("joi");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { sendMail } = require("../helpers");
 
-const { nanoid } = require('nanoid');
+const { nanoid } = require("nanoid");
 
-const userRepository = require('../Repositories/users_repository');
+const userRepository = require("../Repositories/users_repository");
 
 async function register(req, res, next) {
   try {
@@ -26,8 +26,8 @@ async function register(req, res, next) {
     });
 
     if (password_user !== repeatedPassword) {
-      const err = new Error('Password y repeatedPassword deben coincidir');
-      err.code = 400;
+      const err = new Error("Password y repeatedPassword deben coincidir");
+      err.httpCode = 400;
       throw err;
     }
 
@@ -35,7 +35,7 @@ async function register(req, res, next) {
 
     if (user) {
       const err = new Error(`Ya existe un usuario con email: ${email}`);
-      err.code = 409;
+      err.httpCode = 409;
 
       throw err;
     }
@@ -52,7 +52,7 @@ async function register(req, res, next) {
 
     await sendMail({
       to: email,
-      subject: 'Confirma tu correo',
+      subject: "Confirma tu correo",
       message: `
             Gracias por registrarte en GAPP!
             Pulsa el siguiente enlace para activar tu usuario:
@@ -78,7 +78,7 @@ async function validateUser(req, res, next) {
     const user = await userRepository.findUserByValidationCode(validateCode);
 
     if (validateCode !== user.verify_code) {
-      const error = new Error('VerifyCode no Coincide');
+      const error = new Error("VerifyCode no Coincide");
       error.code = 401;
 
       throw error;
@@ -106,7 +106,7 @@ async function login(req, res, next) {
     const user = await userRepository.findUserByEmail(email);
 
     if (!user) {
-      const error = new Error('El usuario no existe');
+      const error = new Error("El usuario no existe");
       error.code = 401;
       throw error;
     }
@@ -114,7 +114,7 @@ async function login(req, res, next) {
     const isValidPass = await bcrypt.compare(password, user.password_user);
 
     if (!isValidPass) {
-      const error = new Error('El password no es válido');
+      const error = new Error("El password no es válido");
       error.code = 401;
 
       throw error;
@@ -124,7 +124,7 @@ async function login(req, res, next) {
 
     //Generamos el token a partir del user.id: estos son los 3 argumentos de la funcion "jwt.sign()"
     const token = jwt.sign(tokenPayLoad, process.env.SECRET, {
-      expiresIn: '30d',
+      expiresIn: "30d",
     });
 
     res.send({
@@ -147,7 +147,7 @@ async function getUserById(req, res, next) {
     const user = await userRepository.findUserById(id_user);
 
     if (!user) {
-      const error = new Error('Usuario ya no Existe');
+      const error = new Error("Usuario ya no Existe");
 
       error.code = 404;
 
@@ -169,21 +169,21 @@ async function updateUser(req, res, next) {
     const { id } = req.auth;
     const { name_user, show_mail } = req.body;
     if (!id) {
-      const error = new Error('Usuario ya no Existe');
+      const error = new Error("Usuario ya no Existe");
       error.code = 404;
       throw error;
     }
     if (!name_user || !show_mail) {
-      const error = new Error('Todos los campos son requeridos');
+      const error = new Error("Todos los campos son requeridos");
       error.code = 401;
       throw error;
     }
-    if (show_mail !== '0' && show_mail !== '1') {
-      const error = new Error('Valores permitidos true o false');
+    if (show_mail !== "0" && show_mail !== "1") {
+      const error = new Error("Valores permitidos true o false");
       error.code = 401;
       throw error;
     }
-    console.log('ok');
+    console.log("ok");
     //No deberíamos bajo ningún punto de vista permitir cambiar el email y password con tanta facilidad.
     //ya que el email podría corresponderse con el de otro usuario y se crearían incidencias en la tabla con mismos emails.
 
@@ -198,7 +198,7 @@ async function updateUser(req, res, next) {
     });
 
     const user = await userRepository.changeUserData(id, name_user, show_mail);
-    console.log('ok 2');
+    console.log("ok 2");
     res.status = 201;
     res.send({
       id: user.id_user,
@@ -216,8 +216,8 @@ async function deleteUser(req, res, next) {
     const { rol } = req.auth;
     const { id_user } = req.params;
 
-    if (rol !== 'admin') {
-      const error = new Error('Solo admins pueden borrar usuarios');
+    if (rol !== "admin") {
+      const error = new Error("Solo admins pueden borrar usuarios");
       error.status = 403;
       throw error;
     }
@@ -225,14 +225,14 @@ async function deleteUser(req, res, next) {
     const user = await userRepository.findUserById(id_user);
 
     if (!user) {
-      const error = new Error('El usuario no existe');
+      const error = new Error("El usuario no existe");
       error.status = 404;
       throw error;
     }
     await userRepository.deleteUserByid(id_user);
 
     res.status(204);
-    res.send({ message: 'Usuario Eliminado' });
+    res.send({ message: "Usuario Eliminado" });
   } catch (err) {
     next(err);
   }
