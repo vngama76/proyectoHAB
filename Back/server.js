@@ -85,23 +85,23 @@ app.delete(
 );
 
 // Score;
-app.put(
-  '/api/score/:id_question',
+app.post(
+  '/api/score/question/:id_question',
   validateAuthorization,
   scoresController.voteQuestion
 );
 
-// app.put(
-//   '/api/score/:id_answer',
-//   validateAuthorization,
-//   scoresController.voteAnswer
-// );
+app.post(
+  '/api/score/answer/:id_answer',
+  validateAuthorization,
+  scoresController.voteAnswer
+);
 
-// app.put(
-//   '/api/score/:id_comment',
-//   validateAuthorization,
-//   scoresController.voteComment
-// );
+app.post(
+  '/api/score/comment/:id_answer',
+  validateAuthorization,
+  scoresController.voteComment
+);
 
 app.use(async (err, req, res) => {
   const status = err.isJoi ? 400 : err.code || 500;
