@@ -57,7 +57,7 @@ CREATE TABLE users (
 
     CREATE TABLE tags (
 	id_tag INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    tag_name VARCHAR(20) NOT NULL
+    tag_name VARCHAR(20) UNIQUE NOT NULL
     );
     
 	  
@@ -94,18 +94,17 @@ CREATE TABLE users (
         FOREIGN KEY (id_comment_user) REFERENCES users (id_user)      
     );
 
- show databases;
- show tables;
+--  show databases;
+--  show tables;
 
- -- CREATE TABLE question_has_tags (
-	-- id_question INT NOT NULL,
-    -- id_tag INT NOT NULL,
-    -- PRIMARY KEY (id_question, id_tag),
-    -- CONSTRAINT fk_q_t_question FOREIGN KEY (id_question) REFERENCES questions(id_question),
-    -- CONSTRAINT fk_p_p_tag FOREIGN KEY (id_tag) REFERENCES tags(id_tag)
-	-- );
+--  CREATE TABLE question_tags (
+-- 	id_question INT NOT NULL,
+--     id_tag INT NOT NULL,
+--     CONSTRAINT fk_q_t_question FOREIGN KEY (id_question) REFERENCES questions(id_question),
+--     CONSTRAINT fk_p_p_tag FOREIGN KEY (id_tag) REFERENCES tags(id_tag)
+-- 	);
  
- select * from answers;
- INSERT INTO users (name_user, super_user, email, password_user, reg_date, show_mail, descritpion) VALUES('Zé Tó', 1, 'zeto@gmail.com', '123456789', '2021-04-23 10:16:23', '1', 'que guay');
- select * from users;
+--  select * from answers;
+--  INSERT INTO users (name_user, super_user, email, password_user, reg_date, show_mail, descritpion) VALUES('Zé Tó', 1, 'zeto@gmail.com', '123456789', '2021-04-23 10:16:23', '1', 'que guay');
+--  select * from users;
  

@@ -48,6 +48,13 @@ app.get(
   validateAuthorization,
   questionsController.getQuestionById
 );
+
+app.get(
+  "/api/questions/tag/:tag",
+  validateAuthorization,
+  questionsController.getQuestionsByTag
+);
+
 app.put(
   "/api/questions/:id_question",
   validateAuthorization,
@@ -104,6 +111,7 @@ app.post(
 );
 
 app.use((err, req, res, next) => {
+  +console.error(err);
   const status = err.isJoi ? 400 : err.httpCode || 500;
   res.status(status);
   res.send({ error: err.message });
