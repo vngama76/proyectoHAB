@@ -39,6 +39,29 @@ async function findUserById(id) {
   return user[0];
 }
 
+async function findUserByTag(tag_name) {
+  const query = `
+   SELECT users.id_user
+    FROM users 
+    INNER JOIN questions ON questions.id_user = users.id_user
+    INNER JOIN question_tags ON question_tags.id_question = questions.id_question 
+    INNER JOIN tags ON question_tags.id_tag = tags.id_tag
+    WHERE tags.tag_name = ?; 
+  `;
+  
+  const [users] = await database.pool.query(query, [tag_name]);
+
+  
+  // mira aquí:
+  // https://flaviocopes.com/javascript-async-await-array-map/
+  // https://advancedweb.hu/how-to-use-async-functions-with-array-map-in-javascript/
+  return Promise.all(
+    users.map(async (user) => {
+      return await findUserById(user.id_user);
+    })
+  );
+}
+
 async function changeUserData(id, name_user, show_mail) {
   const query = `UPDATE users SET name_user = ?, show_mail = ? WHERE id_user = ${id}`;
   await database.pool.query(query, [name_user, show_mail]);
@@ -55,6 +78,7 @@ module.exports = {
   verifyUser,
   createUser,
   findUserById,
+  findUserByTag,
   changeUserData,
   deleteUserByid,
   findUserByValidationCode,

@@ -164,6 +164,22 @@ async function getUserById(req, res, next) {
   }
 }
 
+async function getUserByTag(req, res, next) {
+  try {
+    const { tag_name } = req.params;
+
+    const users = await userRepository.findUserByTag(tag_name);    
+
+    // const user = users.filter((value, index, self)=>self.indexOf(value.id_user) === index)
+    
+    res.send({
+      users,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function updateUser(req, res, next) {
   try {
     const { id } = req.auth;
@@ -243,6 +259,12 @@ module.exports = {
   validateUser,
   login,
   getUserById,
+  getUserByTag,
   updateUser,
   deleteUser,
 };
+
+
+
+
+

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8fc055fa-26b9-4a36-b49c-f4a888021605",
+		"_postman_id": "57532ad6-6c46-4406-bd76-0430d435d849",
 		"name": "Gapp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -87,7 +87,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"vngama76@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"raw": "{\n    \"email\": \"zeto@gmail.com\",\n    \"password\": \"123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -128,6 +128,32 @@
 								"api",
 								"users",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByTag",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUrl}}/api/users/tags/javascript",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"tags",
+								"javascript"
 							]
 						}
 					},
@@ -226,7 +252,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"pregunta3\",\n    \"body\": \"prueba ?\",\n    \"tag\": [\"SQL\", \"Javascript\", \"NodeJS\"]\n}",
+							"raw": "{\n    \"title\": \"probamos repetir tags¿?\",\n    \"body\": \"repitamos javascript y sql\",\n    \"tags\": [\"SQL\", \"Javascript\", \"PHP\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -335,8 +361,25 @@
 					"name": "getQuestionsByTag",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": null
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUrl}}/api/questions/tags/javascript",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"questions",
+								"tags",
+								"javascript"
+							]
+						}
 					},
 					"response": []
 				}
@@ -574,7 +617,34 @@
 		},
 		{
 			"name": "Tags",
-			"item": []
+			"item": [
+				{
+					"name": "voteQuestion Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUrl}}/api/score/question/2",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"score",
+								"question",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

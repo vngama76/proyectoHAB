@@ -28,6 +28,7 @@ app.get(
   validateAuthorization,
   usersController.getUserById
 );
+app.get("/api/users/tags/:tag_name", validateAuthorization, usersController.getUserByTag);
 app.put("/api/users", validateAuthorization, usersController.updateUser);
 app.delete(
   "/api/users/:id_user",
@@ -50,7 +51,7 @@ app.get(
 );
 
 app.get(
-  "/api/questions/tag/:tag",
+  "/api/questions/tags/:tag_name",
   validateAuthorization,
   questionsController.getQuestionsByTag
 );

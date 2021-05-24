@@ -1,6 +1,5 @@
 const Joi = require("joi");
-// const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
+
 
 const {
   questionsRepository,
@@ -22,9 +21,8 @@ async function createQuestion(req, res, next) {
     });
 
     await schema.validateAsync({ title, body, tags });
-
-    const [question] = await questionsRepository.addQuestion(title, body, id);
-
+    
+    const question = await questionsRepository.addQuestion(title, body, id);
     // Recorremos el array de tags si existe
     // Si el tag existe en la tabla tags metemos la asociación en la tabla question_tags
     // Si el tag no existe en la tabla tags lo creamos y metemos la asociación
@@ -33,7 +31,7 @@ async function createQuestion(req, res, next) {
       for (const tag of tags) {
         let id_tag;
         //Miramos si ya existe el tag en la tabla
-        let dbTag = await tagsRepository.getTag(tag);
+        let dbTag = await tagsRepository.findTag(tag);
 
         if (!dbTag) {
           // Si no existe lo creamos
@@ -86,9 +84,9 @@ async function getQuestionById(req, res, next) {
 
 async function getQuestionsByTag(req, res, next) {
   try {
-    const { tag } = req.params;
+    const { tag_name } = req.params;
 
-    const questions = await questionsRepository.findQuestionsByTag(tag);
+    const questions = await questionsRepository.findQuestionsByTag(tag_name);
 
     res.send({
       questions,

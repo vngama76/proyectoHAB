@@ -24,7 +24,7 @@ async function findQuestionById(id) {
   return q;
 }
 
-async function findQuestionsByTag(tag) {
+async function findQuestionsByTag(tag_name) {
   const query = `
    SELECT questions.id_question
     FROM questions 
@@ -33,7 +33,7 @@ async function findQuestionsByTag(tag) {
     WHERE tags.tag_name = ?;
   `;
 
-  const [questions] = await database.pool.query(query, [tag]);
+  const [questions] = await database.pool.query(query, [tag_name]);
 
   // mira aquí:
   // https://flaviocopes.com/javascript-async-await-array-map/
@@ -53,9 +53,7 @@ async function addQuestion(title, body, id_user) {
 }
 
 async function addTagToQuestion(id_question, id_tag) {
-  const [
-    existing,
-  ] = await database.pool.query(
+  const [existing] = await database.pool.query(
     `SELECT * from question_tags WHERE id_question=? AND id_tag=?`,
     [id_question, id_tag]
   );
@@ -75,7 +73,7 @@ async function findQuestionByUserId(id) {
 }
 
 async function findUserByQuestionId(id) {
-  const [question] = await findQuestionById(id);
+  const question = await findQuestionById(id);
 
   return question.id_user;
 }
