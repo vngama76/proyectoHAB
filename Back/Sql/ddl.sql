@@ -19,7 +19,7 @@ CREATE TABLE users (
     email VARCHAR(45) NOT NULL UNIQUE,
     password_user VARCHAR(255) NOT NULL,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, 
-    foto MEDIUMBLOB,
+    foto VARCHAR(100),
     show_mail BOOLEAN DEFAULT 0,
     isVerify BOOLEAN DEFAULT 0,
     verify_code VARCHAR(20),

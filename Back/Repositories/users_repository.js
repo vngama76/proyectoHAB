@@ -48,10 +48,9 @@ async function findUserByTag(tag_name) {
     INNER JOIN tags ON question_tags.id_tag = tags.id_tag
     WHERE tags.tag_name = ?; 
   `;
-  
+
   const [users] = await database.pool.query(query, [tag_name]);
 
-  
   // mira aquí:
   // https://flaviocopes.com/javascript-async-await-array-map/
   // https://advancedweb.hu/how-to-use-async-functions-with-array-map-in-javascript/
@@ -69,6 +68,12 @@ async function changeUserData(id, name_user, show_mail) {
   return user;
 }
 
+async function changeAvatar(id, avatar) {
+  const query = 'UPDATE users SET foto = ? WHERE id_user = ?';
+  await database.pool.query(query, [avatar, id]);
+  return await findUserById(id);
+}
+
 async function deleteUserByid(id) {
   return await database.pool.query(`DELETE FROM users WHERE id_user = ${id}`);
 }
@@ -82,4 +87,5 @@ module.exports = {
   changeUserData,
   deleteUserByid,
   findUserByValidationCode,
+  changeAvatar,
 };

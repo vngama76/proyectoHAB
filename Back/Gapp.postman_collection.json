@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "57532ad6-6c46-4406-bd76-0430d435d849",
+		"_postman_id": "740b5e08-b93c-46e7-896d-cb264774aed3",
 		"name": "Gapp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -103,6 +103,53 @@
 								"api",
 								"users",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addAvatar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"pm.environment.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"zeto@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/api/users/1/avatar",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1",
+								"avatar"
 							]
 						}
 					},
@@ -617,34 +664,7 @@
 		},
 		{
 			"name": "Tags",
-			"item": [
-				{
-					"name": "voteQuestion Copy",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{BaseUrl}}/api/score/question/2",
-							"host": [
-								"{{BaseUrl}}"
-							],
-							"path": [
-								"api",
-								"score",
-								"question",
-								"2"
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			"item": []
 		}
 	]
 }
