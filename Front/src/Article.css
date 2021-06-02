@@ -1,0 +1,12 @@
+.article .avatar {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-right: 8px;
+    align-self: center;
+}
+.article .username {
+    text-align: center;
+}

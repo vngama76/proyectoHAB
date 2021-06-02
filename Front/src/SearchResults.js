@@ -13,7 +13,9 @@ function SearchResults({ q }) {
                 </div>
             ))}
             {!results && <i>Loading...</i>}
-            {results && !results.questions && <i>No results found!</i>}
+            {results && !results.questions.lenght < 1 && (
+                <i>No results found!</i>
+            )}
         </div>
     );
 }

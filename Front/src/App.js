@@ -7,14 +7,17 @@ import Questions from './Questions';
 import Register from './Register';
 import './App.css';
 import Article from './Article';
+import { useSelector } from 'react-redux';
+import Profile from './Profile';
+import FindUsers from './FindUsers';
 
 function App() {
+    const isLoggedIn = useSelector((s) => !!s.user);
     return (
         <div className="App">
             <Navbar />
-            <Article />
-
-            <main>
+            {isLoggedIn && <Article />}
+            <main className="main">
                 <Switch>
                     <Route path="/login" exact>
                         <Login />
@@ -28,12 +31,20 @@ function App() {
                     <Route path="/questions/:q" exact>
                         <Questions />
                     </Route>
+                    <Route path="/users/:q" exact>
+                        <FindUsers />
+                    </Route>
+                    <Route path="/profile" exact>
+                        <Profile />
+                    </Route>
                     <Route path="/">
                         <Home />
                     </Route>
                 </Switch>
             </main>
-            <footer className="footer">Gapp - Get Answered Aplication</footer>
+            <footer className="footer">
+                Gapp™ - Get Answered Aplication - (c)HACK A BOSS, 2021.
+            </footer>
         </div>
     );
 }
