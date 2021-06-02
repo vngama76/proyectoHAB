@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
 // const path = require('path');
 // const fs = require('fs');
 
@@ -18,7 +19,9 @@ const {
 const { validateAuthorization } = require('./Middlewares/validate_auth');
 
 const { PORT } = process.env;
+
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(fileUpload());
 app.use('/uploads', express.static('static'));

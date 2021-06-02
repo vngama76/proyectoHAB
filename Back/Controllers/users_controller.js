@@ -140,6 +140,11 @@ async function login(req, res, next) {
       error.code = 401;
       throw error;
     }
+    if (!user.isVerify) {
+      const error = new Error('El usuario no está validado');
+      error.code = 401;
+      throw error;
+    }
     //comparo la password con la que tengo guardada en la tabla (son hashs).
     const isValidPass = await bcrypt.compare(password, user.password_user);
 
@@ -177,18 +182,20 @@ async function getUserById(req, res, next) {
     const user = await userRepository.findUserById(id_user);
 
     if (!user) {
-      const error = new Error('Usuario ya no Existe');
+      const error = new Error('Usuario no Existe');
 
       error.code = 404;
 
       throw error;
     }
 
-    res.send({
-      id: user.id_user,
-      name: user.name_user,
-      email: user.email,
-    });
+    res.send([
+      {
+        id: user.id_user,
+        name: user.name_user,
+        email: user.email,
+      },
+    ]);
   } catch (err) {
     next(err);
   }
@@ -215,7 +222,7 @@ async function updateUser(req, res, next) {
     const { id } = req.auth;
     const { name_user, show_mail } = req.body;
     if (!id) {
-      const error = new Error('Usuario ya no Existe');
+      const error = new Error('Usuario no Existe');
       error.code = 404;
       throw error;
     }
@@ -264,7 +271,7 @@ async function deleteUser(req, res, next) {
 
     if (rol !== 'admin') {
       const error = new Error('Solo admins pueden borrar usuarios');
-      error.status = 403;
+      error.code = 403;
       throw error;
     }
 
@@ -272,7 +279,7 @@ async function deleteUser(req, res, next) {
 
     if (!user) {
       const error = new Error('El usuario no existe');
-      error.status = 404;
+      error.code = 404;
       throw error;
     }
     await userRepository.deleteUserByid(id_user);

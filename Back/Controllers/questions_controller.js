@@ -1,13 +1,12 @@
-const Joi = require("joi");
-
+const Joi = require('joi');
 
 const {
   questionsRepository,
   userRepository,
   tagsRepository,
-} = require("../Repositories/index");
+} = require('../Repositories/index');
 
-const { findUserById } = require("../Repositories/users_repository");
+const { findUserById } = require('../Repositories/users_repository');
 
 async function createQuestion(req, res, next) {
   try {
@@ -21,7 +20,7 @@ async function createQuestion(req, res, next) {
     });
 
     await schema.validateAsync({ title, body, tags });
-    
+
     const question = await questionsRepository.addQuestion(title, body, id);
     // Recorremos el array de tags si existe
     // Si el tag existe en la tabla tags metemos la asociación en la tabla question_tags
@@ -63,7 +62,7 @@ async function getQuestionById(req, res, next) {
     console.log(question);
 
     if (!question) {
-      const error = new Error("Pregunta no existe");
+      const error = new Error('Pregunta no existe');
       error.code = 404;
       throw error;
     }
@@ -102,15 +101,15 @@ async function acceptAnswer(req, res, next) {
     const { id_question } = req.params;
     const { id_answer } = req.body;
     const userId = await findUserById(id);
-    if (userId.id_user !== id && rol !== "admin") {
-      const error = new Error("Acceso denegado");
+    if (userId.id_user !== id && rol !== 'admin') {
+      const error = new Error('Acceso denegado');
       error.code = 401;
       throw error;
     }
     await questionsRepository.closeQuestion(id_question, id_answer);
 
     res.status(201);
-    res.send("Pregunta cerrada");
+    res.send('Pregunta cerrada');
   } catch (err) {
     next(err);
   }
@@ -121,8 +120,8 @@ async function removeQuestion(req, res, next) {
     const { id_question } = req.params;
     const { rol, id } = req.auth;
     const userId = await questionsRepository.findUserByQuestionId(id_question);
-    if (userId !== id && rol !== "admin") {
-      const error = new Error("Acceso denegado");
+    if (userId !== id && rol !== 'admin') {
+      const error = new Error('Acceso denegado');
       error.code = 401;
       throw error;
     }
@@ -130,7 +129,7 @@ async function removeQuestion(req, res, next) {
     await questionsRepository.deleteQuestionById(id_question);
 
     res.status(201);
-    res.send("pregunta borrada");
+    res.send('pregunta borrada');
   } catch (err) {
     next(err);
   }

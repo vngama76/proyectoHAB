@@ -1,16 +1,16 @@
 const {
   scoresRepository,
   answersRepository,
-} = require("../Repositories/index");
-const { questionsRepository } = require("../Repositories/index");
+} = require('../Repositories/index');
+const { questionsRepository } = require('../Repositories/index');
 
 async function voteQuestion(req, res, next) {
   try {
     const { id, rol } = req.auth;
     const { id_question } = req.params;
-    if (!id && rol !== "admin") {
-      const error = new Error("Solo usuarios logueados pueden votar");
-      // error.code = 401;
+    if (!id && rol !== 'admin') {
+      const error = new Error('Solo usuarios logueados pueden votar');
+      error.code = 401;
       throw error;
     }
     const votesAmount = await scoresRepository.countQuestionVotesByUserId(
@@ -18,8 +18,8 @@ async function voteQuestion(req, res, next) {
       id_question
     );
     if (votesAmount.votos !== 0) {
-      const error = new Error("Ya has votado en esta pregunta");
-      // error.status = 401;
+      const error = new Error('Ya has votado en esta pregunta');
+      error.code = 401;
       throw error;
     }
     const questionUser = await questionsRepository.findUserByQuestionId(
@@ -42,9 +42,9 @@ async function voteAnswer(req, res, next) {
   try {
     const { id, rol } = req.auth;
     const { id_answer } = req.params;
-    if (!id && rol !== "admin") {
-      const error = new Error("Solo usuarios logueados pueden votar");
-      // error.status = 401;
+    if (!id && rol !== 'admin') {
+      const error = new Error('Solo usuarios logueados pueden votar');
+      error.code = 401;
       throw error;
     }
 
@@ -53,8 +53,8 @@ async function voteAnswer(req, res, next) {
       id_answer
     );
     if (votesAmount.votos !== 0) {
-      const error = new Error("Ya has votado en esta respuesta");
-      // error.status = 401;
+      const error = new Error('Ya has votado en esta respuesta');
+      error.code = 401;
       throw error;
     }
     const answerUser = await answersRepository.findUserByAnswerId(id_answer);
@@ -78,7 +78,7 @@ async function voteComment(req, res, next) {
       id_answer
     );
     if (votesAmount.votos !== 0) {
-      const error = new Error("Ya has votado en este comentario");
+      const error = new Error('Ya has votado en este comentario');
       error.httpCode = 409;
       throw error;
     }
