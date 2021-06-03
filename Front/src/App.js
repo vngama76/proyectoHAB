@@ -10,6 +10,7 @@ import Article from './Article';
 import { useSelector } from 'react-redux';
 import Profile from './Profile';
 import FindUsers from './FindUsers';
+import UsersFound from './UsersFound';
 
 function App() {
     const isLoggedIn = useSelector((s) => !!s.user);
@@ -31,10 +32,10 @@ function App() {
                     <Route path="/questions/:q" exact>
                         <Questions />
                     </Route>
-                    <Route path="/users/:q" exact>
-                        <FindUsers />
+                    <Route path="/search/users/:q" exact>
+                        <UsersFound />
                     </Route>
-                    <Route path="/profile" exact>
+                    <Route path="/profile/users/:q" exact>
                         <Profile />
                     </Route>
                     <Route path="/">
@@ -43,7 +44,7 @@ function App() {
                 </Switch>
             </main>
             <footer className="footer">
-                Gapp™ - Get Answered Aplication - (c)HACK A BOSS, 2021.
+                Gapp™ - Get Answered Application -
             </footer>
         </div>
     );

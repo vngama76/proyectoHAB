@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import './Article.css';
 import { Link } from 'react-router-dom';
-import Search from './Search';
+import FindUsers from './FindUsers';
 
 export default function Article() {
     const user = useSelector((s) => s.user);
@@ -19,7 +19,7 @@ export default function Article() {
 
             <p className="username">{user.name}</p>
 
-            <Search />
+            <FindUsers />
         </div>
     );
 }

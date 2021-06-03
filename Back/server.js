@@ -35,6 +35,11 @@ app.get(
     validateAuthorization,
     usersController.getUserByTag
 );
+app.get(
+    '/api/users/name/:name_user',
+    validateAuthorization,
+    usersController.getUserByName
+);
 app.put('/api/users', validateAuthorization, usersController.updateUser);
 app.delete(
     '/api/users/:id_user',

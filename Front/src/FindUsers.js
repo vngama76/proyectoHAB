@@ -1,33 +1,28 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import Helmet from 'react-helmet';
-import SearchResults from './SearchResults';
+import { useHistory } from 'react-router-dom';
 
 export default function FindUsers() {
-    const { q } = useParams();
     const history = useHistory();
-    const [search, setSearch] = useState(q || '');
+    const [search, setSearch] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        history.push('/search/' + search);
+        if (search) {
+            history.push('/search/users/' + search);
+            setSearch('');
+        }
     };
     return (
         <div className="search">
-            <h1>Busca preguntas</h1>
-            <Helmet>
-                <title>GAPP - Users</title>
-            </Helmet>
+            <h1>Encuentra un Usuario</h1>
             <form onSubmit={handleSubmit}>
                 <input
-                    placeholder="Search..."
+                    placeholder="Nombre de Usuario..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <button>🔍</button>
             </form>
-            {q && <SearchResults q={q} />}
         </div>
     );
 }

@@ -171,6 +171,7 @@ async function login(req, res, next) {
             name: user.name_user,
             rol: user.rol,
             email: user.email,
+            show_mail: user.show_mail,
             token,
         }); //un token es ese codigo giante
     } catch (err) {
@@ -198,7 +199,33 @@ async function getUserById(req, res, next) {
             {
                 id: user.id_user,
                 name: user.name_user,
+                foto: user.foto,
                 email: user.email,
+                description: user.descritpion,
+                show_mail: user.show_mail,
+            },
+        ]);
+    } catch (err) {
+        next(err);
+    }
+}
+async function getUserByName(req, res, next) {
+    try {
+        const { name_user } = req.params;
+
+        const user = await userRepository.findUserByName(name_user);
+
+        if (!user) {
+            const error = new Error('Usuario no Existe');
+
+            error.code = 404;
+
+            throw error;
+        }
+
+        res.send([
+            {
+                user,
             },
         ]);
     } catch (err) {
@@ -305,6 +332,7 @@ module.exports = {
     validateUser,
     login,
     getUserById,
+    getUserByName,
     getUserByTag,
     updateUser,
     deleteUser,
