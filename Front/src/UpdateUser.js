@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import AvatarModal from './AvatarModal';
 function UpdateUser() {
     const user = useSelector((u) => u.user);
-    console.log(user);
     const [username, setUsername] = useState(user.name);
     const [description, setDescription] = useState(user.description);
     const [showMail, setShowMail] = useState(0);
     const history = useHistory();
+    const [showModal, setShowModal] = useState(false);
 
     const [showMailToString, setShowMailToString] = useState();
     useEffect(() => {
@@ -36,36 +37,51 @@ function UpdateUser() {
             history.push('/profile/' + data.id);
         }
     };
+
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Actualiza tus datos</h1>
-            <label>
-                Nombre:{' '}
-                <input
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+        <>
+            <div>
+                <div
+                    className="foto"
+                    style={{
+                        backgroundImage: `url(https://i.pinimg.com/originals/fe/3d/cb/fe3dcbad7e0ebe2d80b20673ec7e53d7.jpg)`,
+                    }}
+                    onClick={() => setShowModal(true)}
                 />
-            </label>
-            <br />
-            <label>
-                Sobre ti:{' '}
-                <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-            </label>
-            <br />
-            <label>
-                Email visible?{' '}
-                <input
-                    type="checkbox"
-                    checked={showMail}
-                    onChange={handleClick}
-                />
-            </label>
-            <br />
-            <button>Actualizar datos</button>
-        </form>
+                {showModal && (
+                    <AvatarModal closeModal={() => setShowModal(false)} />
+                )}
+                <form onSubmit={handleSubmit}>
+                    <h1>Actualiza tus datos</h1>
+                    <label>
+                        Nombre:{' '}
+                        <input
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        Sobre ti:{' '}
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        Email visible?{' '}
+                        <input
+                            type="checkbox"
+                            checked={showMail}
+                            onChange={handleClick}
+                        />
+                    </label>
+                    <br />
+                    <button>Actualizar datos</button>
+                </form>
+            </div>
+        </>
     );
 }
 export default UpdateUser;

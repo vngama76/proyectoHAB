@@ -33,7 +33,7 @@ function Profile() {
                             Rol: {user.rol}
                         </div>
                         <span>
-                            <Link to="/UpdateUser" exact>
+                            <Link to="/updateuser" exact>
                                 :lápiz2:
                             </Link>
                         </span>
