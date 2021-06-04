@@ -8,9 +8,10 @@ import Register from './Register';
 import './App.css';
 import Article from './Article';
 import { useSelector } from 'react-redux';
-import Profile from './Profile';
-import FindUsers from './FindUsers';
 import UsersFound from './UsersFound';
+import UsersProfile from './UsersProfile';
+import Profile from './Profile';
+import UpdateUser from './UpdateUser';
 
 function App() {
     const isLoggedIn = useSelector((s) => !!s.user);
@@ -32,11 +33,17 @@ function App() {
                     <Route path="/questions/:q" exact>
                         <Questions />
                     </Route>
+                    <Route path="/profile/:q" exact>
+                        <Profile />
+                    </Route>
+                    <Route path="/updateuser" exact>
+                        <UpdateUser />
+                    </Route>
                     <Route path="/search/users/:q" exact>
                         <UsersFound />
                     </Route>
                     <Route path="/profile/users/:q" exact>
-                        <Profile />
+                        <UsersProfile />
                     </Route>
                     <Route path="/">
                         <Home />

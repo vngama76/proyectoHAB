@@ -172,6 +172,7 @@ async function login(req, res, next) {
             rol: user.rol,
             email: user.email,
             show_mail: user.show_mail,
+            description: user.descritpion,
             token,
         }); //un token es ese codigo giante
     } catch (err) {

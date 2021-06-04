@@ -8,7 +8,7 @@ export default function Article() {
 
     return (
         <div className="article">
-            <Link to="/profile">
+            <Link to={'/profile/' + user.id}>
                 <div
                     className="avatar"
                     style={{

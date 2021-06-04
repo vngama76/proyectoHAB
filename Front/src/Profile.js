@@ -1,42 +1,46 @@
-import { useParams } from 'react-router-dom';
+import { Link, Redirect, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import useFetch from './useFetch';
-import './Profile.css';
-
-export default function Profile() {
+function Profile() {
     const { q } = useParams();
-    const results = useFetch('http://localhost:4000/api/users/' + q);
-    console.log(results);
+    const isLoggedIn = useSelector((s) => !!s.user);
+    const user = useSelector((s) => s.user);
+    console.log(q);
+    const res = useFetch(`http://localhost:4000/api/users/${q}`);
+    console.log(res);
+    if (!isLoggedIn) return <Redirect to="/login" />;
     return (
-        <div className="perfil-usuario-tercero">
-            <p>Perfil de Usuario</p>
-            {!results && <i>Loading...</i>}
-            {results?.error ? (
-                <i>No results found!</i>
-            ) : (
-                results?.map((u) => (
-                    <div key={u.id} className="datos-usuario">
-                        <div className="nombre">Nombre: {u.name}</div>
-                        <div
-                            className="foto"
-                            style={{
-                                backgroundImage: `url(https://i.pinimg.com/originals/fe/3d/cb/fe3dcbad7e0ebe2d80b20673ec7e53d7.jpg)`,
-                            }}
-                        />
-                        <div className="email">
-                            Email:{' '}
-                            {u.show_mail
-                                ? u.email
-                                : 'El usuario prefiere no mostrar su email'}
+        <div className="profile">
+            <h1>Profile</h1>
+            {res && (
+                <>
+                    <Helmet>
+                        <title>Perfil de {res[0].name}</title>
+                    </Helmet>
+                    <div className="box">
+                        <div className="tabs">
+                            <p>My info</p>
+                            Nombre: {res[0].name} <br />
+                            email: {res[0].email} <br />
+                            Mail visible:{' '}
+                            {res[0].show_mail ? (
+                                <span>Si</span>
+                            ) : (
+                                <span>No</span>
+                            )}
+                            <br />
+                            Rol: {user.rol}
                         </div>
-                        <div className="descripcion">
-                            Descripción:
-                            <div>{u.description}</div>
-                        </div>
-                        <div className="puntos">Puntos</div>
-                        <div className="queso">Queso</div>
+                        <span>
+                            <Link to="/UpdateUser" exact>
+                                :lápiz2:
+                            </Link>
+                        </span>
                     </div>
-                ))
+                </>
             )}
         </div>
     );
 }
+export default Profile;
