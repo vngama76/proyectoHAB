@@ -2,14 +2,16 @@ import { Link, Redirect, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import useFetch from './useFetch';
+
 function Profile() {
     const { q } = useParams();
+
     const isLoggedIn = useSelector((s) => !!s.user);
-    const user = useSelector((s) => s.user);
-    console.log(q);
+
     const res = useFetch(`http://localhost:4000/api/users/${q}`);
-    console.log(res);
+
     if (!isLoggedIn) return <Redirect to="/login" />;
+
     return (
         <div className="profile">
             <h1>Profile</h1>
@@ -30,11 +32,11 @@ function Profile() {
                                 <span>No</span>
                             )}
                             <br />
-                            Rol: {user.rol}
+                            Rol: {res[0].rol}
                         </div>
                         <span>
                             <Link to="/updateuser" exact>
-                                :lápiz2:
+                                ✏
                             </Link>
                         </span>
                     </div>

@@ -1,5 +1,3 @@
-.navbar .user {
-}
 .app-logo {
     display: inline-block;
     width: 2.5rem;
@@ -19,4 +17,11 @@
     margin-right: 3rem;
     color: #ffffff;
     text-decoration: none;
+}
+.log-button:hover {
+    text-decoration: underline;
+}
+.user-area {
+    display: flex;
+    padding: 2rem;
 }

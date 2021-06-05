@@ -46,7 +46,7 @@ app.delete(
     validateAuthorization,
     usersController.deleteUser
 );
-app.get('/api/users/validate/:validateCode', usersController.validateUser);
+app.get('/verify/:validateCode', usersController.validateUser);
 // app.put('/api/users/cambiar_contraseña', );
 
 app.post('/api/users/avatar', validateAuthorization, usersController.addAvatar);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import SearchResults from './SearchResults';
 
@@ -9,7 +9,6 @@ function Search() {
     const history = useHistory();
     const [search, setSearch] = useState(q || '');
     const dispatch = useDispatch();
-    // const recent = useSelector((s) => s.history);
 
     const handleSubmit = (e) => {
         e.preventDefault();

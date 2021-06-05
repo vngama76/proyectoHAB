@@ -5,14 +5,19 @@ import FindUsers from './FindUsers';
 
 export default function Article() {
     const user = useSelector((s) => s.user);
+    console.log(user.foto);
 
+    const foto = user.foto
+        ? require(`../../Back/static/` + user.foto).default
+        : 'https://static.vecteezy.com/system/resources/thumbnails/000/379/559/small/Universal__2838_29.jpg';
+    console.log('Article:', foto);
     return (
         <div className="article">
             <Link to={'/profile/' + user.id}>
                 <div
                     className="avatar"
                     style={{
-                        backgroundImage: `url(https://i.pinimg.com/originals/fe/3d/cb/fe3dcbad7e0ebe2d80b20673ec7e53d7.jpg)`,
+                        backgroundImage: `url(${foto})`,
                     }}
                 />
             </Link>

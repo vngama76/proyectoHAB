@@ -170,6 +170,7 @@ async function login(req, res, next) {
             id: user.id_user,
             name: user.name_user,
             rol: user.rol,
+            foto: user.foto,
             email: user.email,
             show_mail: user.show_mail,
             description: user.descritpion,
@@ -204,6 +205,7 @@ async function getUserById(req, res, next) {
                 email: user.email,
                 description: user.descritpion,
                 show_mail: user.show_mail,
+                rol: user.rol,
             },
         ]);
     } catch (err) {

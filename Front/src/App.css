@@ -41,15 +41,19 @@
     border-right-style: outset;
 }
 
-.App .article h1 {
-    font-size: 1rem;
-}
-
 .footer {
     grid-area: footer;
     opacity: 50%;
     min-width: 100%;
     background-color: #111;
+    align-self: center;
+    text-align: center;
+}
+.footer-long {
+    position: absolute;
+    bottom: 1rem;
+    opacity: 50%;
+    min-width: 100%;
     align-self: center;
     text-align: center;
 }

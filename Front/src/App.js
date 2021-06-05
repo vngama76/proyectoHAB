@@ -1,10 +1,8 @@
 import Navbar from './Navbar';
 import { Switch, Route } from 'react-router-dom';
-import Login from './Login';
 import Home from './Home';
 import Search from './Search';
 import Questions from './Questions';
-import Register from './Register';
 import './App.css';
 import Article from './Article';
 import { useSelector } from 'react-redux';
@@ -21,12 +19,6 @@ function App() {
             {isLoggedIn && <Article />}
             <main className="main">
                 <Switch>
-                    <Route path="/login" exact>
-                        <Login />
-                    </Route>
-                    <Route path="/register" exact>
-                        <Register />
-                    </Route>
                     <Route path="/search/:q?" exact>
                         <Search />
                     </Route>
@@ -50,7 +42,8 @@ function App() {
                     </Route>
                 </Switch>
             </main>
-            <footer className="footer">
+
+            <footer className={isLoggedIn ? 'footer' : 'footer-long'}>
                 Gapp™ - Get Answered Application -
             </footer>
         </div>

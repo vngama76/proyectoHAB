@@ -1,38 +1,44 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import './AvatarModal.css';
 
+import './AvatarModal.css';
 export default function AvatarModal({ closeModal }) {
     const user = useSelector((u) => u.user);
 
-    const defaultimage =
-        'https://i.pinimg.com/originals/fe/3d/cb/fe3dcbad7e0ebe2d80b20673ec7e53d7.jpg';
     const [file, setFile] = useState();
-    const [preview, setPreview] = useState(defaultimage);
+    const foto = user.foto
+        ? require(`../../Back/static/` + user.foto).default
+        : 'https://static.vecteezy.com/system/resources/thumbnails/000/379/559/small/Universal__2838_29.jpg';
+
+    const [preview, setPreview] = useState(foto);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const fd = new FormData();
-        fd.append('avatar', file);
+        if (file !== undefined) {
+            const fd = new FormData();
+            fd.append('avatar', file);
 
-        const ret = await fetch('http://localhost:4000/api/users/avatar', {
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + user.token,
-            },
-            body: fd,
-        });
-        console.log('Status:', ret);
-        const data = await ret.json();
-        console.log('Data:', data);
+            const ret = await fetch('http://localhost:4000/api/users/avatar', {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + user.token,
+                },
+                body: fd,
+            });
+            const data = await ret.json();
+            console.log('Data:', data);
+            closeModal();
+        } else {
+            alert('Debes Seleccionar una imagen');
+        }
     };
 
     const handleFile = (e) => {
         const f = e.target.files[0];
-        console.log(typeof f, f);
         setFile(f);
-        setPreview(f ? URL.createObjectURL(f) : defaultimage);
+        setPreview(f ? URL.createObjectURL(f) : user.foto);
     };
+
     return (
         <div className="modal-bg" onClick={closeModal}>
             <div className="modal-fg" onClick={(e) => e.stopPropagation()}>

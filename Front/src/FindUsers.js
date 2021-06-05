@@ -14,14 +14,14 @@ export default function FindUsers() {
     };
     return (
         <div className="search">
-            <h1>Encuentra un Usuario</h1>
+            <h1>Encuentra un Usuario:</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     placeholder="Nombre de Usuario..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <button>🔍</button>
+                <button>Busca</button>
             </form>
         </div>
     );
