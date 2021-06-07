@@ -6,6 +6,7 @@ const { sendMail, saveAvatar, deleteAvatar } = require('../helpers');
 const { nanoid } = require('nanoid');
 
 const userRepository = require('../Repositories/users_repository');
+const { tagsRepository } = require('../Repositories');
 
 async function register(req, res, next) {
     try {
@@ -242,11 +243,18 @@ async function getUserByTag(req, res, next) {
 
         const users = await userRepository.findUserByTag(tag_name);
 
-        // const user = users.filter((value, index, self)=>self.indexOf(value.id_user) === index)
-
         res.send({
             users,
         });
+    } catch (err) {
+        next(err);
+    }
+}
+async function getTagByUserId(req, res, next) {
+    try {
+        const { id } = req.params;
+        const tags = await tagsRepository.findTagsByUserId(id);
+        res.send({ tags });
     } catch (err) {
         next(err);
     }
@@ -255,7 +263,7 @@ async function getUserByTag(req, res, next) {
 async function updateUser(req, res, next) {
     try {
         const { id } = req.auth;
-        const { name_user, show_mail } = req.body;
+        const { name_user, show_mail, descritpion } = req.body;
         if (!id) {
             const error = new Error('Usuario no Existe');
             error.code = 404;
@@ -278,25 +286,28 @@ async function updateUser(req, res, next) {
         const schema = Joi.object({
             name_user: Joi.string().required(),
             show_mail: Joi.string(),
+            descritpion: Joi.string(),
         });
 
         schema.validateAsync({
             name_user,
             show_mail,
+            descritpion,
         });
 
         const user = await userRepository.changeUserData(
             id,
             name_user,
-            show_mail
+            show_mail,
+            descritpion
         );
-        console.log('ok 2');
         res.status = 201;
         res.send({
             id: user.id_user,
             name: user.name_user,
             email: user.email,
             show_mail: user.show_mail,
+            description: user.descritpion,
         });
     } catch (err) {
         next(err);
@@ -337,6 +348,7 @@ module.exports = {
     getUserById,
     getUserByName,
     getUserByTag,
+    getTagByUserId,
     updateUser,
     deleteUser,
     addAvatar,

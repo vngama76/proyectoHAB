@@ -66,9 +66,9 @@ async function findUserByName(name_user) {
     return user[0];
 }
 
-async function changeUserData(id, name_user, show_mail) {
-    const query = `UPDATE users SET name_user = ?, show_mail = ? WHERE id_user = ${id}`;
-    await database.pool.query(query, [name_user, show_mail]);
+async function changeUserData(id, name_user, show_mail, descritpion) {
+    const query = `UPDATE users SET name_user = ?, show_mail = ?, descritpion = ? WHERE id_user = ${id}`;
+    await database.pool.query(query, [name_user, show_mail, descritpion]);
     const user = await findUserById(id);
     return user;
 }

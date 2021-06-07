@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AvatarModal from './AvatarModal';
-import './UpdateUsers.css';
+import './UpdateUser.css';
 
 function UpdateUser() {
     const user = useSelector((u) => u.user);
@@ -14,6 +14,8 @@ function UpdateUser() {
     const [showMail, setShowMail] = useState(0);
 
     const history = useHistory();
+
+    const dispatch = useDispatch();
 
     const [showModal, setShowModal] = useState(false);
 
@@ -41,9 +43,13 @@ function UpdateUser() {
                 Authorization: 'Bearer ' + user.token,
             },
         });
+        setUsername('');
+        setDescription('');
         if (res.ok) {
             const data = await res.json();
             console.log(data);
+            //todo Deberíamos llamar a un fetch de getUserById, y suplantar la info de usuario que tenemos en Redux por la nueva info...??
+            //todo Article, NavBar y cualquier otro sitio que utiliza esta info se debería recargar junto con la misma acción.
             history.push('/profile/' + data.id);
         }
     };

@@ -1,0 +1,22 @@
+.profile {
+  display: grid;
+
+  gap: 2rem;
+}
+
+.box {
+  background-color: lightgray;
+  border-radius: 1rem;
+  border: 3px solid #9a9a9a;
+  width: 500px;
+  color: black;
+  padding: 1rem;
+}
+
+.userinfotext {
+  background-color: lightgray;
+  border-radius: 1rem;
+  border: 3px solid #9a9a9a;
+  color: black;
+  width: 500px;
+}

@@ -2,6 +2,7 @@ import { Link, Redirect, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import useFetch from './useFetch';
+import './Profile.css';
 
 function Profile() {
     const { q } = useParams();
@@ -14,7 +15,7 @@ function Profile() {
 
     return (
         <div className="profile">
-            <h1>Profile</h1>
+            <h1>Página de usuario</h1>
             {res && (
                 <>
                     <Helmet>
@@ -22,9 +23,9 @@ function Profile() {
                     </Helmet>
                     <div className="box">
                         <div className="tabs">
-                            <p>My info</p>
+                            <p>Info de Usuario</p>
                             Nombre: {res[0].name} <br />
-                            email: {res[0].email} <br />
+                            Email: {res[0].email} <br />
                             Mail visible:{' '}
                             {res[0].show_mail ? (
                                 <span>Si</span>
@@ -34,12 +35,19 @@ function Profile() {
                             <br />
                             Rol: {res[0].rol}
                         </div>
-                        <span>
-                            <Link to="/updateuser" exact>
-                                ✏
-                            </Link>
-                        </span>
                     </div>
+                    <div className="userinfo">
+                        {' '}
+                        Mas sobre ti:{' '}
+                        <textarea className="userinfotext" readonly="readonly">
+                            {res[0].description}
+                        </textarea>
+                    </div>
+                    <span>
+                        <Link to="/updateuser" exact>
+                            <h3>✏ </h3>
+                        </Link>
+                    </span>
                 </>
             )}
         </div>
