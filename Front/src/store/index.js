@@ -1,12 +1,23 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 
-const userReducer = (state = null, action) => {
+const userReducer = (state = { info: null, token: null }, action) => {
     switch (action.type) {
         case 'LOGIN':
-            return action.user;
-        case 'UPDATE':
-            return action.user;
+            return { ...state, token: action.token };
         case 'LOGOUT':
+            return { ...state, token: null };
+        case 'INFO':
+            return { ...state, info: action.info };
+        default:
+            return state;
+    }
+};
+
+const errorReducer = (state = null, action) => {
+    switch (action.type) {
+        case 'NEW_ERROR':
+            return action.error;
+        case 'CLEAR_ERROR':
             return null;
         default:
             return state;
@@ -31,6 +42,7 @@ const localStorageMiddleware = (store) => (next) => (action) => {
 const store = createStore(
     combineReducers({
         user: userReducer,
+        error: errorReducer,
         // history: historyReducer
     }),
     JSON.parse(localStorage.getItem('session')) || {},

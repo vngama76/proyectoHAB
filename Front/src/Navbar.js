@@ -7,6 +7,8 @@ import LoginModal from './LoginModal';
 
 function Navbar() {
     const user = useSelector((s) => s.user);
+    console.log(user);
+
     const dispatch = useDispatch();
     const handleLogout = (e) => {
         e.stopPropagation();
@@ -16,16 +18,15 @@ function Navbar() {
     };
     const [showModal, setShowModal] = useState(false);
 
-    console.log(user);
-
     return (
         <>
             <div className="navbar">
                 <Link to="/">
                     <img src={logo} className="app-logo" alt="logo" />
                 </Link>
+                <Link to="/addQuestion">Pregunta</Link>
                 <div className="user-area">
-                    {!user && (
+                    {!user.token && (
                         <div
                             className="log-button"
                             onClick={() => setShowModal(true)}
@@ -33,9 +34,9 @@ function Navbar() {
                             Iniciar sesión
                         </div>
                     )}
-                    {user && (
+                    {user.info && (
                         <div className="profile-menu">
-                            <div>{user.name}</div>
+                            <div>{user.info.name}</div>
                             <Link to="/">
                                 <div
                                     className="log-button"

@@ -64,9 +64,9 @@ app.get(
 );
 
 app.get(
-    '/api/questions/tags/:tag_name',
+    '/api/questions/tags/:words',
     validateAuthorization,
-    questionsController.getQuestionsByTag
+    questionsController.getQuestions
 );
 
 app.put(

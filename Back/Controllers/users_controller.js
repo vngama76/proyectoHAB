@@ -279,7 +279,6 @@ async function updateUser(req, res, next) {
             error.code = 401;
             throw error;
         }
-        console.log('ok');
         //No deberíamos bajo ningún punto de vista permitir cambiar el email y password con tanta facilidad.
         //ya que el email podría corresponderse con el de otro usuario y se crearían incidencias en la tabla con mismos emails.
 

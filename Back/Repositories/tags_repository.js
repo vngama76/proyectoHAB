@@ -23,7 +23,7 @@ async function findTagsByUserId(id) {
     FROM tags
     INNER JOIN question_tags ON tags.id_tag = question_tags.id_tag
     INNER JOIN questions ON questions.id_question = question_tags.id_question
-    WHERE questions.id_user=1;
+    WHERE questions.id_user=?
     `;
     const [tags] = await database.pool.query(query, [id]);
     const tagsArray = tags.map((t) => t.tag_name);

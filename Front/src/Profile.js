@@ -1,17 +1,27 @@
-import { Link, Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import useFetch from './useFetch';
 import './Profile.css';
+import e from 'cors';
+import { useState } from 'react';
+import UpdateAvatar from './UpdateAvatar';
+import UpdateUser from './UpdateUser';
 
 function Profile() {
     const { q } = useParams();
+    const [showModal, setShowModal] = useState(false);
 
     const isLoggedIn = useSelector((s) => !!s.user);
 
     const res = useFetch(`http://localhost:4000/api/users/${q}`);
 
     if (!isLoggedIn) return <Redirect to="/login" />;
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        setShowModal(true);
+    };
 
     return (
         <div className="profile">
@@ -43,11 +53,11 @@ function Profile() {
                             {res[0].description}
                         </textarea>
                     </div>
-                    <span>
-                        <Link to="/updateuser" exact>
-                            <h3>✏ </h3>
-                        </Link>
-                    </span>
+
+                    <h3 onClick={handleClick}> ✏ </h3>
+                    {showModal && (
+                        <UpdateUser closeModal={() => setShowModal(false)} />
+                    )}
                 </>
             )}
         </div>

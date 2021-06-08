@@ -9,12 +9,15 @@ import { useSelector } from 'react-redux';
 import UsersFound from './UsersFound';
 import UsersProfile from './UsersProfile';
 import Profile from './Profile';
-import UpdateUser from './UpdateUser';
+import ErrorMessage from './ErrorMessage';
+import AddQuestion from './AddQuestion';
 
 function App() {
-    const isLoggedIn = useSelector((s) => !!s.user);
+    const isLoggedIn = useSelector((s) => !!s.user.token);
+    console.log(isLoggedIn);
     return (
         <div className="App">
+            <ErrorMessage />
             <Navbar />
             {isLoggedIn && <Article />}
             <main className="main">
@@ -25,11 +28,11 @@ function App() {
                     <Route path="/questions/:q" exact>
                         <Questions />
                     </Route>
+                    <Route path="/addQuestion" exact>
+                        <AddQuestion />
+                    </Route>
                     <Route path="/profile/:q" exact>
                         <Profile />
-                    </Route>
-                    <Route path="/updateuser" exact>
-                        <UpdateUser />
                     </Route>
                     <Route path="/search/users/:q" exact>
                         <UsersFound />

@@ -8,7 +8,7 @@ function Login({ setSignup, closeModal }) {
 
     const [password, setPassword] = useState('');
 
-    const isLoggedIn = useSelector((s) => !!s.user);
+    const isLoggedIn = useSelector((s) => !!s.user.token);
 
     const dispatch = useDispatch();
 
@@ -22,12 +22,11 @@ function Login({ setSignup, closeModal }) {
 
         if (res.ok) {
             const data = await res.json();
-            dispatch({ type: 'LOGIN', user: data });
+            dispatch({ type: 'LOGIN', token: data.token });
+            dispatch({ type: 'INFO', info: data });
             closeModal();
         } else {
-            const error = new Error('Error de registro, valida tu usuario');
-            console.log(error.stack);
-            alert(error);
+            dispatch({ type: 'NEW_ERROR', error: 'Error de Login' });
         }
     };
 
