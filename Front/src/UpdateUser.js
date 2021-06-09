@@ -1,24 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './UpdateUser.css';
-import refreshUser from './helpers';
-import UpdateAvatar from './UpdateAvatar';
 
 function UpdateUser({ closeModal }) {
-    const user = useSelector((u) => u.user.info);
+    const user = useSelector((u) => u.user);
 
-    const [username, setUsername] = useState(user.name);
+    const [username, setUsername] = useState(user.info.name);
 
-    const [description, setDescription] = useState(user.description);
+    const [description, setDescription] = useState(user.info.description);
 
-    const [showMail, setShowMail] = useState(user.show_mail);
+    const [showMail, setShowMail] = useState(user.info.show_mail);
 
     const dispatch = useDispatch();
 
     const [file, setFile] = useState();
 
-    const foto = user.foto
-        ? `http://localhost:4000/uploads/${user.foto}`
+    const foto = user.info.foto
+        ? `http://localhost:4000/uploads/${user.info.foto}`
         : 'https://static.vecteezy.com/system/resources/thumbnails/000/379/559/small/Universal__2838_29.jpg';
 
     const [preview, setPreview] = useState(foto);
@@ -34,33 +32,60 @@ function UpdateUser({ closeModal }) {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        UpdateAvatar(file, user);
-        const res = await fetch('http://localhost:4000/api/users', {
-            method: 'PUT',
-            body: JSON.stringify({
-                name_user: username,
-                show_mail: showMailToString,
-                descritpion: description,
-            }),
-            headers: {
+        try {
+            e.preventDefault();
+
+            const headers = {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + user.token,
-            },
-        });
-        const password = '123456';
+            };
+            //Si existe file hacemos la peticin para cambiar el avatar
 
-        if (res.ok) {
-            const data = await res.json();
-            console.log(data);
-            refreshUser(user.email, password, dispatch);
-            closeModal();
+            if (file) {
+                const payload = new FormData();
+                payload.append('avatar', file);
+
+                await fetch('http://localhost:4000/api/users/avatar', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: 'Bearer ' + user.token,
+                    },
+                    body: payload,
+                });
+            }
+
+            //cambiamos los datos del usuario por los del formulario
+            const res = await fetch('http://localhost:4000/api/users', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    name_user: username,
+                    show_mail: showMailToString,
+                    descritpion: description,
+                }),
+                headers,
+            });
+
+            if (res.ok) {
+                const res = await fetch(
+                    `http://localhost:4000/api/users/${user.info.id}`,
+                    { headers }
+                );
+
+                const [userInfo] = await res.json();
+
+                dispatch({ type: 'INFO', info: userInfo });
+                closeModal();
+            } else {
+                throw new Error('AError actualizando datos');
+            }
+        } catch (error) {
+            dispatch({ type: 'NEW_ERROR', error: error.message });
         }
     };
     const handleFile = (e) => {
         const f = e.target.files[0];
         setFile(f);
-        setPreview(f ? URL.createObjectURL(f) : user.foto);
+        setPreview(f ? URL.createObjectURL(f) : user.info.foto);
     };
     return (
         <>

@@ -1,11 +1,13 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 
-const userReducer = (state = { info: null, token: null }, action) => {
+const defaultUserState = { info: null, token: null };
+
+const userReducer = (state = defaultUserState, action) => {
     switch (action.type) {
         case 'LOGIN':
             return { ...state, token: action.token };
         case 'LOGOUT':
-            return { ...state, token: null };
+            return defaultUserState;
         case 'INFO':
             return { ...state, info: action.info };
         default:

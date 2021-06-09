@@ -1,16 +1,31 @@
 import Navbar from './Navbar';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './Home';
 import Search from './Search';
 import Questions from './Questions';
 import './App.css';
 import Article from './Article';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import UsersFound from './UsersFound';
 import UsersProfile from './UsersProfile';
 import Profile from './Profile';
 import ErrorMessage from './ErrorMessage';
 import AddQuestion from './AddQuestion';
+
+const PrivateRoute = ({ children }) => {
+    const isLoggedIn = useSelector((s) => !!s.user.token);
+    const dispatch = useDispatch();
+
+    if (!isLoggedIn) {
+        dispatch({
+            type: 'NEW_ERROR',
+            error: 'Tienes que acceder para ver esta pgina',
+        });
+        return <Redirect to="/" />;
+    }
+
+    return <>{children}</>;
+};
 
 function App() {
     const isLoggedIn = useSelector((s) => !!s.user.token);
@@ -32,7 +47,9 @@ function App() {
                         <AddQuestion />
                     </Route>
                     <Route path="/profile/:q" exact>
-                        <Profile />
+                        <PrivateRoute>
+                            <Profile />
+                        </PrivateRoute>
                     </Route>
                     <Route path="/search/users/:q" exact>
                         <UsersFound />

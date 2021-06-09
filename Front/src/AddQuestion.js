@@ -13,7 +13,7 @@ function AddQuestion() {
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState([]);
     const tagsToLowerCase = tags.map((v) => v.toLowerCase());
-    const hadleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setTitle('');
         setMessage('');
@@ -39,7 +39,7 @@ function AddQuestion() {
     return (
         <aside>
             <fieldset>
-                <form onSubmit={hadleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <p>title:</p>
                         <input

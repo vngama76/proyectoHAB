@@ -1,22 +1,21 @@
-import { Redirect, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import useFetch from './useFetch';
 import './Profile.css';
-import e from 'cors';
+
 import { useState } from 'react';
-import UpdateAvatar from './UpdateAvatar';
+
 import UpdateUser from './UpdateUser';
 
 function Profile() {
     const { q } = useParams();
+    const history = useHistory();
     const [showModal, setShowModal] = useState(false);
 
     const isLoggedIn = useSelector((s) => !!s.user);
 
     const res = useFetch(`http://localhost:4000/api/users/${q}`);
-
-    if (!isLoggedIn) return <Redirect to="/login" />;
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -56,7 +55,12 @@ function Profile() {
 
                     <h3 onClick={handleClick}> ✏ </h3>
                     {showModal && (
-                        <UpdateUser closeModal={() => setShowModal(false)} />
+                        <UpdateUser
+                            closeModal={() => {
+                                history.go(0);
+                                setShowModal(false);
+                            }}
+                        />
                     )}
                 </>
             )}

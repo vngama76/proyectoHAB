@@ -6,11 +6,14 @@ export default function ErrorMessage() {
     const dispatch = useDispatch();
 
     return error ? (
-        <div>
+        <div className="error">
             <p>{error}</p>
-            <button onClick={() => dispatch({ type: 'CLEAR_ERROR' })}>
-                Cerrar
-            </button>
+
+            <div>
+                <button onClick={() => dispatch({ type: 'CLEAR_ERROR' })}>
+                    Cerrar
+                </button>
+            </div>
         </div>
     ) : null;
 }

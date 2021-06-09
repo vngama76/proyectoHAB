@@ -8,6 +8,7 @@ async function createAnswer(req, res, next) {
         const { id } = req.auth;
         const { id_question } = req.params;
         const { body } = req.body;
+        console.log(id, id_question, body);
         const schema = Joi.object({
             body: Joi.string().max(1000).required(),
         });
@@ -21,7 +22,7 @@ async function createAnswer(req, res, next) {
         res.send({
             id_answer: answer[0].id_answer,
             body: answer[0].body,
-            question_status: question[0].status_enum,
+            question_status: question.status_enum,
             name_user: user.name_user,
         });
     } catch (err) {
