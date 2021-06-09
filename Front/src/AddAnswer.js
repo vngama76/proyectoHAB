@@ -2,14 +2,15 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 export default function AddAnswer({ id }) {
+    const history = useHistory();
     const user = useSelector((u) => u.user);
     const [message, setMessage] = useState('');
     console.log(id);
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(message);
         setMessage('');
 
         const res = fetch('http://localhost:4000/api/answers/' + id, {
@@ -22,10 +23,10 @@ export default function AddAnswer({ id }) {
                 body: message,
             }),
         });
-        console.log(res);
         if (res.ok === false) {
             alert('hubo un fallo');
         }
+        history.go(0);
     };
 
     return (

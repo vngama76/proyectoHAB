@@ -61,8 +61,6 @@ async function getQuestionById(req, res, next) {
             id_question
         );
 
-        console.log(question);
-
         if (!question) {
             const error = new Error('Pregunta no existe');
             error.code = 404;

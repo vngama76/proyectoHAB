@@ -6,9 +6,14 @@ async function findAnswerById(id) {
 
     return answer;
 }
+async function findAnswersByQuestionId(id_question) {
+    const query =
+        'SELECT users.name_user, users.id_user, id_answer, creation_date, body, id_answer_father FROM users, answers WHERE answers.id_question = ? AND users.id_user = answers.id_user';
+    const [answers] = await database.pool.query(query, [id_question]);
+    return answers;
+}
 
 async function addAnswer(body, id_user, id_question) {
-    console.log('Params: ', body, id_user, id_question);
     const query2 = `UPDATE questions SET status_enum = ? WHERE id_question = ?`;
     await database.pool.query(query2, ['TIENE RESPUESTAS', id_question]);
     const query =
@@ -18,7 +23,6 @@ async function addAnswer(body, id_user, id_question) {
         id_user,
         id_question,
     ]);
-    console.log('result: ', result);
     const answer = await findAnswerById(result.insertId);
     return answer;
 }
@@ -37,6 +41,12 @@ async function deleteAnswer(id_answer) {
 module.exports = {
     addAnswer,
     findAnswerById,
+    findAnswersByQuestionId,
     findUserByAnswerId,
     deleteAnswer,
 };
+
+//Necesitamos body_answer / creation_date_answer / username_user/ => id_question
+// SELECT body, creation_date, name
+// FROM answers, users
+// WHERE answers.id_user =

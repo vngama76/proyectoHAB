@@ -30,6 +30,22 @@ async function createAnswer(req, res, next) {
     }
 }
 
+async function getAnswersByQuestionId(req, res, next) {
+    try {
+        const { id_question } = req.params;
+
+        const answers = await answersRepository.findAnswersByQuestionId(
+            id_question
+        );
+        console.log('Answers: ', answers);
+        res.send({
+            answers,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function removeAnswer(req, res, next) {
     try {
         const { rol, id } = req.auth;
@@ -51,5 +67,6 @@ async function removeAnswer(req, res, next) {
 
 module.exports = {
     createAnswer,
+    getAnswersByQuestionId,
     removeAnswer,
 };

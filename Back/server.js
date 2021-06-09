@@ -86,6 +86,11 @@ app.post(
     validateAuthorization,
     answersController.createAnswer
 );
+app.get(
+    '/api/answers/:id_question',
+    validateAuthorization,
+    answersController.getAnswersByQuestionId
+);
 app.delete(
     '/api/answers/:id_answer',
     validateAuthorization,
