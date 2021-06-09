@@ -87,47 +87,16 @@ async function getQuestions(req, res, next) {
     try {
         const { words } = req.params;
         const wordsSplit = words.split(' ');
-        let questionTags = [];
-        for (const word of wordsSplit) {
-            const object = await questionsRepository.findQuestionsByTag(word);
-            console.log(object);
-            questionTags.push(object);
-        }
-        let hashTags = {};
-        let arrayOfTags = [];
-        for (let object of questionTags) {
-            object = object.filter((o) =>
-                hashTags[o.id_question]
-                    ? false
-                    : (hashTags[o.id_question] = true)
-            );
-            for (const o of object) {
-                arrayOfTags.push(o);
-            }
-        }
-        let hashTitles = {};
 
-        let questionTitles = [];
-        for (const word of wordsSplit) {
-            const object = await questionsRepository.findQuestionByTitle(word);
-            questionTitles.push(object);
-        }
-        let arrayOfTitles = [];
-        for (let object of questionTitles) {
-            object = object.filter((o) =>
-                hashTitles[o.id_question]
-                    ? false
-                    : (hashTitles[o.id_question] = true)
-            );
-            for (const o of object) {
-                arrayOfTitles.push(o);
-            }
-        }
-        console.log('arrayOfTags: ', arrayOfTags);
-        console.log('arrayOfTitles: ', arrayOfTitles);
+        let questionTags = await questionsRepository.findQuestionsByTag(
+            wordsSplit
+        );
 
-        const array = [];
-        let questions = [...array, ...arrayOfTags, ...arrayOfTitles];
+        let questionTitles = await questionsRepository.findQuestionByTitle(
+            wordsSplit.join('|')
+        );
+
+        let questions = [...questionTags, ...questionTitles];
 
         let hash = {};
         questions = questions.filter((o) =>

@@ -30,7 +30,7 @@ async function findQuestionsByTag(tag_name) {
     FROM questions 
     INNER JOIN question_tags ON question_tags.id_question = questions.id_question
     INNER JOIN tags ON question_tags.id_tag = tags.id_tag
-    WHERE tags.tag_name = ?;
+    WHERE tags.tag_name IN (?);
   `;
 
     const [questions] = await database.pool.query(query, [tag_name]);
@@ -48,7 +48,7 @@ async function findQuestionByTitle(title) {
     const [questions] = await database.pool.query(`
   SELECT id_question
   FROM questions
-  WHERE title LIKE '%${title}%'
+  WHERE title REGEXP ('${title}')
   `);
     return Promise.all(
         questions.map(async (question) => {
