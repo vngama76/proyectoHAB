@@ -17,9 +17,9 @@ function Questions() {
                         className="right"
                         dangerouslySetInnerHTML={{ __html: info.body }}
                     />
-                    <div>
-                        <AddAnswer id={q} />
-                    </div>
+
+                    <AddAnswer id={q} />
+
                     <Answers id_question={q} />
                 </>
             )}

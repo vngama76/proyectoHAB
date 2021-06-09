@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './UpdateUser.css';
 
 function UpdateUser({ closeModal }) {
     const user = useSelector((u) => u.user);
+
+    const history = useHistory();
 
     const [username, setUsername] = useState(user.info.name);
 
@@ -74,6 +77,8 @@ function UpdateUser({ closeModal }) {
                 const [userInfo] = await res.json();
 
                 dispatch({ type: 'INFO', info: userInfo });
+                history.push(`/profile/${user.info.id}`);
+
                 closeModal();
             } else {
                 throw new Error('AError actualizando datos');
@@ -116,7 +121,11 @@ function UpdateUser({ closeModal }) {
                             Sobre ti:{' '}
                             <textarea
                                 value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                onChange={(e) =>
+                                    setDescription(
+                                        e.target.value ? e.target.value : ' '
+                                    )
+                                }
                             />
                         </label>
                         <label className="email">

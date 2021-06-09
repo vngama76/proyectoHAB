@@ -37,7 +37,6 @@ async function getAnswersByQuestionId(req, res, next) {
         const answers = await answersRepository.findAnswersByQuestionId(
             id_question
         );
-        console.log('Answers: ', answers);
         res.send({
             answers,
         });

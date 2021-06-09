@@ -4,59 +4,75 @@ const Joi = require('joi');
 const { userRepository, commentsRepository } = require('../Repositories/index');
 
 async function createComment(req, res, next) {
-  try {
-    const { id } = req.auth;
-    const { id_answer_father } = req.params;
-    const { body } = req.body;
-    const id_question = await commentsRepository.findQuestionByAnswerId(
-      id_answer_father
-    );
+    try {
+        const { id } = req.auth;
+        const { id_answer_father } = req.params;
+        const { body } = req.body;
+        const id_question = await commentsRepository.findQuestionByAnswerId(
+            id_answer_father
+        );
 
-    const schema = Joi.object({
-      body: Joi.string().max(1000).required(),
-    });
-    await schema.validateAsync({ body });
+        const schema = Joi.object({
+            body: Joi.string().max(1000).required(),
+        });
+        await schema.validateAsync({ body });
 
-    const comment = await commentsRepository.addComment(
-      body,
-      id_question,
-      id,
-      id_answer_father
-    );
+        const comment = await commentsRepository.addComment(
+            body,
+            id_question,
+            id,
+            id_answer_father
+        );
 
-    const user = await userRepository.findUserById(id);
+        const user = await userRepository.findUserById(id);
 
-    res.status(201);
-    res.send({
-      id_answer: comment[0].id_answer,
-      body: comment[0].body,
-      name_user: user.name_user,
-      id_answer_father: comment[0].id_answer_father,
-    });
-  } catch (err) {
-    next(err);
-  }
+        res.status(201);
+        res.send({
+            id_answer: comment[0].id_answer,
+            body: comment[0].body,
+            name_user: user.name_user,
+            id_answer_father: comment[0].id_answer_father,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getCommentsByAnswerFatherId(req, res, next) {
+    try {
+        const { id_answer } = req.params;
+
+        const comments = await commentsRepository.findCommentsByAnswerFatherId(
+            id_answer
+        );
+        res.send({
+            comments,
+        });
+    } catch (err) {
+        next(err);
+    }
 }
 
 async function removeComment(req, res, next) {
-  try {
-    const { id, rol } = req.auth;
-    const { id_comment } = req.params;
-    const userId = await userRepository.findUserById(id);
-    if (userId.id_user !== id && rol !== 'admin') {
-      const error = new Error('Acceso denegado');
-      error.code = 401;
-      throw error;
+    try {
+        const { id, rol } = req.auth;
+        const { id_comment } = req.params;
+        const userId = await userRepository.findUserById(id);
+        if (userId.id_user !== id && rol !== 'admin') {
+            const error = new Error('Acceso denegado');
+            error.code = 401;
+            throw error;
+        }
+        await commentsRepository.deleteComment(id_comment);
+        res.status(201);
+        res.send(`El comentario con id ${id_comment} ha sido eliminado.`);
+    } catch (err) {
+        next(err);
     }
-    await commentsRepository.deleteComment(id_comment);
-    res.status(201);
-    res.send(`El comentario con id ${id_comment} ha sido eliminado.`);
-  } catch (err) {
-    next(err);
-  }
 }
 
 module.exports = {
-  createComment,
-  removeComment,
+    createComment,
+    getCommentsByAnswerFatherId,
+    removeComment,
 };

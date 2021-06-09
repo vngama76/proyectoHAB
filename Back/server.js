@@ -109,6 +109,11 @@ app.delete(
     validateAuthorization,
     commentsController.removeComment
 );
+app.get(
+    '/api/comments/:id_answer_father',
+    validateAuthorization,
+    commentsController.getCommentsByAnswerFatherId
+);
 
 // Score;
 app.post(

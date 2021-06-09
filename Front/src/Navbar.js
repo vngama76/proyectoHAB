@@ -36,7 +36,6 @@ function Navbar() {
                     )}
                     {user.info && (
                         <div className="profile-menu">
-                            <div>{user.info.name}</div>
                             <Link to="/">
                                 <div
                                     className="log-button"

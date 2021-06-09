@@ -1,28 +1,29 @@
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
-export default function AddAnswer({ id }) {
+export default function AddComment({ id_answer_father }) {
     const history = useHistory();
     const user = useSelector((u) => u.user);
     const [message, setMessage] = useState('');
-    console.log(id);
     const handleSubmit = (e) => {
         e.preventDefault();
         setMessage('');
 
-        const res = fetch('http://localhost:4000/api/answers/' + id, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + user.token,
-            },
-            body: JSON.stringify({
-                body: message,
-            }),
-        });
+        const res = fetch(
+            'http://localhost:4000/api/comments/' + id_answer_father,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + user.token,
+                },
+                body: JSON.stringify({
+                    body: message,
+                }),
+            }
+        );
 
         if (res.ok === false) {
             alert('hubo un fallo');
@@ -33,7 +34,7 @@ export default function AddAnswer({ id }) {
 
     return (
         <div>
-            <div>Responde a esta pregunta</div>
+            <div>Comenta esta respuesta</div>
             <form className="answer-form" onSubmit={handleSubmit}>
                 <div>
                     <ReactQuill

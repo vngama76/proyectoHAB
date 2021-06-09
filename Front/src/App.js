@@ -1,5 +1,6 @@
 import Navbar from './Navbar';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
 import Home from './Home';
 import Search from './Search';
 import Questions from './Questions';
@@ -43,6 +44,7 @@ function App() {
                     <Route path="/questions/:q" exact>
                         <Questions />
                     </Route>
+                    <Route path="/temp" exact />
                     <Route path="/addQuestion" exact>
                         <AddQuestion />
                     </Route>
