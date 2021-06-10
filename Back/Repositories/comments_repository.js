@@ -8,7 +8,7 @@ async function findAnswerById(id) {
 }
 async function findCommentsByAnswerFatherId(id_answer_father) {
     const query = `SELECT * FROM answers WHERE id_answer_father = ?`;
-    const [comments] = await database.pool(query, [id_answer_father]);
+    const [comments] = await database.pool.query(query, [id_answer_father]);
     return comments;
 }
 

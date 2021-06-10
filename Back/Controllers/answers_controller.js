@@ -8,7 +8,6 @@ async function createAnswer(req, res, next) {
         const { id } = req.auth;
         const { id_question } = req.params;
         const { body } = req.body;
-        console.log(id, id_question, body);
         const schema = Joi.object({
             body: Joi.string().max(1000).required(),
         });
