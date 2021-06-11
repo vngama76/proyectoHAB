@@ -31,6 +31,12 @@ app.get(
     usersController.getUserById
 );
 app.get(
+    '/api/users/question/:id_question',
+    validateAuthorization,
+    usersController.getUserByQuestionId
+);
+
+app.get(
     '/api/users/tags/:tag_name',
     validateAuthorization,
     usersController.getUserByTag

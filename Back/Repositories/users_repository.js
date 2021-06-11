@@ -66,6 +66,13 @@ async function findUserByName(name_user) {
     return user[0];
 }
 
+async function findUserByQuestionId(id_question) {
+    const query =
+        'SELECT * FROM users  INNER JOIN questions ON questions.id_user = users.id_user WHERE id_question = ?';
+    const [user] = await database.pool.query(query, id_question);
+    return user[0];
+}
+
 async function changeUserData(id, name_user, show_mail, descritpion) {
     const query = `UPDATE users SET name_user = ?, show_mail = ?, descritpion = ? WHERE id_user = ${id}`;
     await database.pool.query(query, [name_user, show_mail, descritpion]);
@@ -90,6 +97,7 @@ module.exports = {
     findUserById,
     findUserByTag,
     findUserByName,
+    findUserByQuestionId,
     changeUserData,
     deleteUserByid,
     findUserByValidationCode,

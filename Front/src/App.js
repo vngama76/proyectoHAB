@@ -34,7 +34,9 @@ function App() {
     return (
         <div className="App">
             <ErrorMessage />
+
             <Navbar />
+
             {isLoggedIn && <Article />}
             <main className="main">
                 <Switch>

@@ -32,17 +32,21 @@ export default function AddAnswer({ id }) {
     };
 
     return (
-        <div>
-            <div>Responde a esta pregunta</div>
-            <form className="answer-form" onSubmit={handleSubmit}>
-                <div>
-                    <ReactQuill
-                        value={message}
-                        onChange={setMessage}
-                        required
-                    />
-                </div>
-                <button>Enviar</button>
+        <div className="add-answer">
+            <form className="add-answer-form" onSubmit={handleSubmit}>
+                <ReactQuill
+                    value={message}
+                    placeholder="Responde a esta Pregunta"
+                    onChange={setMessage}
+                    required
+                    className="add-answer-quill"
+                />
+                <button
+                    className="add-answer-button"
+                    style={{
+                        backgroundImage: `url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-share-512.png)`,
+                    }}
+                />
             </form>
         </div>
     );

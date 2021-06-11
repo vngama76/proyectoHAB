@@ -213,6 +213,16 @@ async function getUserById(req, res, next) {
         next(err);
     }
 }
+async function getUserByQuestionId(req, res, next) {
+    try {
+        const { id_question } = req.params;
+
+        const user = await userRepository.findUserByQuestionId(id_question);
+        res.send({ name: user.name_user, foto: user.foto });
+    } catch (err) {
+        next(err);
+    }
+}
 async function getUserByName(req, res, next) {
     try {
         const { name_user } = req.params;
@@ -347,6 +357,7 @@ module.exports = {
     getUserById,
     getUserByName,
     getUserByTag,
+    getUserByQuestionId,
     getTagByUserId,
     updateUser,
     deleteUser,

@@ -8,7 +8,7 @@ async function findAnswerById(id) {
 }
 async function findAnswersByQuestionId(id_question) {
     const query =
-        'SELECT users.name_user, users.id_user, id_answer, creation_date, body, id_answer_father FROM users, answers WHERE answers.id_question = ? AND users.id_user = answers.id_user';
+        'SELECT users.name_user, users.foto, users.id_user, id_answer, creation_date, body, id_answer_father FROM users, answers WHERE answers.id_question = ? AND users.id_user = answers.id_user AND answers.id_answer_father IS NULL';
     const [answers] = await database.pool.query(query, [id_question]);
     return answers;
 }

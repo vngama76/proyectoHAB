@@ -40,10 +40,10 @@ async function createComment(req, res, next) {
 
 async function getCommentsByAnswerFatherId(req, res, next) {
     try {
-        const { id_answer } = req.params;
+        const { id_answer_father } = req.params;
 
         const comments = await commentsRepository.findCommentsByAnswerFatherId(
-            id_answer
+            id_answer_father
         );
         res.send({
             comments,

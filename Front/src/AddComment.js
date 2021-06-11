@@ -1,45 +1,54 @@
 import { useState } from 'react';
-import ReactQuill from 'react-quill';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 export default function AddComment({ id_answer_father }) {
-  const history = useHistory();
-  const user = useSelector((u) => u.user);
-  const [message, setMessage] = useState('');
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setMessage('');
+    const history = useHistory();
+    const user = useSelector((u) => u.user);
+    const [message, setMessage] = useState('');
 
-    const res = fetch(
-      'http://localhost:4000/api/comments/' + id_answer_father,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + user.token,
-        },
-        body: JSON.stringify({
-          body: message,
-        }),
-      }
-    );
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setMessage('');
 
-    if (res.ok === false) {
-      alert('hubo un fallo');
-    }
-    history.push('/temp');
-    history.goBack();
-  };
+        const res = fetch(
+            'http://localhost:4000/api/comments/' + id_answer_father,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + user.token,
+                },
+                body: JSON.stringify({
+                    body: message,
+                }),
+            }
+        );
 
-  return (
-    <div>
-      <form className="answer-form" onSubmit={handleSubmit}>
-        <div>
-          <ReactQuill value={message} onChange={setMessage} required />
+        if (res.ok === false) {
+            alert('hubo un fallo');
+        }
+        history.push('/temp');
+        history.goBack();
+    };
+
+    return (
+        <div className="add-comment">
+            <div>Comenta esta respuesta</div>
+            <form className="add-comment-form" onSubmit={handleSubmit}>
+                <input
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                    className="add-comment-input"
+                />
+
+                <button
+                    className="add-comment-button"
+                    style={{
+                        backgroundImage: `url(https://static.thenounproject.com/png/1054386-200.png)`,
+                    }}
+                />
+            </form>
         </div>
-        <button>Enviar</button>
-      </form>
-    </div>
-  );
+    );
 }
