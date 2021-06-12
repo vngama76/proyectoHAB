@@ -22,9 +22,9 @@ function Profile() {
     const [showModal, setShowModal] = useState(false);
 
     // const isLoggedIn = useSelector((s) => !!s.user);
-
+    console.log(q);
     const res = useFetch(`http://localhost:4000/api/users/${q}`);
-
+    console.log(res);
     const handleClick = (e) => {
         e.preventDefault();
         setShowModal(true);

@@ -50,6 +50,9 @@ function App() {
                     <Route path="/addQuestion" exact>
                         <AddQuestion />
                     </Route>
+                    <Route path="/profile/users/:q" exact>
+                        <UsersProfile />
+                    </Route>
                     <Route path="/profile/:q">
                         <PrivateRoute>
                             <Profile />
