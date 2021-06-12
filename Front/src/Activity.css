@@ -1,0 +1,21 @@
+.activity-box {
+    width: 50rem;
+    display: table-row;
+}
+
+.activity-title {
+    align-self: center;
+    gap: 1rem;
+}
+
+.results-activity-box {
+    display: flex;
+    justify-content: space-between;
+    width: 50rem;
+}
+
+.results-activity-box:hover {
+    background-color: darksalmon;
+    color: black;
+    font-weight: bold;
+}

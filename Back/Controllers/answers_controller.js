@@ -43,7 +43,19 @@ async function getAnswersByQuestionId(req, res, next) {
         next(err);
     }
 }
-
+async function getAnswersByUserId(req, res, next) {
+    try {
+        const { id_user } = req.params;
+        const answer = await answersRepository.findAnswerByUserId(id_user);
+        console.log(answer);
+        if (!answer) {
+            console.log('Usuario no ha respondido a ninguna pregunta');
+        }
+        res.send({ answer });
+    } catch (err) {
+        next(err);
+    }
+}
 async function removeAnswer(req, res, next) {
     try {
         const { rol, id } = req.auth;
@@ -65,6 +77,8 @@ async function removeAnswer(req, res, next) {
 
 module.exports = {
     createAnswer,
+
     getAnswersByQuestionId,
+    getAnswersByUserId,
     removeAnswer,
 };

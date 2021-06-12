@@ -74,7 +74,11 @@ app.get(
     validateAuthorization,
     questionsController.getQuestions
 );
-
+app.get(
+    '/api/questions/user/:id_user',
+    validateAuthorization,
+    questionsController.getQuestionsByUserId
+);
 app.put(
     '/api/questions/:id_question',
     validateAuthorization,
@@ -96,6 +100,12 @@ app.get(
     '/api/answers/:id_question',
     validateAuthorization,
     answersController.getAnswersByQuestionId
+);
+
+app.get(
+    '/api/answers/user/:id_user',
+    validateAuthorization,
+    answersController.getAnswersByUserId
 );
 app.delete(
     '/api/answers/:id_answer',

@@ -56,8 +56,7 @@ async function register(req, res, next) {
         await sendMail({
             to: email,
             subject: 'Confirma tu correo',
-            message: `
-            Gracias por registrarte en GAPP!
+            message: `Gracias por registrarte en GAPP!
             Pulsa el siguiente enlace para activar tu usuario:
             ${process.env.HOSTNAME}/verify/${activationCode}
             `,
