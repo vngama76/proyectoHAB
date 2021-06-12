@@ -16,27 +16,37 @@ function Questions() {
                 <div className="question">
                     {user && (
                         <div className="question-owner">
-                            <h2 className="question-title">
-                                Titulo: {info.title}
-                            </h2>
+                            <h2 className="question-title">{info.title}</h2>
                             <div className="question-userinfo">
-                                <div
-                                    className="question-userfoto"
-                                    style={{
-                                        backgroundImage: `url(http://localhost:4000/uploads/${user.foto})`,
-                                    }}
-                                />
+                                {user.foto ? (
+                                    <div
+                                        className="question-userfoto"
+                                        style={{
+                                            backgroundImage: `url(http://localhost:4000/uploads/${user.foto})`,
+                                        }}
+                                    />
+                                ) : (
+                                    <div
+                                        className="answer-namefoto"
+                                        style={{
+                                            backgroundColor: '#2592B0',
+                                        }}
+                                    >
+                                        {user.foto.slice(0, 1)}
+                                    </div>
+                                )}
                                 <div className="question-username">
                                     {user.name}
                                     <br />
                                     <div className="question-date">
-                                        {info.date.slice(0, 10)}/
+                                        {info.date.slice(0, 10)} at:{' '}
                                         {info.date.slice(11, 19)}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )}
+
                     <div
                         className="question-body"
                         dangerouslySetInnerHTML={{ __html: info.body }}

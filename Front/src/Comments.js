@@ -3,26 +3,47 @@ import useFetch from './useFetch';
 
 export default function Comments({ id_answer_father }) {
     console.log(id_answer_father);
+
     const res = useFetch(
         `http://localhost:4000/api/comments/${id_answer_father}`
     );
+
     console.log(res && res);
     return (
-        <div className="comment">
+        <>
             <AddComment id_answer_father={id_answer_father} />
             {res?.comments &&
                 res.comments.map((a) => (
-                    <div key={a.id_answer}>
-                        <div className="comment-body">{a.body}</div>
-                        <div className="comment-date">
-                            {a.creation_date.slice(0, 10)}
+                    <div key={a.id_answer} className="comment">
+                        <div className="comment-owner">
+                            {a.foto ? (
+                                <div
+                                    className="comment-userfoto"
+                                    style={{
+                                        backgroundImage: `url(http://localhost:4000/uploads/${a.foto})`,
+                                    }}
+                                />
+                            ) : (
+                                <div
+                                    className="comment-namefoto"
+                                    style={{
+                                        backgroundColor: '#2592B0',
+                                    }}
+                                >
+                                    {a.name_user.slice(0, 1)}
+                                </div>
+                            )}
+                            <div className="comment-username">
+                                {a.name_user}
+                                <div className="comment-date">
+                                    {a.creation_date.slice(0, 10)} at:{' '}
+                                    {a.creation_date.slice(11, 19)}
+                                </div>
+                            </div>
                         </div>
-                        <span className="comment-hour">
-                            {a.creation_date.slice(11, 19)}
-                        </span>
-                        <div className="comment-username">{a.name_user}</div>
+                        <div className="comment-body">{a.body}</div>
                     </div>
                 ))}
-        </div>
+        </>
     );
 }

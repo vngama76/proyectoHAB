@@ -9,18 +9,29 @@ export default function Article() {
     if (!user) return <p>Cargando...</p>;
     const foto = user.foto
         ? `http://localhost:4000/uploads/${user.foto}`
-        : 'https://static.vecteezy.com/system/resources/thumbnails/000/379/559/small/Universal__2838_29.jpg';
+        : null;
 
     return (
         <div className="article">
             <>
                 <Link to={'/profile/' + user.id}>
-                    <div
-                        className="avatar"
-                        style={{
-                            backgroundImage: `url(${foto})`,
-                        }}
-                    />
+                    {foto ? (
+                        <div
+                            className="avatar"
+                            style={{
+                                backgroundImage: `url(${foto})`,
+                            }}
+                        />
+                    ) : (
+                        <div
+                            className="namefoto"
+                            style={{
+                                backgroundColor: '#2592B0',
+                            }}
+                        >
+                            {user.name.slice(0, 1)}
+                        </div>
+                    )}
                 </Link>
 
                 <p className="username">{user.name}</p>

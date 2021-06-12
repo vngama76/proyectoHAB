@@ -36,7 +36,7 @@ export default function AddAnswer({ id }) {
             <form className="add-answer-form" onSubmit={handleSubmit}>
                 <ReactQuill
                     value={message}
-                    placeholder="Responde a esta Pregunta"
+                    placeholder="Escribe una Respuesta..."
                     onChange={setMessage}
                     required
                     className="add-answer-quill"

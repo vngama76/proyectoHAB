@@ -61,6 +61,7 @@ function App() {
                     <Route path="/profile/users/:q" exact>
                         <UsersProfile />
                     </Route>
+
                     <Route path="/">
                         <Home />
                     </Route>

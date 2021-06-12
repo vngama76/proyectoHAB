@@ -13,4 +13,12 @@ async function refreshUser(email, password, dispatch) {
         alert(error);
     }
 }
-export default refreshUser;
+
+function random_bg_color() {
+    var x = Math.floor(Math.random() * 90);
+    var y = Math.floor(Math.random() * 90);
+    var z = Math.floor(Math.random() * 90);
+    return 'rgb(' + x + ',' + y + ',' + z + ')';
+}
+
+module.exports = { refreshUser, random_bg_color };

@@ -34,18 +34,18 @@ export default function AddComment({ id_answer_father }) {
 
     return (
         <div className="add-comment">
-            <div>Comenta esta respuesta</div>
             <form className="add-comment-form" onSubmit={handleSubmit}>
                 <input
                     onChange={(e) => setMessage(e.target.value)}
                     required
                     className="add-comment-input"
+                    placeholder="Escribe un Comentario..."
                 />
 
                 <button
                     className="add-comment-button"
                     style={{
-                        backgroundImage: `url(https://static.thenounproject.com/png/1054386-200.png)`,
+                        backgroundImage: `url(https://www.vhv.rs/dpng/d/184-1848924_send-message-send-message-icon-svg-hd-png.png)`,
                     }}
                 />
             </form>

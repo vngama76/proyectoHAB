@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    width: 70%;
+
+    padding: 1rem;
 }
 
 .question-title {
@@ -14,6 +17,7 @@
     flex-direction: row;
     align-items: center;
     padding-left: 1rem;
+    padding-top: 1rem;
 }
 .question-userfoto {
     width: 3rem;
@@ -36,14 +40,10 @@
 .question-body {
     font-size: 2rem;
     word-wrap: break-word;
-    background-color: lightgray;
-    width: 60rem;
-    min-height: 10rem;
-    max-height: 10rem;
-    box-shadow: 1px 1px 1px white;
-    border-radius: 4px;
-    color: black;
-    padding: 1rem;
+    border-radius: 10px;
+    color: white;
+    padding-left: 1rem;
+    margin-left: 1rem;
 }
 
 /*----------------AddAnswer---------------*/
@@ -54,7 +54,7 @@
     min-height: 10rem;
     padding-left: 1rem;
     width: 40rem;
-    margin-left: 20rem;
+    margin-left: 21rem;
 }
 
 .add-answer-form {
@@ -63,24 +63,19 @@
     align-items: flex-start;
 }
 .add-answer-quill {
-    background-color: white;
+    background-color: rgb(212, 212, 212);
     border-radius: 4px;
     min-width: 10rem;
     width: 39rem;
-
     min-height: 15rem;
     color: black;
     margin-bottom: 0.5rem;
 }
-.ql-toolbar {
-    border-radius: 4px;
-}
-.ql-container {
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
+.ql-container.ql-snow {
+    border: none;
+    font-size: 1.3rem;
 }
 .ql-editor {
-    background-color: lightgray;
     margin-top: 1rem;
 }
 .add-answer-button {
@@ -98,25 +93,26 @@
     flex-direction: column;
     gap: 1rem;
     padding: 2rem;
+    border-top: 1px solid white;
 }
 .answer-body {
     word-wrap: break-word;
-    min-width: 10rem;
-    max-width: 30rem;
-    min-height: 2rem;
-    max-height: 10rem;
-    box-shadow: 1px 1px 1px white;
+    font-size: 1.3rem;
     border-radius: 4px;
     color: white;
+    padding: 1rem;
+    padding-left: 2rem;
+    margin-top: 0.5rem;
 }
 .answer-owner {
     display: flex;
     align-items: center;
     gap: 0.3rem;
+    padding-left: 2rem;
 }
 .answer-userfoto {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     background-size: cover;
     background-position: center;
@@ -124,7 +120,7 @@
 }
 .answer-username {
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 .answer-namefoto {
     display: inline-block;
@@ -142,18 +138,23 @@
 
 .add-comment {
     padding: 0.5rem;
+    margin-left: 1rem;
+    margin-bottom: 3rem;
 }
 .add-comment-form {
-    margin-top: 0.2rem;
     display: flex;
     align-items: center;
 }
 .add-comment-input {
     height: 2.3rem;
-    width: 20rem;
+    width: 30rem;
+    background-color: rgb(212, 212, 212);
     outline: 2px solid transparent;
     outline-offset: 2px;
     border-radius: 4px;
+    color: black;
+    padding-left: 0.5rem;
+    margin-left: 25rem;
 }
 .add-comment-button {
     width: 2.2rem;
@@ -161,6 +162,52 @@
     border-radius: 20%;
     background-size: cover;
     background-position: center;
+    background-color: transparent;
 }
 
 /*----------------Comment---------------*/
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 30%;
+    border-top: 1px solid white;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+.comment-body {
+    margin-top: 0.5rem;
+    word-wrap: break-word;
+    min-height: 2.5rem;
+    padding-left: 2rem;
+}
+.comment-owner {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding-left: 2rem;
+}
+.comment-userfoto {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+.comment-username {
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+.comment-namefoto {
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.comment-date {
+    font-weight: normal;
+    font-size: 0.8rem;
+    color: rgb(172, 172, 172);
+}

@@ -20,7 +20,7 @@ function UpdateUser({ closeModal }) {
 
     const foto = user.info.foto
         ? `http://localhost:4000/uploads/${user.info.foto}`
-        : 'https://static.vecteezy.com/system/resources/thumbnails/000/379/559/small/Universal__2838_29.jpg';
+        : null;
 
     const [preview, setPreview] = useState(foto);
 
@@ -99,13 +99,22 @@ function UpdateUser({ closeModal }) {
                     <form className="update-user" onSubmit={handleSubmit}>
                         <h1>Actualiza tus datos</h1>
                         <label>
-                            {preview && (
+                            {preview ? (
                                 <div
                                     className="preview"
                                     style={{
                                         backgroundImage: `url(${preview})`,
                                     }}
                                 />
+                            ) : (
+                                <div
+                                    className="namefoto"
+                                    style={{
+                                        backgroundColor: '#2592B0',
+                                    }}
+                                >
+                                    {username.slice(0, 1)}
+                                </div>
                             )}
 
                             <input type="file" onChange={handleFile} />

@@ -41,6 +41,16 @@
     align-self: center;
     margin-bottom: 1rem;
 }
+.namefoto {
+    display: inline-block;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    align-self: center;
+    margin-bottom: 1rem;
+}
 .change-avatar input[type='file'] {
     display: none;
 }
