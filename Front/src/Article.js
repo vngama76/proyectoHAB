@@ -10,7 +10,7 @@ export default function Article() {
     const foto = user.foto
         ? `http://localhost:4000/uploads/${user.foto}`
         : null;
-
+    console.log(user?.color);
     return (
         <div className="article">
             <>
@@ -26,7 +26,7 @@ export default function Article() {
                         <div
                             className="namefoto"
                             style={{
-                                backgroundColor: '#2592B0',
+                                backgroundColor: user.color,
                             }}
                         >
                             {user.name.slice(0, 1)}

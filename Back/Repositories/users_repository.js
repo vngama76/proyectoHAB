@@ -16,10 +16,11 @@ async function verifyUser(id_user) {
 
 async function createUser(data) {
     const query =
-        'INSERT INTO users (name_user, email, password_user, verify_code) VALUES (?, ?, ?, ?)';
+        'INSERT INTO users (name_user, email, color, password_user, verify_code) VALUES (?, ?, ?, ?, ?)';
     await database.pool.query(query, [
         data.name_user,
         data.email,
+        data.color,
         data.password_user,
         data.activationCode,
     ]);

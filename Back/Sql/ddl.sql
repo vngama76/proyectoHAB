@@ -20,6 +20,7 @@ CREATE TABLE users (
     password_user VARCHAR(255) NOT NULL,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, 
     foto VARCHAR(100),
+    color VARCHAR(20),
     show_mail BOOLEAN DEFAULT 0,
     isVerify BOOLEAN DEFAULT 0,
     verify_code VARCHAR(20),
@@ -28,12 +29,12 @@ CREATE TABLE users (
     rol VARCHAR(10) DEFAULT "user"
     );
    
-   INSERT INTO users (name_user, email, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'The Boss', 'admin');
+   INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', 'rgb(22,88,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'The Boss', 'admin');
 
    CREATE TABLE questions (
 	id_question INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(250) NOT NULL,
-    body VARCHAR(1000) NOT NULL,
+    body VARCHAR(2500) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,    
     id_user INT NOT NULL,
     status_enum ENUM('NO TIENE RESPUESTAS', 'TIENE RESPUESTAS', 'PREGUNTA CERRADA') NOT NULL,    
@@ -45,7 +46,7 @@ CREATE TABLE users (
     
 	CREATE TABLE answers (
 	id_answer INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    body VARCHAR(1000) NOT NULL,
+    body VARCHAR(1500) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,  
     id_question INT NOT NULL,
     id_user INT NOT NULL,

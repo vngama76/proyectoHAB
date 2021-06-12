@@ -9,7 +9,7 @@ async function createAnswer(req, res, next) {
         const { id_question } = req.params;
         const { body } = req.body;
         const schema = Joi.object({
-            body: Joi.string().max(1000).required(),
+            body: Joi.string().max(1500).required(),
         });
         await schema.validateAsync({ body });
 

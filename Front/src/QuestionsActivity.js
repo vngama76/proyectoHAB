@@ -5,12 +5,10 @@ import './Activity.css';
 
 function QuestionsActivity() {
     const user = useSelector((s) => s.user);
-    console.log(user);
     const results = useFetch(
         `http://localhost:4000/api/questions/user/${user.info.id}`
     );
 
-    console.log(results);
     return (
         <div className="activity-box">
             <div className="activity-title">

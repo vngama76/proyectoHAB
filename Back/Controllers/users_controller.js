@@ -1,7 +1,12 @@
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { sendMail, saveAvatar, deleteAvatar } = require('../helpers');
+const {
+    sendMail,
+    saveAvatar,
+    deleteAvatar,
+    random_bg_color,
+} = require('../helpers');
 
 const { nanoid } = require('nanoid');
 
@@ -45,10 +50,13 @@ async function register(req, res, next) {
 
         const passwordHash = await bcrypt.hash(password_user, 10);
         const activationCode = nanoid(20);
+        const color = random_bg_color().toString();
+        console.log(color);
 
         const createdUser = await userRepository.createUser({
             name_user,
             email,
+            color,
             password_user: passwordHash,
             activationCode,
         });
@@ -171,6 +179,7 @@ async function login(req, res, next) {
             name: user.name_user,
             rol: user.rol,
             foto: user.foto,
+            color: user.color,
             email: user.email,
             show_mail: user.show_mail,
             description: user.descritpion,
@@ -217,7 +226,7 @@ async function getUserByQuestionId(req, res, next) {
         const { id_question } = req.params;
 
         const user = await userRepository.findUserByQuestionId(id_question);
-        res.send({ name: user.name_user, foto: user.foto });
+        res.send({ name: user.name_user, foto: user.foto, color: user.color });
     } catch (err) {
         next(err);
     }

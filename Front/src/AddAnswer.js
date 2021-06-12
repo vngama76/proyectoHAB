@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 export default function AddAnswer({ id }) {
     const history = useHistory();
     const user = useSelector((u) => u.user);
     const [message, setMessage] = useState('');
-    console.log(id);
-    const handleSubmit = (e) => {
+    const [toggle, setToggle] = useState(false);
+    const dispatch = useDispatch();
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
 
-        const res = fetch('http://localhost:4000/api/answers/' + id, {
+        const res = await fetch('http://localhost:4000/api/answers/' + id, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,30 +25,43 @@ export default function AddAnswer({ id }) {
             }),
         });
 
-        if (res.ok === false) {
-            alert('hubo un fallo');
+        if (res.ok) {
+            setToggle(false);
+            history.push('/temp');
+            history.goBack();
+        } else {
+            dispatch({
+                type: 'NEW_ERROR',
+                error: 'Error al enviar respuesta',
+            });
         }
-        history.push('/temp');
-        history.goBack();
     };
 
     return (
-        <div className="add-answer">
-            <form className="add-answer-form" onSubmit={handleSubmit}>
-                <ReactQuill
-                    value={message}
-                    placeholder="Escribe una Respuesta..."
-                    onChange={setMessage}
-                    required
-                    className="add-answer-quill"
-                />
-                <button
-                    className="add-answer-button"
-                    style={{
-                        backgroundImage: `url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-share-512.png)`,
-                    }}
-                />
-            </form>
-        </div>
+        <>
+            {!toggle && (
+                <div
+                    className="add-answer-form-off"
+                    onClick={() => setToggle(true)}
+                >
+                    Escribe una Respuesta...
+                </div>
+            )}
+
+            {toggle && (
+                <div className="add-answer">
+                    <form className="add-answer-form" onSubmit={handleSubmit}>
+                        <ReactQuill
+                            value={message}
+                            placeholder="Escribe una Respuesta..."
+                            onChange={setMessage}
+                            required
+                            className="add-answer-quill"
+                        />
+                        <button className="add-answer-button">Enviar</button>
+                    </form>
+                </div>
+            )}
+        </>
     );
 }

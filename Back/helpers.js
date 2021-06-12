@@ -54,9 +54,16 @@ async function saveAvatar({ file }) {
         throw new Error('Error subiendo imagen');
     }
 }
+function random_bg_color() {
+    var x = Math.floor(Math.random() * 90);
+    var y = Math.floor(Math.random() * 90);
+    var z = Math.floor(Math.random() * 90);
+    return 'rgb(' + x + ',' + y + ',' + z + ')';
+}
 
 module.exports = {
     sendMail,
     saveAvatar,
     deleteAvatar,
+    random_bg_color,
 };

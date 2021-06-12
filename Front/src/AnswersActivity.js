@@ -5,12 +5,10 @@ import './Activity.css';
 
 function AnswersActivity() {
     const user = useSelector((s) => s.user);
-    console.log(user);
     const results = useFetch(
         `http://localhost:4000/api/answers/user/${user.info.id}`
     );
 
-    console.log(results);
     return (
         <div className="activity-box">
             <h5 className="activity-title">Preguntas que has contestado</h5>

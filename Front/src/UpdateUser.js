@@ -110,7 +110,7 @@ function UpdateUser({ closeModal }) {
                                 <div
                                     className="namefoto"
                                     style={{
-                                        backgroundColor: '#2592B0',
+                                        backgroundColor: user.info.color,
                                     }}
                                 >
                                     {username.slice(0, 1)}

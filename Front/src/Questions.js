@@ -9,7 +9,6 @@ function Questions() {
     const { q } = useParams();
     const user = useFetch('http://localhost:4000/api/users/question/' + q);
     const info = useFetch('http://localhost:4000/api/questions/' + q);
-
     return (
         <>
             {info && (
@@ -27,12 +26,12 @@ function Questions() {
                                     />
                                 ) : (
                                     <div
-                                        className="answer-namefoto"
+                                        className="question-namefoto"
                                         style={{
-                                            backgroundColor: '#2592B0',
+                                            backgroundColor: user.color,
                                         }}
                                     >
-                                        {user.foto.slice(0, 1)}
+                                        {user.name.slice(0, 1)}
                                     </div>
                                 )}
                                 <div className="question-username">

@@ -22,6 +22,7 @@ function Login({ setSignup, closeModal }) {
 
         if (res.ok) {
             const data = await res.json();
+            console.log(data);
             dispatch({ type: 'LOGIN', token: data.token });
             dispatch({ type: 'INFO', info: data });
             closeModal();

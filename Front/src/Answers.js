@@ -3,7 +3,7 @@ import useFetch from './useFetch';
 
 export default function Answers({ id_question }) {
     const res = useFetch(`http://localhost:4000/api/answers/${id_question}`);
-
+    console.log(res);
     return (
         <div>
             {res?.answers &&
@@ -22,10 +22,10 @@ export default function Answers({ id_question }) {
                                     <div
                                         className="answer-namefoto"
                                         style={{
-                                            backgroundColor: '#2592B0',
+                                            backgroundColor: a.color,
                                         }}
                                     >
-                                        {a.foto.slice(0, 1)}
+                                        {a.name_user.slice(0, 1)}
                                     </div>
                                 )}
 

@@ -15,7 +15,7 @@ async function createQuestion(req, res, next) {
 
         const schema = Joi.object({
             title: Joi.string().max(50).required(),
-            body: Joi.string().max(1000).required(),
+            body: Joi.string().max(2500).required(),
             tags: Joi.array(),
         });
 

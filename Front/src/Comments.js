@@ -27,7 +27,7 @@ export default function Comments({ id_answer_father }) {
                                 <div
                                     className="comment-namefoto"
                                     style={{
-                                        backgroundColor: '#2592B0',
+                                        backgroundColor: a.color,
                                     }}
                                 >
                                     {a.name_user.slice(0, 1)}

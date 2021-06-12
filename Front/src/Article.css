@@ -9,6 +9,7 @@
 }
 .namefoto {
     display: flex;
+    text-transform: capitalize;
     justify-content: center;
     align-items: center;
     width: 11rem;
@@ -20,6 +21,7 @@
     margin-bottom: 1rem;
     font-weight: bold;
     font-size: 3.5rem;
+    color: white;
 }
 .article .username {
     text-align: center;
