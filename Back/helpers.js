@@ -55,9 +55,9 @@ async function saveAvatar({ file }) {
     }
 }
 function random_bg_color() {
-    var x = Math.floor(Math.random() * 90);
-    var y = Math.floor(Math.random() * 90);
-    var z = Math.floor(Math.random() * 90);
+    var x = Math.floor(Math.random() * 180);
+    var y = Math.floor(Math.random() * 180);
+    var z = Math.floor(Math.random() * 180);
     return 'rgb(' + x + ',' + y + ',' + z + ')';
 }
 

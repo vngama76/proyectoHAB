@@ -6,7 +6,7 @@ const {
     tagsRepository,
 } = require('../Repositories/index');
 
-const { findUserById } = require('../Repositories/users_repository');
+const { findUserByQuestionId } = require('../Repositories/users_repository');
 
 async function createQuestion(req, res, next) {
     try {
@@ -72,11 +72,15 @@ async function getQuestionById(req, res, next) {
         const user = await userRepository.findUserById(question.id_user);
 
         res.send({
+            id_question: question.id_question,
             title: question.title,
             body: question.body,
             date: question.creation_date,
             tags: question.tags,
             user: user.name_user,
+            id_user: question.id_user,
+            status: question.status_enum,
+            id_answer_acepted: question.id_answer_acepted,
         });
     } catch (err) {
         next(err);
@@ -139,9 +143,12 @@ async function acceptAnswer(req, res, next) {
         const { rol, id } = req.auth;
         const { id_question } = req.params;
         const { id_answer } = req.body;
-        const userId = await findUserById(id);
+        const userId = await findUserByQuestionId(id_question);
+
         if (userId.id_user !== id && rol !== 'admin') {
-            const error = new Error('Acceso denegado');
+            const error = new Error(
+                'Acceso denegado, debes ser el titular de la pregunta para poder aceptar respuestas'
+            );
             error.code = 401;
             throw error;
         }
@@ -153,7 +160,26 @@ async function acceptAnswer(req, res, next) {
         next(err);
     }
 }
+async function closeQuestionByAdmin(req, res, next) {
+    try {
+        const { rol, id } = req.auth;
+        const { id_question } = req.params;
+        const userId = await findUserByQuestionId(id_question);
+        if (userId.id_user !== id && rol !== 'admin') {
+            const error = new Error(
+                'Acceso denegado, debes ser el titular de la pregunta para poder aceptar respuestas'
+            );
+            error.code = 401;
+            throw error;
+        }
+        await questionsRepository.chiudiQuestionByAdmin(id_question);
 
+        res.status(201);
+        res.send({ message: 'Pregunta cerrada' });
+    } catch (err) {
+        next(err);
+    }
+}
 async function removeQuestion(req, res, next) {
     try {
         const { id_question } = req.params;
@@ -181,6 +207,7 @@ module.exports = {
     getQuestionById,
     getQuestionsByUserId,
     acceptAnswer,
+    closeQuestionByAdmin,
     removeQuestion,
     getQuestions,
 };

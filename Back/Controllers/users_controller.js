@@ -245,11 +245,9 @@ async function getUserByName(req, res, next) {
             throw error;
         }
 
-        res.send([
-            {
-                user,
-            },
-        ]);
+        res.send({
+            user,
+        });
     } catch (err) {
         next(err);
     }

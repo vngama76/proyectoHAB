@@ -30,7 +30,6 @@ const PrivateRoute = ({ children }) => {
 
 function App() {
     const isLoggedIn = useSelector((s) => !!s.user.token);
-    console.log(isLoggedIn);
     return (
         <div className="App">
             <ErrorMessage />

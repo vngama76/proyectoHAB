@@ -84,6 +84,12 @@ app.put(
     validateAuthorization,
     questionsController.acceptAnswer
 );
+app.put(
+    '/api/admin/questions/:id_question',
+    validateAuthorization,
+    questionsController.closeQuestionByAdmin
+);
+
 app.delete(
     '/api/questions/:id_question',
     validateAuthorization,
@@ -148,6 +154,27 @@ app.post(
     '/api/score/comment/:id_answer',
     validateAuthorization,
     scoresController.voteComment
+);
+
+app.get(
+    '/api/getscore/question/:id_question',
+    validateAuthorization,
+    scoresController.getAmmountOfQuestionVotesByUserId
+);
+
+app.get(
+    '/api/getscore/answer/:id_answer',
+    validateAuthorization,
+    scoresController.getAmmountOfAnswerVotesByUserId
+);
+app.get(
+    '/api/getTotalScore/question/:id_question',
+    scoresController.getTotalQuestionVotes
+);
+
+app.get(
+    '/api/getTotalScore/answer/:id_answer',
+    scoresController.getTotalAnswerVotes
 );
 
 app.use((err, req, res, next) => {

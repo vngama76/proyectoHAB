@@ -114,6 +114,11 @@ async function deleteQuestionById(id) {
 
     return;
 }
+async function chiudiQuestionByAdmin(id_question) {
+    const query = `UPDATE questions SET status_enum = ? WHERE id_question = ${id_question}`;
+    await database.pool.query(query, 'PREGUNTA CERRADA');
+    return;
+}
 
 module.exports = {
     findQuestionById,
@@ -125,4 +130,5 @@ module.exports = {
     addTagToQuestion,
     findQuestionsByTag,
     findQuestionByTitle,
+    chiudiQuestionByAdmin,
 };

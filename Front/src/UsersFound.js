@@ -18,7 +18,7 @@ export default function UsersFound() {
                 {results?.error ? (
                     <i>No results found!</i>
                 ) : (
-                    results?.map((u) => <UserCard u={u} />)
+                    results?.user.map((u) => <UserCard u={u} />)
                 )}
             </div>
         </>

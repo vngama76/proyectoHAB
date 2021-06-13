@@ -26,15 +26,6 @@ const errorReducer = (state = null, action) => {
     }
 };
 
-// const historyReducer = (state = [], action) => {
-//   switch (action.type) {
-//     case 'SEARCH':
-//       return [action.search, ...state].slice(0, 5)
-//     default:
-//       return state
-//   }
-// }
-
 const localStorageMiddleware = (store) => (next) => (action) => {
     let result = next(action);
     localStorage.setItem('session', JSON.stringify(store.getState()));

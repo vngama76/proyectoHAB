@@ -54,9 +54,9 @@ function Profile() {
                     <div className="userinfo">
                         {' '}
                         Mas sobre ti:{' '}
-                        <textarea className="userinfotext" readonly="readonly">
+                        <div className="userinfotext" readOnly="readonly">
                             {res[0].description}
-                        </textarea>
+                        </div>
                     </div>
 
                     <h3 onClick={handleClick}> ✏ </h3>

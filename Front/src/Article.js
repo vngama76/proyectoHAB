@@ -10,7 +10,6 @@ export default function Article() {
     const foto = user.foto
         ? `http://localhost:4000/uploads/${user.foto}`
         : null;
-    console.log(user?.color);
     return (
         <div className="article">
             <>

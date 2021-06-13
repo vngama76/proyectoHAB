@@ -1,17 +1,25 @@
 import AddComment from './AddComment';
 import useFetch from './useFetch';
+import VoteThis from './VoteThis';
 
-export default function Comments({ id_answer_father }) {
-    console.log(id_answer_father);
-
+export default function Comments({ id_answer_father, id_target_user }) {
     const res = useFetch(
         `http://localhost:4000/api/comments/${id_answer_father}`
     );
 
-    console.log(res && res);
     return (
         <>
-            <AddComment id_answer_father={id_answer_father} />
+            <div className="vote-addanswer">
+                <VoteThis //Aqui votaremos a la respuesta
+                    url_post={'http://localhost:4000/api/score/answer/'}
+                    url_user={'http://localhost:4000/api/getscore/answer/'}
+                    url_get={'http://localhost:4000/api/getTotalScore/answer/'}
+                    id_a_votar={id_answer_father}
+                    clase={'answer'}
+                    id_target_user={id_target_user} //para comprobar si es el creador de la respuesta que va a votar
+                />
+                <AddComment id_answer_father={id_answer_father} />
+            </div>
             {res?.comments &&
                 res.comments.map((a) => (
                     <div key={a.id_answer} className="comment">
@@ -42,6 +50,19 @@ export default function Comments({ id_answer_father }) {
                             </div>
                         </div>
                         <div className="comment-body">{a.body}</div>
+
+                        <VoteThis //Aqui votaremos al comentario
+                            url_post={'http://localhost:4000/api/score/answer/'}
+                            url_user={
+                                'http://localhost:4000/api/getscore/answer/'
+                            }
+                            url_get={
+                                'http://localhost:4000/api/getTotalScore/answer/'
+                            }
+                            id_a_votar={a.id_answer}
+                            clase={'comment'}
+                            id_target_user={a.id_user}
+                        />
                     </div>
                 ))}
         </>

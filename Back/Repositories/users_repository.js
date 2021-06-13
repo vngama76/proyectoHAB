@@ -64,7 +64,7 @@ async function findUserByTag(tag_name) {
 async function findUserByName(name_user) {
     const query = 'SELECT * FROM users WHERE name_user LIKE ?';
     const [user] = await database.pool.query(query, `%${name_user}%`);
-    return user[0];
+    return user;
 }
 
 async function findUserByQuestionId(id_question) {
