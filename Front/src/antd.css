@@ -3353,3 +3353,88 @@ html {
         opacity: 0;
     }
 }
+
+.add-question-page {
+    display: grid;
+    grid-template-columns: 60% auto;
+
+    grid-template-areas: 'quill tips';
+    padding: 2rem;
+}
+.form-quill {
+    grid-area: quill;
+    background-color: rgb(223, 223, 223);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 2rem;
+    padding-top: 0.5rem;
+    color: black;
+    border-radius: 4px;
+}
+.form-p-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
+}
+.add-question-p {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+}
+.add-question-input {
+    border: none;
+    width: 70%;
+    font-size: 15px;
+    padding: 0.5rem;
+    border-radius: 2px;
+}
+
+.ql-container.ql-snow {
+    border: none;
+    font-size: 1.3rem;
+}
+.ql-editor {
+    margin-top: 1rem;
+}
+.tags-input {
+    font-size: 20px;
+    border: 1px solid black;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.quill-button {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    color: #000000;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #000000;
+    align-self: flex-end;
+}
+.quill-button:hover {
+    color: #ffffff;
+    background-color: #000000;
+}
+.react-quill-div {
+    background-color: white;
+    border: 1px solid black;
+}
+.tips {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.tips-einstein {
+    grid-area: tips;
+    color: red;
+    font-weight: 600;
+    text-align: center;
+    font-size: 24px;
+}
+.tips-consejos {
+}

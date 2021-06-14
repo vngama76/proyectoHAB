@@ -122,6 +122,7 @@ function Questions() {
 
                     <Answers
                         id_question={q}
+                        id_question_user={info.id_user}
                         question_status={info.status}
                         id_answer_acepted={info.id_answer_acepted}
                     />

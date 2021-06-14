@@ -7,12 +7,14 @@ export default function Answers({
     id_question,
     question_status,
     id_answer_acepted,
+    id_question_user,
 }) {
     const res = useFetch(`http://localhost:4000/api/answers/${id_question}`);
     const token = useSelector((s) => s.user?.token);
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const id_user = useSelector((s) => s.user?.info.id);
+    console.log(id_user);
     async function HandleAcceptAnswerClick(e, id_answer) {
         //Para aceptar una respuesta
         e.preventDefault();
@@ -75,20 +77,21 @@ export default function Answers({
                                 </div>
                             </div>
                             <div>
-                                {question_status !== 'PREGUNTA CERRADA' && ( //Si la pregunta no está cerrada aceptamos la opcion de cerrarla
-                                    <button
-                                        title="Cierra la pregunta a futuras respuestas"
-                                        className="accept-answer-checkbox"
-                                        onClick={(e) =>
-                                            HandleAcceptAnswerClick(
-                                                e,
-                                                a.id_answer
-                                            )
-                                        }
-                                    >
-                                        Aceptar Respuesta
-                                    </button>
-                                )}
+                                {question_status !== 'PREGUNTA CERRADA' &&
+                                    id_question_user === id_user && ( //Si la pregunta no está cerrada y el usuario loggeado es el autor de la pregunta, mostramos el boton para aceptar respuesta
+                                        <button
+                                            title="Cierra la pregunta a futuras respuestas"
+                                            className="accept-answer-checkbox"
+                                            onClick={(e) =>
+                                                HandleAcceptAnswerClick(
+                                                    e,
+                                                    a.id_answer
+                                                )
+                                            }
+                                        >
+                                            Aceptar Respuesta
+                                        </button>
+                                    )}
                                 {id_answer_acepted === a.id_answer && ( //Si la respuesta es la elegida como aceptada mostramos el mensaje
                                     <div className="accepted-question-message">
                                         ✓ Esta Respuesta ha sido elegida como

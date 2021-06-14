@@ -1,3 +1,5 @@
+/*----------------Question---------------*/
+
 .question {
     display: flex;
     flex-direction: column;
@@ -141,7 +143,6 @@
     border-radius: 4px;
     min-width: 10rem;
     width: 44rem;
-    min-height: 15rem;
     color: black;
 }
 .ql-container.ql-snow {
@@ -161,7 +162,7 @@
     border: 2px solid #000000;
     height: 2.38rem;
     width: 6rem;
-    margin-top: 3.7rem;
+    margin-top: 5rem;
     align-self: flex-end;
 }
 
@@ -412,8 +413,9 @@
     height: 3rem;
     width: 6rem;
     border-radius: 4px;
-    font-weight: bold;
+    font-weight: bolder;
     text-align: center;
+    font-size: 15px;
 }
 
 .is-admin {
