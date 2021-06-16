@@ -38,15 +38,14 @@ function Profile() {
                     </Helmet>
                     <div className="box">
                         <div className="tabs">
-                            <p>Info de Usuario</p>
+                            <div className="box-tabs-title">
+                                Info de Usuario
+                            </div>
                             Nombre: {res[0].name} <br />
-                            Email: {res[0].email} <br />
-                            Mail visible:{' '}
-                            {res[0].show_mail ? (
-                                <span>Si</span>
-                            ) : (
-                                <span>No</span>
-                            )}
+                            Email:{' '}
+                            {res[0].show_mail
+                                ? res[0].email
+                                : ' el usuario prefiere no mostrar su email'}{' '}
                             <br />
                             Rol: {res[0].rol}
                         </div>
@@ -59,7 +58,15 @@ function Profile() {
                         </div>
                     </div>
 
-                    <h3 onClick={handleClick}> ✏ </h3>
+                    <div
+                        onClick={handleClick}
+                        className="pencil"
+                        title="modifica tus datos"
+                        style={{
+                            backgroundImage: `url(https://www.vhv.rs/dpng/d/91-912742_paper-and-pencil-circle-icon-hd-png-download.png)`,
+                        }}
+                    />
+
                     {showModal && (
                         <UpdateUser
                             closeModal={() => {

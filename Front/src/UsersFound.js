@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useFetch from './useFetch';
-import UserCard from './UserCard';
 import './UsersFound.css';
 
 export default function UsersFound() {
@@ -9,7 +8,7 @@ export default function UsersFound() {
     const results = useFetch('http://localhost:4000/api/users/name/' + q);
     return (
         <>
-            <h3>Usuarios Encontrados:</h3>
+            <h3 className="users-h3">Usuarios Encontrados:</h3>
             <Helmet>
                 <title>GAPP - Users</title>
             </Helmet>
@@ -18,7 +17,35 @@ export default function UsersFound() {
                 {results?.error ? (
                     <i>No results found!</i>
                 ) : (
-                    results?.user.map((u) => <UserCard u={u} />)
+                    results?.user.map((u) => (
+                        <Link to={'/profile/users/' + u.id_user}>
+                            {u.foto ? (
+                                <div className="user-data" key={u.id_user}>
+                                    <h5>{u.name_user}</h5>
+                                    <div
+                                        className="user-foto"
+                                        style={{
+                                            backgroundImage: `url(http://localhost:4000/uploads/${u.foto})`,
+                                        }}
+                                    />
+                                    <div>{u.descritpion}</div>
+                                </div>
+                            ) : (
+                                <div className="user-data" key={u.id_user}>
+                                    <h5>{u.name_user}</h5>
+                                    <div
+                                        className="user-name-foto"
+                                        style={{
+                                            backgroundColor: u.color,
+                                        }}
+                                    >
+                                        {u.name_user.slice(0, 1)}
+                                    </div>
+                                    <div>{u.descritpion}</div>
+                                </div>
+                            )}
+                        </Link>
+                    ))
                 )}
             </div>
         </>

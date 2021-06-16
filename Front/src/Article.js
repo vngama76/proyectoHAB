@@ -35,6 +35,15 @@ export default function Article() {
 
                 <p className="username">{user.name}</p>
 
+                <div className="article-rol">
+                    {' '}
+                    {user.rol === 'admin'
+                        ? 'Admin'
+                        : user.rol === 'expert'
+                        ? 'Experto'
+                        : 'User'}
+                </div>
+
                 <FindUsers />
             </>
         </div>

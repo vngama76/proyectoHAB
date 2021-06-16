@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 export default function VoteThis({
     url_post,
@@ -11,10 +10,8 @@ export default function VoteThis({
     id_target_user,
 }) {
     const [votesByUser, setVotesByUser] = useState(0);
-    const [totalVotes, setTotalVotes] = useState('0');
+    const [totalVotes, setTotalVotes] = useState(0);
     const user = useSelector((u) => u.user);
-    const history = useHistory();
-    // const dispatch = useDispatch();
     fetch(url_user + id_a_votar, {
         headers: {
             Authorization: 'Bearer ' + user.token,
@@ -29,7 +26,7 @@ export default function VoteThis({
         },
     })
         .then((res) => res.json())
-        .then((data) => setTotalVotes(data.votos.toString()));
+        .then((data) => setTotalVotes(data.votos));
 
     async function HandleClick(e) {
         e.preventDefault();
@@ -41,8 +38,8 @@ export default function VoteThis({
         });
 
         if (res.ok) {
-            history.push('/tab');
-            history.goBack();
+            console.log('aumentamos votes');
+            setTotalVotes(totalVotes + 1);
         }
     }
 
@@ -67,10 +64,10 @@ export default function VoteThis({
                                 : 'like-button-comment'
                         }
                         style={{
-                            backgroundImage: `url(https://static.thenounproject.com/png/11666-200.png)`,
+                            backgroundImage: `url(http://localhost:4000/uploads/star.png)`,
                         }}
                         onClick={(e) => HandleClick(e)}
-                        title="Vota esta Pregunta"
+                        title="Vota!"
                     />
                 )}
 

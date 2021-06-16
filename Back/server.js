@@ -52,6 +52,13 @@ app.delete(
     validateAuthorization,
     usersController.deleteUser
 );
+app.get('/api/users/rolrandom/:rol', usersController.getUserByRolRandom);
+app.get(
+    '/api/users/rol/:rol',
+    validateAuthorization,
+    usersController.getUserByRol
+);
+
 app.get('/verify/:validateCode', usersController.validateUser);
 // app.put('/api/users/cambiar_contraseña', );
 

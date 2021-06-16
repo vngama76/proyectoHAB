@@ -1,12 +1,19 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AddComment from './AddComment';
 import useFetch from './useFetch';
 import VoteThis from './VoteThis';
 
 export default function Comments({ id_answer_father, id_target_user }) {
+    const [newComment, setNewComment] = useState();
+
     const res = useFetch(
         `http://localhost:4000/api/comments/${id_answer_father}`
     );
-
+    if (newComment && res.comments && !res.comments.includes(newComment)) {
+        res.comments.push(newComment); //cuando se genere una respuesta se agregará a los resultados
+        setNewComment(null);
+    }
     return (
         <>
             <div className="vote-addanswer">
@@ -18,37 +25,44 @@ export default function Comments({ id_answer_father, id_target_user }) {
                     clase={'answer'}
                     id_target_user={id_target_user} //para comprobar si es el creador de la respuesta que va a votar
                 />
-                <AddComment id_answer_father={id_answer_father} />
+                <AddComment
+                    id_answer_father={id_answer_father}
+                    setNewComment={setNewComment}
+                    newComment={newComment}
+                />
             </div>
             {res?.comments &&
                 res.comments.map((a) => (
                     <div key={a.id_answer} className="comment">
-                        <div className="comment-owner">
-                            {a.foto ? (
-                                <div
-                                    className="comment-userfoto"
-                                    style={{
-                                        backgroundImage: `url(http://localhost:4000/uploads/${a.foto})`,
-                                    }}
-                                />
-                            ) : (
-                                <div
-                                    className="comment-namefoto"
-                                    style={{
-                                        backgroundColor: a.color,
-                                    }}
-                                >
-                                    {a.name_user.slice(0, 1)}
-                                </div>
-                            )}
-                            <div className="comment-username">
-                                {a.name_user}
-                                <div className="comment-date">
-                                    {a.creation_date.slice(0, 10)} at:{' '}
-                                    {a.creation_date.slice(11, 19)}
+                        <Link to={'/profile/users/' + a.id_user}>
+                            <div className="comment-owner">
+                                {a.foto ? (
+                                    <div
+                                        className="comment-userfoto"
+                                        style={{
+                                            backgroundImage: `url(http://localhost:4000/uploads/${a.foto})`,
+                                        }}
+                                    />
+                                ) : (
+                                    <div
+                                        className="comment-namefoto"
+                                        style={{
+                                            backgroundColor: a.color,
+                                        }}
+                                    >
+                                        {a.name_user.slice(0, 1)}
+                                    </div>
+                                )}
+                                <div className="comment-username">
+                                    {a.name_user}
+                                    <div className="comment-date">
+                                        {a.creation_date.slice(0, 10)} at:{' '}
+                                        {a.creation_date.slice(11, 19)}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
+
                         <div className="comment-body">{a.body}</div>
 
                         <VoteThis //Aqui votaremos al comentario

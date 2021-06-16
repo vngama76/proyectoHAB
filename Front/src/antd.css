@@ -3357,8 +3357,8 @@ html {
 .add-question-page {
     display: grid;
     grid-template-columns: 60% auto;
-
     grid-template-areas: 'quill tips';
+    gap: 1rem;
     padding: 2rem;
 }
 .form-quill {
@@ -3395,10 +3395,14 @@ html {
 .ql-container.ql-snow {
     border: none;
     font-size: 1.3rem;
+    min-height: 25rem;
+    padding: 0;
 }
 .ql-editor {
-    margin-top: 1rem;
 }
+.ql-blank {
+}
+
 .tags-input {
     font-size: 20px;
     border: 1px solid black;
@@ -3411,7 +3415,7 @@ html {
     font-size: 20px;
     color: #000000;
     background-color: #ffffff;
-    border-radius: 6px;
+    border-radius: 2px;
     border: 1px solid #000000;
     align-self: flex-end;
 }
@@ -3426,15 +3430,15 @@ html {
 .tips {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
     padding: 1rem;
+    border: 1px solid white;
 }
 
 .tips-einstein {
     grid-area: tips;
-    color: red;
+    color: rgb(68, 211, 68);
     font-weight: 600;
     text-align: center;
-    font-size: 24px;
-}
-.tips-consejos {
+    font-size: 20px;
 }

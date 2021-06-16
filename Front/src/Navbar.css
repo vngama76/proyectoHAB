@@ -1,11 +1,25 @@
-.app-logo {
-    display: inline-block;
-    width: 2.5rem;
-    height: 4rem;
-    padding: 1rem;
-    box-shadow: 0px 1px 3px white;
-    margin-left: 5rem;
-    border-radius: 20%;
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 4rem;
+    margin-left: 6rem;
+    padding: 0.5rem;
+}
+
+#app-logo {
+    width: 2.7rem;
+    height: 3rem;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-self: center;
+    border-radius: 3px;
+}
+.logo-container:hover {
+    filter: invert(100%);
 }
 
 .profile-menu {
@@ -14,14 +28,31 @@
     gap: 1rem;
 }
 .log-button {
-    margin-right: 3rem;
-    color: #ffffff;
+    font-size: 15px;
+    border: 1px solid white;
+    padding: 0.3rem;
+    width: 7rem;
+    text-align: center;
+    margin-right: 5rem;
     text-decoration: none;
 }
 .log-button:hover {
-    text-decoration: underline;
+    font-weight: bolder;
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    border-color: black;
 }
-.user-area {
-    display: flex;
-    padding: 2rem;
+.pregunta-button {
+    font-weight: 600;
+    font-size: 18px;
+    border-radius: 2px;
+    border: 1px solid rgb(255, 255, 255);
+    padding: 0.5rem;
+}
+
+.pregunta-button:hover {
+    color: black;
+    background-color: white;
+    border-color: black;
 }

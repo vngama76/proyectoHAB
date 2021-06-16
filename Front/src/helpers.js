@@ -21,4 +21,23 @@ function random_bg_color() {
     return 'rgb(' + x + ',' + y + ',' + z + ')';
 }
 
-module.exports = { refreshUser, random_bg_color };
+function randomQuote() {
+    const array = [
+        `"Creíamos que teníamos las respuestas, pero era la pregunta la que estaba equivocada."
+Bono'`,
+        `“No hay respuestas correctas a preguntas equivocadas”. </br>
+Úrsula Le Guin`,
+        `“Mi mayor fortaleza como consultor es ser ignorante y hacer algunas preguntas”
+Peter Drucker`,
+        `“La formulación de un problema, es más importante que su solución.”
+ALBERT EINSTEIN
+`,
+        `“Las preguntas no cambian la verdad. Pero le dan movimiento.”
+GIANNINA BRASCHI`,
+    ];
+    const newArray = Math.floor(Math.random() * array.length);
+
+    return array[newArray];
+}
+
+module.exports = { refreshUser, random_bg_color, randomQuote };

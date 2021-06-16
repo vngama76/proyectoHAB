@@ -2,7 +2,6 @@ import Navbar from './Navbar';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Home from './Home';
-import Search from './Search';
 import Questions from './Questions';
 import './App.css';
 import Article from './Article';
@@ -12,6 +11,8 @@ import UsersProfile from './UsersProfile';
 import Profile from './Profile';
 import ErrorMessage from './ErrorMessage';
 import AddQuestion from './AddQuestion';
+import ExpertsFound from './ExpertsFound';
+import FindExperts from './FindExperts';
 
 const PrivateRoute = ({ children }) => {
     const isLoggedIn = useSelector((s) => !!s.user.token);
@@ -20,7 +21,7 @@ const PrivateRoute = ({ children }) => {
     if (!isLoggedIn) {
         dispatch({
             type: 'NEW_ERROR',
-            error: 'Tienes que acceder para ver esta pgina',
+            error: 'Tienes que acceder para ver esta página',
         });
         return <Redirect to="/" />;
     }
@@ -35,13 +36,10 @@ function App() {
             <ErrorMessage />
 
             <Navbar />
-
+            <FindExperts />
             {isLoggedIn && <Article />}
             <main className="main">
                 <Switch>
-                    <Route path="/search/:q?" exact>
-                        <Search />
-                    </Route>
                     <Route path="/questions/:q" exact>
                         <Questions />
                     </Route>
@@ -50,7 +48,9 @@ function App() {
                         <AddQuestion />
                     </Route>
                     <Route path="/profile/users/:q" exact>
-                        <UsersProfile />
+                        <PrivateRoute>
+                            <UsersProfile />
+                        </PrivateRoute>
                     </Route>
                     <Route path="/profile/:q">
                         <PrivateRoute>
@@ -58,15 +58,20 @@ function App() {
                         </PrivateRoute>
                     </Route>
                     <Route path="/profile/">
-                        <Profile />
+                        <PrivateRoute>
+                            <Profile />
+                        </PrivateRoute>
                     </Route>
                     <Route path="/search/users/:q" exact>
-                        <UsersFound />
+                        <PrivateRoute>
+                            <UsersFound />
+                        </PrivateRoute>
                     </Route>
-                    <Route path="/profile/users/:q" exact>
-                        <UsersProfile />
+                    <Route path="/expertsfound" exact>
+                        <PrivateRoute>
+                            <ExpertsFound />
+                        </PrivateRoute>
                     </Route>
-
                     <Route path="/">
                         <Home />
                     </Route>

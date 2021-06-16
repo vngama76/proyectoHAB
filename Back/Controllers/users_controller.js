@@ -211,6 +211,7 @@ async function getUserById(req, res, next) {
                 id: user.id_user,
                 name: user.name_user,
                 foto: user.foto,
+                color: user.color,
                 email: user.email,
                 description: user.descritpion,
                 show_mail: user.show_mail,
@@ -355,6 +356,33 @@ async function deleteUser(req, res, next) {
         next(err);
     }
 }
+async function getUserByRolRandom(req, res, next) {
+    try {
+        const { rol } = req.params;
+        const users = await userRepository.findUserByRolRandom(rol);
+
+        res.send([
+            {
+                users,
+            },
+        ]);
+    } catch (err) {
+        next(err);
+    }
+}
+async function getUserByRol(req, res, next) {
+    try {
+        const { rol } = req.params;
+        const users = await userRepository.findUserByRol(rol);
+        res.send([
+            {
+                users,
+            },
+        ]);
+    } catch (err) {
+        next(err);
+    }
+}
 
 module.exports = {
     register,
@@ -368,4 +396,6 @@ module.exports = {
     updateUser,
     deleteUser,
     addAvatar,
+    getUserByRolRandom,
+    getUserByRol,
 };

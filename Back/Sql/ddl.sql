@@ -29,8 +29,13 @@ CREATE TABLE users (
     rol VARCHAR(10) DEFAULT "user"
     );
    
-   INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', 'rgb(22,88,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'The Boss', 'admin');
-
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', 'rgb(22,88,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'The Boss', 'admin');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('The Dude', 'thedude@gmail.com', 'rgb(221,188,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'El duderino', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Lone Ranger', 'loneranger@gmail.com', 'rgb(222,88,227)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'Hi ho Silver!', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Han Acompañado', 'accompanied@gmail.com', 'rgb(22,188,227)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'Nunca solo, siempre acompañado', 'user');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Beatrix Kiddo', 'beakiddo@gmail.com',  'rgb(32,18,157)','$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'It is mercy, compassion and forgiveness I lack. Not rationality.', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Juno MacGuff', 'juno@gmail.com', 'rgb(222,25,57)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'I do not know what kind of girl I am', 'user');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Mia Wallace', 'themia@gmail.com', 'rgb(122,48,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'Why do we feel it is necessary to yak about bullshit in order to be comfortable?', 'expert');
    CREATE TABLE questions (
 	id_question INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(250) NOT NULL,
@@ -107,4 +112,41 @@ CREATE TABLE users (
 --  select * from answers;
 --  INSERT INTO users (name_user, super_user, email, password_user, reg_date, show_mail, descritpion) VALUES('Zé Tó', 1, 'zeto@gmail.com', '123456789', '2021-04-23 10:16:23', '1', 'que guay');
 --  select * from users;
- 
+ /*
+ select tag_name, count(*) as incidencia,
+(COUNT(*)/(select count('incidencia') from tags)) * 100
+from tags
+inner join question_tags on tags.id_tag = question_tags.id_tag
+inner join questions on questions.id_question = question_tags.id_question
+inner join users on users.id_user = questions.id_user
+where users.id_user=1
+group by tags.tag_name order by incidencia desc;
++----------+------------+---------------------------------------------------------+
+| tag_name | incidencia | (COUNT(*)/(select count('incidencia') from tags)) * 100 |
++----------+------------+---------------------------------------------------------+
+| css      |          2 |                                                 33.3333 |
+| php      |          3 |                                                 50.0000 |
+| sql      |          2 |                                                 33.3333 |
+-----------------------------------------------------------------------------------
+*/
+
+
+----retorna porcentaje de tags por incidencia de un usuario----
+select tag_name, count(*) as incidencia,
+(COUNT(*)/(select count('incidencia') from tags inner join question_tags on tags.id_tag = question_tags.id_tag
+inner join questions on questions.id_question = question_tags.id_question
+inner join users on users.id_user = questions.id_user
+where users.id_user=1)) * 100 as 'porcentaje'
+from tags
+inner join question_tags on tags.id_tag = question_tags.id_tag
+inner join questions on questions.id_question = question_tags.id_question
+inner join users on users.id_user = questions.id_user
+where users.id_user=1
+group by tags.tag_name order by incidencia desc;
+
+
+
+---Devuelve los tags con su total de incidencias en orden descendente---
+select tag_name, count(*) as incidencia from tags
+ inner join question_tags on tags.id_tag = question_tags.id_tag
+ group by tags.id_tag order by incidencia desc;

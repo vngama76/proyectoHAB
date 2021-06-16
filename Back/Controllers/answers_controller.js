@@ -19,10 +19,14 @@ async function createAnswer(req, res, next) {
 
         res.status(201);
         res.send({
-            id_answer: answer[0].id_answer,
             body: answer[0].body,
-            question_status: question.status_enum,
+            color: user.color,
+            creation_date: answer[0].creation_date,
+            foto: user.foto,
+            id_answer: answer[0].id_answer,
+            id_user: user.id_user,
             name_user: user.name_user,
+            question_status: question.status_enum,
         });
     } catch (err) {
         next(err);

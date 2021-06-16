@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 
-export default function AddComment({ id_answer_father }) {
-    const history = useHistory();
+export default function AddComment({ id_answer_father, setNewComment }) {
     const user = useSelector((u) => u.user);
     const [message, setMessage] = useState('');
     const [toggle, setToggle] = useState(false);
@@ -27,9 +25,9 @@ export default function AddComment({ id_answer_father }) {
             }
         );
         if (res.ok) {
+            const comment = await res.json();
             setToggle(false);
-            history.push('/temp');
-            history.goBack();
+            setNewComment(comment);
         } else {
             dispatch({
                 type: 'NEW_ERROR',

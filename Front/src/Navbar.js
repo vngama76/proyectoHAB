@@ -6,6 +6,7 @@ import { useState } from 'react';
 import LoginModal from './LoginModal';
 
 function Navbar() {
+    const isLoggedIn = useSelector((s) => !!s.user.token);
     const user = useSelector((s) => s.user);
     console.log(user);
 
@@ -21,12 +22,21 @@ function Navbar() {
     return (
         <>
             <div className="navbar">
-                <Link to="/">
-                    <img src={logo} className="app-logo" alt="logo" />
+                <Link to="/" className="logo-container">
+                    <div
+                        style={{
+                            backgroundImage: `url(${logo})`,
+                        }}
+                        id="app-logo"
+                    />
                 </Link>
-                <Link to="/addQuestion">Pregunta</Link>
+                {isLoggedIn && (
+                    <Link className="pregunta-button" to="/addQuestion">
+                        Haz una Pregunta
+                    </Link>
+                )}
                 <div className="user-area">
-                    {!user.token && (
+                    {!isLoggedIn && (
                         <div
                             className="log-button"
                             onClick={() => setShowModal(true)}
@@ -34,7 +44,7 @@ function Navbar() {
                             Iniciar sesión
                         </div>
                     )}
-                    {user.info && (
+                    {isLoggedIn && (
                         <div className="profile-menu">
                             <Link to="/">
                                 <div

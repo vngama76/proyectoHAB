@@ -1,10 +1,12 @@
 import { useParams } from 'react-router-dom';
+import TagsChart from './TagsChart';
 import useFetch from './useFetch';
 import './UsersProfile.css';
 
 export default function UsersProfile() {
     const { q } = useParams();
     const results = useFetch('http://localhost:4000/api/users/' + q);
+    console.log(results);
     return (
         <div className="perfil-usuario-tercero">
             <p>Perfil de Usuario</p>
@@ -15,12 +17,23 @@ export default function UsersProfile() {
                 results?.map((u) => (
                     <div key={u.id} className="datos-usuario">
                         <div className="nombre">Nombre: {u.name}</div>
-                        <div
-                            className="foto"
-                            style={{
-                                backgroundImage: `url(https://i.pinimg.com/originals/fe/3d/cb/fe3dcbad7e0ebe2d80b20673ec7e53d7.jpg)`,
-                            }}
-                        />
+                        {u.foto ? (
+                            <div
+                                className="avatar"
+                                style={{
+                                    backgroundImage: `url(${u.foto})`,
+                                }}
+                            />
+                        ) : (
+                            <div
+                                className="namefoto"
+                                style={{
+                                    backgroundColor: u.color,
+                                }}
+                            >
+                                {u.name.slice(0, 1)}
+                            </div>
+                        )}
                         <div className="email">
                             Email:{' '}
                             {u.show_mail
@@ -32,7 +45,7 @@ export default function UsersProfile() {
                             <div>{u.description}</div>
                         </div>
                         <div className="puntos">Puntos</div>
-                        <div className="queso">Queso</div>
+                        <TagsChart className="queso" />
                     </div>
                 ))
             )}

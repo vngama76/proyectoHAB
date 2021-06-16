@@ -1,6 +1,5 @@
 const Joi = require('joi');
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
+
 const { userRepository, commentsRepository } = require('../Repositories/index');
 
 async function createComment(req, res, next) {
@@ -28,8 +27,12 @@ async function createComment(req, res, next) {
 
         res.status(201);
         res.send({
-            id_answer: comment[0].id_answer,
             body: comment[0].body,
+            color: user.color,
+            creation_date: comment[0].creation_date,
+            foto: user.foto,
+            id_answer: comment[0].id_answer,
+            id_user: user.id_user,
             name_user: user.name_user,
             id_answer_father: comment[0].id_answer_father,
         });

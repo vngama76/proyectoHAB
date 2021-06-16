@@ -6,6 +6,7 @@ import AddAnswer from './AddAnswer';
 import Answers from './Answers';
 import VoteThis from './VoteThis';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function Questions() {
     const history = useHistory();
@@ -48,33 +49,35 @@ function Questions() {
                     {user && (
                         <div className="question-owner">
                             <h2 className="question-title">{info.title}</h2>
-                            <div className="question-userinfo">
-                                {user.foto ? (
-                                    <div
-                                        className="question-userfoto"
-                                        style={{
-                                            backgroundImage: `url(http://localhost:4000/uploads/${user.foto})`,
-                                        }}
-                                    />
-                                ) : (
-                                    <div
-                                        className="question-namefoto"
-                                        style={{
-                                            backgroundColor: user.color,
-                                        }}
-                                    >
-                                        {user.name.slice(0, 1)}
-                                    </div>
-                                )}
-                                <div className="question-username">
-                                    {user.name}
-                                    <br />
-                                    <div className="question-date">
-                                        {info.date.slice(0, 10)} at:{' '}
-                                        {info.date.slice(11, 19)}
+                            <Link to={'/profile/users/' + info.id_user}>
+                                <div className="question-userinfo">
+                                    {user.foto ? (
+                                        <div
+                                            className="question-userfoto"
+                                            style={{
+                                                backgroundImage: `url(http://localhost:4000/uploads/${user.foto})`,
+                                            }}
+                                        />
+                                    ) : (
+                                        <div
+                                            className="question-namefoto"
+                                            style={{
+                                                backgroundColor: user.color,
+                                            }}
+                                        >
+                                            {user.name.slice(0, 1)}
+                                        </div>
+                                    )}
+                                    <div className="question-username">
+                                        {user.name}
+                                        <br />
+                                        <div className="question-date">
+                                            {info.date.slice(0, 10)} at:{' '}
+                                            {info.date.slice(11, 19)}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     )}
 
@@ -114,7 +117,8 @@ function Questions() {
                                     </button>
                                 )}
                         </div>
-
+                    </div>
+                    <div className="vote-addanswer">
                         {info.status !== 'PREGUNTA CERRADA' && (
                             <AddAnswer id={q} /> //Si la pregunta no está cerrada, permitimos agregar respuestas
                         )}

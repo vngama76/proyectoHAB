@@ -9,12 +9,14 @@
     background-color: #282c34;
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 7.5rem 7.5rem auto auto auto;
-    grid-template-rows: 8rem auto 3rem;
+    grid-template-columns: 7.5rem 7.5rem 22.5rem 22.5rem auto 25rem;
+    grid-template-rows: 5rem 30rem 18rem auto 3rem;
     grid-template-areas:
-        'header header header header header'
-        'article article main main main'
-        'article article footer footer footer';
+        'header header header header header header'
+        'article article main main main .'
+        'article article main main main experts'
+        'article article main main main .'
+        'article article footer footer footer footer';
     color: white;
 }
 .App a {
@@ -24,20 +26,22 @@
 .navbar {
     grid-area: header;
     border-bottom-style: outset;
-    height: 8rem;
+    border-bottom-width: 1px;
+    height: 5rem;
     background-color: #111;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem;
 }
-.App .main {
+.main {
     grid-area: main;
     padding: 2rem;
     display: flex;
     flex-direction: column;
 }
 
-.App .article {
+.article {
     grid-area: article;
     margin-top: 0.2rem;
     padding: 2rem;
@@ -45,6 +49,7 @@
     flex-direction: column;
     background-color: #111;
     border-right-style: outset;
+    border-right-width: 1px;
 }
 
 .footer {
@@ -54,6 +59,9 @@
     background-color: #111;
     align-self: center;
     text-align: center;
+}
+.aside {
+    grid-area: aside;
 }
 .footer-long {
     position: absolute;
@@ -77,4 +85,12 @@
 
 .error p {
     flex-grow: 1;
+}
+.home {
+    font-size: 2rem;
+}
+
+.find-experts {
+    grid-area: experts;
+    padding-right: 10rem;
 }

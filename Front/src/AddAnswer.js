@@ -27,6 +27,7 @@ export default function AddAnswer({ id }) {
 
         if (res.ok) {
             setToggle(false);
+
             history.push('/temp');
             history.goBack();
         } else {
@@ -58,6 +59,7 @@ export default function AddAnswer({ id }) {
                             required
                             className="add-answer-quill"
                         />
+
                         <button className="add-answer-button">Enviar</button>
                     </form>
                 </div>

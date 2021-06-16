@@ -90,6 +90,16 @@ async function changeAvatar(id, avatar) {
 async function deleteUserByid(id) {
     return await database.pool.query(`DELETE FROM users WHERE id_user = ${id}`);
 }
+async function findUserByRolRandom(rol) {
+    const query = 'SELECT * FROM users WHERE rol = ? ORDER BY rand() LIMIT 2; ';
+    const [user] = await database.pool.query(query, `${rol}`);
+    return user;
+}
+async function findUserByRol(rol) {
+    const query = 'SELECT * FROM users WHERE rol = ?';
+    const [user] = await database.pool.query(query, `${rol}`);
+    return user;
+}
 
 module.exports = {
     findUserByEmail,
@@ -103,4 +113,6 @@ module.exports = {
     deleteUserByid,
     findUserByValidationCode,
     changeAvatar,
+    findUserByRolRandom,
+    findUserByRol,
 };
