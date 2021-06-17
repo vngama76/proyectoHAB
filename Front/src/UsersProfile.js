@@ -6,7 +6,6 @@ import './UsersProfile.css';
 export default function UsersProfile() {
     const { q } = useParams();
     const results = useFetch('http://localhost:4000/api/users/' + q);
-    console.log(results);
     return (
         <div className="perfil-usuario-tercero">
             <p>Perfil de Usuario</p>

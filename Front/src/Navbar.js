@@ -45,16 +45,11 @@ function Navbar() {
                         </div>
                     )}
                     {isLoggedIn && (
-                        <div className="profile-menu">
-                            <Link to="/">
-                                <div
-                                    className="log-button"
-                                    onClick={handleLogout}
-                                >
-                                    LogOut
-                                </div>
-                            </Link>
-                        </div>
+                        <Link to="/">
+                            <div className="log-button" onClick={handleLogout}>
+                                LogOut
+                            </div>
+                        </Link>
                     )}
                 </div>
             </div>

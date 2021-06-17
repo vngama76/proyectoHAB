@@ -7,6 +7,10 @@
     align-self: center;
     gap: 1rem;
 }
+.activity-q-a {
+    text-transform: capitalize;
+    font-size: 20px;
+}
 
 .results-activity-box {
     display: flex;
@@ -18,4 +22,23 @@
     background-color: darksalmon;
     color: black;
     font-weight: bold;
+}
+
+.search {
+    margin-top: 5rem;
+    padding-left: 3rem;
+}
+
+.results {
+    margin-top: 3rem;
+}
+
+.search input {
+    width: 20rem;
+    height: 2rem;
+    font-size: 1.3rem;
+}
+.search button {
+    height: 2rem;
+    font-size: 1.22rem;
 }

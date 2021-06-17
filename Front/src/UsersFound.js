@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import useFetch from './useFetch';
 import './UsersFound.css';
@@ -6,6 +7,8 @@ import './UsersFound.css';
 export default function UsersFound() {
     const { q } = useParams();
     const results = useFetch('http://localhost:4000/api/users/name/' + q);
+    const user = useSelector((u) => u.user.info.id);
+
     return (
         <>
             <h3 className="users-h3">Usuarios Encontrados:</h3>
@@ -18,7 +21,13 @@ export default function UsersFound() {
                     <i>No results found!</i>
                 ) : (
                     results?.user.map((u) => (
-                        <Link to={'/profile/users/' + u.id_user}>
+                        <Link
+                            to={
+                                user === u.id_user
+                                    ? '/profile/' + u.id_user
+                                    : '/profile/users/' + u.id_user
+                            }
+                        >
                             {u.foto ? (
                                 <div className="user-data" key={u.id_user}>
                                     <h5>{u.name_user}</h5>

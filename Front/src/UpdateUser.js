@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import './UpdateUser.css';
+// import { useSetTrigger, useTrigger } from './TriggerContext';
+import { useHistory } from 'react-router-dom';
 
 function UpdateUser({ closeModal }) {
     const user = useSelector((u) => u.user);
-
-    const history = useHistory();
 
     const [username, setUsername] = useState(user.info.name);
 
@@ -16,13 +15,22 @@ function UpdateUser({ closeModal }) {
 
     const dispatch = useDispatch();
 
+    const history = useHistory();
     const [file, setFile] = useState();
+    // const setTrigger = useSetTrigger();
+    // const trigger = useTrigger();
 
     const foto = user.info.foto
         ? `http://localhost:4000/uploads/${user.info.foto}`
         : null;
 
     const [preview, setPreview] = useState(foto);
+
+    const handleFile = (e) => {
+        const f = e.target.files[0];
+        setFile(f);
+        setPreview(f ? URL.createObjectURL(f) : user.info.foto);
+    };
 
     const [showMailToString, setShowMailToString] = useState();
 
@@ -42,7 +50,7 @@ function UpdateUser({ closeModal }) {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + user.token,
             };
-            //Si existe file hacemos la peticin para cambiar el avatar
+            //Si existe file hacemos la peticion para cambiar el avatar
 
             if (file) {
                 const payload = new FormData();
@@ -77,7 +85,8 @@ function UpdateUser({ closeModal }) {
                 const [userInfo] = await res.json();
 
                 dispatch({ type: 'INFO', info: userInfo });
-                history.push(`/profile/${user.info.id}`);
+                // setTrigger(trigger === 1 ? 2 : 1);
+                history.go(0);
 
                 closeModal();
             } else {
@@ -87,14 +96,10 @@ function UpdateUser({ closeModal }) {
             dispatch({ type: 'NEW_ERROR', error: error.message });
         }
     };
-    const handleFile = (e) => {
-        const f = e.target.files[0];
-        setFile(f);
-        setPreview(f ? URL.createObjectURL(f) : user.info.foto);
-    };
+
     return (
         <>
-            <div className="modal-bg" onClick={closeModal}>
+            <div className="modal-bg" onClick={() => history.go() + closeModal}>
                 <div className="modal-fg" onClick={(e) => e.stopPropagation()}>
                     <form className="update-user" onSubmit={handleSubmit}>
                         <h1>Actualiza tus datos</h1>

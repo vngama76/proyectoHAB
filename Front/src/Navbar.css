@@ -22,11 +22,6 @@
     filter: invert(100%);
 }
 
-.profile-menu {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-}
 .log-button {
     font-size: 15px;
     border: 1px solid white;

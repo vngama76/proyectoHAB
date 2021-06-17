@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Comments from './Comments';
-import { useSetTrigger, useTrigger } from './QuestionContext';
+import { useSetTrigger, useTrigger } from './TriggerContext';
 
 export default function Answers({
     id_question,
@@ -63,7 +63,10 @@ export default function Answers({
                     .map((a) => (
                         <>
                             <div key={a.id_answer} className="answer">
-                                <Link to={'/profile/users/' + a.id_user}>
+                                <Link
+                                    to={'/profile/users/' + a.id_user}
+                                    className="profile-link"
+                                >
                                     <div className="answer-owner">
                                         {a.foto ? (
                                             <div
@@ -87,7 +90,12 @@ export default function Answers({
                                             {a.name_user}
                                             <br />
                                             <div className="answer-date">
-                                                {a.creation_date.slice(0, 10)}{' '}
+                                                {a.creation_date
+                                                    .slice(0, 10)
+                                                    .slice(0, 10)
+                                                    .split('-')
+                                                    .reverse()
+                                                    .join('-')}{' '}
                                                 at:{' '}
                                                 {a.creation_date.slice(11, 19)}
                                             </div>
@@ -140,7 +148,10 @@ export default function Answers({
                     .map((a) => (
                         <>
                             <div key={a.id_answer} className="answer">
-                                <Link to={'/profile/users/' + a.id_user}>
+                                <Link
+                                    to={'/profile/users/' + a.id_user}
+                                    className="profile-link"
+                                >
                                     <div className="answer-owner">
                                         {a.foto ? (
                                             <div
@@ -164,7 +175,12 @@ export default function Answers({
                                             {a.name_user}
                                             <br />
                                             <div className="answer-date">
-                                                {a.creation_date.slice(0, 10)}{' '}
+                                                {a.creation_date
+                                                    .slice(0, 10)
+                                                    .slice(0, 10)
+                                                    .split('-')
+                                                    .reverse()
+                                                    .join('-')}{' '}
                                                 at:{' '}
                                                 {a.creation_date.slice(11, 19)}
                                             </div>

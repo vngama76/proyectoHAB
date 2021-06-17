@@ -1,60 +1,67 @@
-import {
-    useParams,
-    useHistory,
-    NavLink,
-    Switch,
-    Route,
-} from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useParams, NavLink, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import useFetch from './useFetch';
 import './Profile.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import UpdateUser from './UpdateUser';
 import QuestionsActivity from './QuestionsActivity';
 import AnswersActivity from './AnswersActivity';
+import { useSetTrigger, useTrigger } from './TriggerContext';
+import { useSelector } from 'react-redux';
 
 function Profile() {
     const { q } = useParams();
-    const history = useHistory();
     const [showModal, setShowModal] = useState(false);
+    const trigger = useTrigger();
+    const setTrigger = useSetTrigger();
+    const token = useSelector((s) => s.user?.token);
+    const [res, setUser] = useState();
 
-    // const isLoggedIn = useSelector((s) => !!s.user);
-    const res = useFetch(`http://localhost:4000/api/users/${q}`);
     const handleClick = (e) => {
         e.preventDefault();
         setShowModal(true);
     };
 
+    useEffect(() => {
+        if (trigger) {
+            fetch(`http://localhost:4000/api/users/${q}`, {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            })
+                .then((res) => res.json())
+                .then(([data]) => setUser(data));
+        }
+    }, [q, trigger, setUser, token]);
+    console.log(res);
     return (
         <div className="profile">
             <h1>Página de usuario</h1>
             {res && (
                 <>
                     <Helmet>
-                        <title>Perfil de {res[0].name}</title>
+                        <title>Perfil de {res.name}</title>
                     </Helmet>
                     <div className="box">
                         <div className="tabs">
                             <div className="box-tabs-title">
                                 Info de Usuario
                             </div>
-                            Nombre: {res[0].name} <br />
+                            Nombre: {res.name} <br />
                             Email:{' '}
-                            {res[0].show_mail
+                            {res.show_mail
                                 ? res[0].email
                                 : ' el usuario prefiere no mostrar su email'}{' '}
                             <br />
-                            Rol: {res[0].rol}
+                            Rol: {res.rol}
                         </div>
                     </div>
                     <div className="userinfo">
                         {' '}
                         Mas sobre ti:{' '}
                         <div className="userinfotext" readOnly="readonly">
-                            {res[0].description}
+                            {res.description}
                         </div>
                     </div>
 
@@ -70,7 +77,7 @@ function Profile() {
                     {showModal && (
                         <UpdateUser
                             closeModal={() => {
-                                history.go(0);
+                                setTrigger();
                                 setShowModal(false);
                             }}
                         />

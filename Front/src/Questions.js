@@ -7,7 +7,7 @@ import VoteThis from './VoteThis';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useSetTrigger, useTrigger } from './QuestionContext';
+import { useSetTrigger, useTrigger } from './TriggerContext';
 
 function Questions() {
     const userIsAdmin = useSelector((s) => !!s.user.info.rol.includes('admin'));
@@ -18,6 +18,7 @@ function Questions() {
     const [info, setInfo] = useState();
     const trigger = useTrigger();
     const setTrigger = useSetTrigger();
+
     useEffect(() => {
         if (trigger) {
             fetch('http://localhost:4000/api/users/question/' + q, {
@@ -39,6 +40,7 @@ function Questions() {
                 .then((data) => setInfo(data));
         }
     }, [trigger, q, token]);
+
     const HandleCloseQuestion = async (e) => {
         //Para cerrar la pregunta siendo el admin
         e.preventDefault();
@@ -61,7 +63,6 @@ function Questions() {
             });
         }
     };
-    console.log(info);
 
     return (
         <>
@@ -70,7 +71,10 @@ function Questions() {
                     {user && (
                         <div className="question-owner">
                             <h2 className="question-title">{info.title}</h2>
-                            <Link to={'/profile/users/' + info.id_user}>
+                            <Link
+                                to={'/profile/users/' + info.id_user}
+                                className="profile-link"
+                            >
                                 <div className="question-userinfo">
                                     {user.foto ? (
                                         <div
@@ -93,8 +97,13 @@ function Questions() {
                                         {user.name}
                                         <br />
                                         <div className="question-date">
-                                            {info.date.slice(0, 10)} at:{' '}
-                                            {info.date.slice(11, 19)}
+                                            {info.date
+                                                .slice(0, 10)
+                                                .slice(0, 10)
+                                                .split('-')
+                                                .reverse()
+                                                .join('-')}{' '}
+                                            at: {info.date.slice(11, 19)}
                                         </div>
                                     </div>
                                 </div>

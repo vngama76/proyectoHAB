@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddComment from './AddComment';
-import { useTrigger } from './QuestionContext';
+import { useTrigger } from './TriggerContext';
 import VoteThis from './VoteThis';
 
 export default function Comments({ id_answer_father, id_target_user }) {
@@ -42,7 +42,10 @@ export default function Comments({ id_answer_father, id_target_user }) {
             {res?.comments &&
                 res.comments.map((a) => (
                     <div key={a.id_answer} className="comment">
-                        <Link to={'/profile/users/' + a.id_user}>
+                        <Link
+                            to={'/profile/users/' + a.id_user}
+                            className="profile-link"
+                        >
                             <div className="comment-owner">
                                 {a.foto ? (
                                     <div
@@ -64,8 +67,13 @@ export default function Comments({ id_answer_father, id_target_user }) {
                                 <div className="comment-username">
                                     {a.name_user}
                                     <div className="comment-date">
-                                        {a.creation_date.slice(0, 10)} at:{' '}
-                                        {a.creation_date.slice(11, 19)}
+                                        {a.creation_date
+                                            .slice(0, 10)
+                                            .slice(0, 10)
+                                            .split('-')
+                                            .reverse()
+                                            .join('-')}{' '}
+                                        at: {a.creation_date.slice(11, 19)}
                                     </div>
                                 </div>
                             </div>

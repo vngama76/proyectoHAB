@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useSetTrigger, useTrigger } from './TriggerContext';
 
 export default function VoteThis({
     url_post,
@@ -12,22 +13,27 @@ export default function VoteThis({
     const [votesByUser, setVotesByUser] = useState(0);
     const [totalVotes, setTotalVotes] = useState(0);
     const user = useSelector((u) => u.user);
-    fetch(url_user + id_a_votar, {
-        headers: {
-            Authorization: 'Bearer ' + user.token,
-        },
-    })
-        .then((res) => res.json())
-        .then((data) => setVotesByUser(data.votos));
+    const trigger = useTrigger();
+    const setTrigger = useSetTrigger();
+    useEffect(() => {
+        if (trigger) {
+            fetch(url_user + id_a_votar, {
+                headers: {
+                    Authorization: 'Bearer ' + user.token,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setVotesByUser(data.votos));
 
-    fetch(url_get + id_a_votar, {
-        headers: {
-            Authorization: 'Bearer ' + user.token,
-        },
-    })
-        .then((res) => res.json())
-        .then((data) => setTotalVotes(data.votos));
-
+            fetch(url_get + id_a_votar, {
+                headers: {
+                    Authorization: 'Bearer ' + user.token,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setTotalVotes(data.votos));
+        }
+    }, [trigger, user.token, url_user, id_a_votar, url_get]);
     async function HandleClick(e) {
         e.preventDefault();
         const res = await fetch(url_post + id_a_votar, {
@@ -39,7 +45,7 @@ export default function VoteThis({
 
         if (res.ok) {
             console.log('aumentamos votes');
-            setTotalVotes(totalVotes + 1);
+            setTrigger(trigger === 1 ? 2 : 1);
         }
     }
 
@@ -54,7 +60,7 @@ export default function VoteThis({
             }
         >
             {!votesByUser &&
-                user.info.id !== id_target_user && ( //Si no has votado aun la pregunta y no eres el que hizo la pregunta/respuesta/comentario, puedes votar, se muestra el pulgar.
+                user.info.id !== id_target_user && ( //Si no has votado aun la pregunta y no eres el que hizo la pregunta/respuesta/comentario, puedes votar.
                     <button
                         className={
                             clase === 'question'
@@ -71,7 +77,7 @@ export default function VoteThis({
                     />
                 )}
 
-            {totalVotes !== '0' ? ( //Aqui el div que muestra votos: x cantidad con el fondo dorado.
+            {totalVotes !== '0' ? ( //Aqui el div que muestra votos: x cantidad.
                 <div
                     className={
                         clase === 'question'

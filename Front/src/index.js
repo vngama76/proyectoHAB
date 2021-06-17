@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import TriggerContextProvider from './TriggerContext';
 
 ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Provider store={store}>
-                <App />
+                <TriggerContextProvider>
+                    <App />
+                </TriggerContextProvider>
             </Provider>
         </Router>
     </React.StrictMode>,
