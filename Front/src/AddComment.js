@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSetTrigger, useTrigger } from './QuestionContext';
 
 export default function AddComment({ id_answer_father, setNewComment }) {
     const user = useSelector((u) => u.user);
     const [message, setMessage] = useState('');
     const [toggle, setToggle] = useState(false);
+    const setTrigger = useSetTrigger();
+    const trigger = useTrigger();
 
     const dispatch = useDispatch();
     const handleSubmit = async (e) => {
@@ -25,9 +28,8 @@ export default function AddComment({ id_answer_father, setNewComment }) {
             }
         );
         if (res.ok) {
-            const comment = await res.json();
             setToggle(false);
-            setNewComment(comment);
+            setTrigger(trigger === 1 ? 2 : 1);
         } else {
             dispatch({
                 type: 'NEW_ERROR',

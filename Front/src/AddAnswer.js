@@ -2,14 +2,15 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useSetTrigger, useTrigger } from './QuestionContext';
 
 export default function AddAnswer({ id }) {
-    const history = useHistory();
     const user = useSelector((u) => u.user);
     const [message, setMessage] = useState('');
     const [toggle, setToggle] = useState(false);
     const dispatch = useDispatch();
+    const setTrigger = useSetTrigger();
+    const trigger = useTrigger();
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
@@ -27,9 +28,7 @@ export default function AddAnswer({ id }) {
 
         if (res.ok) {
             setToggle(false);
-
-            history.push('/temp');
-            history.goBack();
+            setTrigger(trigger === 1 ? 2 : 1); //Apretamos el gatillo para que Answers vuelva a hacer sus fetchs
         } else {
             dispatch({
                 type: 'NEW_ERROR',

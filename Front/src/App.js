@@ -13,6 +13,7 @@ import ErrorMessage from './ErrorMessage';
 import AddQuestion from './AddQuestion';
 import ExpertsFound from './ExpertsFound';
 import FindExperts from './FindExperts';
+import QuestionContextProvider from './QuestionContext';
 
 const PrivateRoute = ({ children }) => {
     const isLoggedIn = useSelector((s) => !!s.user.token);
@@ -36,12 +37,16 @@ function App() {
             <ErrorMessage />
 
             <Navbar />
-            <FindExperts />
+
+            {isLoggedIn && <FindExperts />}
+
             {isLoggedIn && <Article />}
             <main className="main">
                 <Switch>
                     <Route path="/questions/:q" exact>
-                        <Questions />
+                        <QuestionContextProvider>
+                            <Questions />
+                        </QuestionContextProvider>
                     </Route>
                     <Route path="/temp" exact />
                     <Route path="/addQuestion" exact>
@@ -57,11 +62,11 @@ function App() {
                             <Profile />
                         </PrivateRoute>
                     </Route>
-                    <Route path="/profile/">
+                    {/* <Route path="/profile/">
                         <PrivateRoute>
                             <Profile />
                         </PrivateRoute>
-                    </Route>
+                    </Route> */}
                     <Route path="/search/users/:q" exact>
                         <PrivateRoute>
                             <UsersFound />

@@ -1,19 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddComment from './AddComment';
-import useFetch from './useFetch';
+import { useTrigger } from './QuestionContext';
 import VoteThis from './VoteThis';
 
 export default function Comments({ id_answer_father, id_target_user }) {
     const [newComment, setNewComment] = useState();
+    const token = useSelector((s) => s.user?.token);
+    const trigger = useTrigger();
+    const [res, setRes] = useState();
 
-    const res = useFetch(
-        `http://localhost:4000/api/comments/${id_answer_father}`
-    );
-    if (newComment && res.comments && !res.comments.includes(newComment)) {
-        res.comments.push(newComment); //cuando se genere una respuesta se agregará a los resultados
-        setNewComment(null);
-    }
+    useEffect(() => {
+        if (trigger) {
+            fetch(`http://localhost:4000/api/comments/${id_answer_father}`, {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setRes(data));
+        }
+    }, [trigger, id_answer_father, token]);
     return (
         <>
             <div className="vote-addanswer">

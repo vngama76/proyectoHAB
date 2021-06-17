@@ -1,5 +1,4 @@
-import { useHistory, useParams } from 'react-router';
-import useFetch from './useFetch';
+import { useParams } from 'react-router';
 import './Questions.css';
 
 import AddAnswer from './AddAnswer';
@@ -7,17 +6,39 @@ import Answers from './Answers';
 import VoteThis from './VoteThis';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSetTrigger, useTrigger } from './QuestionContext';
 
 function Questions() {
-    const history = useHistory();
     const userIsAdmin = useSelector((s) => !!s.user.info.rol.includes('admin'));
     const token = useSelector((s) => s.user?.token);
     const dispatch = useDispatch();
     const { q } = useParams();
-    const user = useFetch('http://localhost:4000/api/users/question/' + q); //Obtengo los datos de la pregunta
-    const info = useFetch('http://localhost:4000/api/questions/' + q); //Obtengo los datos del usuario que ha realizado la pregunta
-    // TODO Se podria resumir en Backend
+    const [user, setUser] = useState();
+    const [info, setInfo] = useState();
+    const trigger = useTrigger();
+    const setTrigger = useSetTrigger();
+    useEffect(() => {
+        if (trigger) {
+            fetch('http://localhost:4000/api/users/question/' + q, {
+                //Obtengo los datos del usuario que ha realizado la pregunta
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setUser(data));
 
+            fetch('http://localhost:4000/api/questions/' + q, {
+                //Obtengo los datos de la pregunta
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setInfo(data));
+        }
+    }, [trigger, q, token]);
     const HandleCloseQuestion = async (e) => {
         //Para cerrar la pregunta siendo el admin
         e.preventDefault();
@@ -32,8 +53,7 @@ function Questions() {
             }
         );
         if (res.ok) {
-            history.push('/tab');
-            history.goBack();
+            setTrigger(trigger === 1 ? 2 : 1);
         } else {
             dispatch({
                 type: 'NEW_ERROR',
@@ -41,6 +61,7 @@ function Questions() {
             });
         }
     };
+    console.log(info);
 
     return (
         <>

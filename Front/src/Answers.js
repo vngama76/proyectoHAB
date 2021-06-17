@@ -1,28 +1,34 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import Comments from './Comments';
-import useFetch from './useFetch';
+import { useSetTrigger, useTrigger } from './QuestionContext';
 
 export default function Answers({
     id_question,
     question_status,
     id_answer_acepted,
     id_question_user,
-    newAnswer,
-    setNewAnswer,
 }) {
-    let res = useFetch(`http://localhost:4000/api/answers/${id_question}`);
-
-    if (newAnswer && res.answers && !res.answers.includes(newAnswer)) {
-        res.answers.push(newAnswer); //cuando se genere una respuesta se agregará a los resultados
-        setNewAnswer(null);
-    }
+    const trigger = useTrigger();
+    const [res, setRes] = useState();
 
     const token = useSelector((s) => s.user?.token);
     const dispatch = useDispatch();
-    const history = useHistory();
     const id_user = useSelector((s) => s.user?.info.id);
+    const setTrigger = useSetTrigger();
+    useEffect(() => {
+        if (trigger) {
+            fetch(`http://localhost:4000/api/answers/${id_question}`, {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setRes(data));
+        }
+    }, [trigger, id_question, token]);
+
     async function HandleAcceptAnswerClick(e, id_answer) {
         //Para aceptar una respuesta
         e.preventDefault();
@@ -40,8 +46,7 @@ export default function Answers({
             }
         );
         if (res.ok) {
-            history.push('/tab');
-            history.goBack();
+            setTrigger(trigger === 1 ? 2 : 1);
         } else {
             dispatch({
                 type: 'NEW_ERROR',
@@ -123,7 +128,7 @@ export default function Answers({
                                     <Comments
                                         id_answer_father={a.id_answer}
                                         id_target_user={a.id_user}
-                                        newAnswer={newAnswer}
+                                        // newAnswer={newAnswer}
                                     /> //answers le deberá pasar el id de la respuesta para conseguir los comentarios y el id_user que la ha hecho para comprobar si es el creador de la respuesta que va a votar.
                                 )}
                             </div>
@@ -200,7 +205,7 @@ export default function Answers({
                                     <Comments
                                         id_answer_father={a.id_answer}
                                         id_target_user={a.id_user}
-                                        newAnswer={newAnswer}
+                                        // newAnswer={newAnswer}
                                     /> //answers le deberá pasar el id de la respuesta para conseguir los comentarios y el id_user que la ha hecho para comprobar si es el creador de la respuesta que va a votar.
                                 )}
                             </div>

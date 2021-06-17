@@ -17,12 +17,12 @@ function Search() {
             <form onSubmit={handleSubmit}>
                 <input
                     placeholder="Search..."
-                    value={search}
+                    value={search === ' ' ? '' : search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <button>🔍</button>
             </form>
-            {search && <SearchResults q={search} />}
+            {search && search !== ' ' && <SearchResults q={search} />}
         </div>
     );
 }

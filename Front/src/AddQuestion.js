@@ -17,6 +17,8 @@ function AddQuestion() {
     const [tags, setTags] = useState([]);
     const tagsToLowerCase = tags.map((v) => v.toLowerCase());
     const dispatch = useDispatch();
+    const [tips] = useState(randomQuote());
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setTitle('');
@@ -82,7 +84,7 @@ function AddQuestion() {
                 <button className="quill-button">Postear Pregunta</button>
             </form>
             <div className="tips">
-                <div className="tips-einstein">{randomQuote()} </div>
+                <div className="tips-einstein">{tips} </div>
                 <div className="tips-consejos">
                     Algunos tips para realizar tu pregunta:
                     <div>

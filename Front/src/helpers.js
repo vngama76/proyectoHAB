@@ -25,7 +25,7 @@ function randomQuote() {
     const array = [
         `"Creíamos que teníamos las respuestas, pero era la pregunta la que estaba equivocada."
 Bono'`,
-        `“No hay respuestas correctas a preguntas equivocadas”. </br>
+        `“No hay respuestas correctas a preguntas equivocadas”. 
 Úrsula Le Guin`,
         `“Mi mayor fortaleza como consultor es ser ignorante y hacer algunas preguntas”
 Peter Drucker`,
