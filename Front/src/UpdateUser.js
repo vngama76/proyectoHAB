@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './UpdateUser.css';
-// import { useSetTrigger, useTrigger } from './TriggerContext';
+import { useSetTrigger, useTrigger } from './TriggerContext';
 import { useHistory } from 'react-router-dom';
 
 function UpdateUser({ closeModal }) {
@@ -17,8 +17,8 @@ function UpdateUser({ closeModal }) {
 
     const history = useHistory();
     const [file, setFile] = useState();
-    // const setTrigger = useSetTrigger();
-    // const trigger = useTrigger();
+    const setTrigger = useSetTrigger();
+    const trigger = useTrigger();
 
     const foto = user.info.foto
         ? `http://localhost:4000/uploads/${user.info.foto}`
@@ -77,16 +77,16 @@ function UpdateUser({ closeModal }) {
             });
 
             if (res.ok) {
-                const res = await fetch(
-                    `http://localhost:4000/api/users/${user.info.id}`,
-                    { headers }
-                );
+                // const res = await fetch(
+                //     `http://localhost:4000/api/users/${user.info.id}`,
+                //     { headers }
+                // );
 
-                const [userInfo] = await res.json();
+                // const [userInfo] = await res.json();
 
-                dispatch({ type: 'INFO', info: userInfo });
-                // setTrigger(trigger === 1 ? 2 : 1);
-                history.go(0);
+                // dispatch({ type: 'INFO', info: userInfo });
+                setTrigger(trigger === 1 ? 2 : 1);
+                // history.go(0);
 
                 closeModal();
             } else {
@@ -99,7 +99,10 @@ function UpdateUser({ closeModal }) {
 
     return (
         <>
-            <div className="modal-bg" onClick={() => history.go() + closeModal}>
+            <div
+                className="modal-bg"
+                onClick={() => setTrigger(trigger === 1 ? 2 : 1) + closeModal()}
+            >
                 <div className="modal-fg" onClick={(e) => e.stopPropagation()}>
                     <form className="update-user" onSubmit={handleSubmit}>
                         <h1>Actualiza tus datos</h1>

@@ -26,7 +26,7 @@ export default function Article() {
         <div className="article">
             {user && (
                 <>
-                    <Link to={'/profile/' + user.id}>
+                    <Link to={'/profile/' + user.id + '/questions'}>
                         {user.foto ? (
                             <div
                                 className="avatar"

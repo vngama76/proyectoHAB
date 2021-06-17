@@ -35,6 +35,7 @@ function Profile() {
         }
     }, [q, trigger, setUser, token]);
     console.log(res);
+
     return (
         <div className="profile">
             <h1>Página de usuario</h1>
@@ -51,7 +52,7 @@ function Profile() {
                             Nombre: {res.name} <br />
                             Email:{' '}
                             {res.show_mail
-                                ? res[0].email
+                                ? res.email
                                 : ' el usuario prefiere no mostrar su email'}{' '}
                             <br />
                             Rol: {res.rol}
@@ -77,7 +78,7 @@ function Profile() {
                     {showModal && (
                         <UpdateUser
                             closeModal={() => {
-                                setTrigger();
+                                // setTrigger();
                                 setShowModal(false);
                             }}
                         />

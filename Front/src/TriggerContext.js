@@ -4,7 +4,7 @@ const TriggerContext = createContext();
 
 function TriggerContextProvider({ children }) {
     const [trigger, setTrigger] = useState(1);
-
+    console.log(trigger);
     return (
         <TriggerContext.Provider value={[trigger, setTrigger]}>
             {children}

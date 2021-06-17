@@ -24,7 +24,7 @@ export default function UsersFound() {
                         <Link
                             to={
                                 user === u.id_user
-                                    ? '/profile/' + u.id_user
+                                    ? '/profile/' + u.id_user + '/questions'
                                     : '/profile/users/' + u.id_user
                             }
                         >

@@ -1,8 +1,6 @@
 import { Pie } from 'react-chartjs-2';
-// import useFetch from './useFetch';
-// import randomColor from 'randomcolor';
+
 import React, { useEffect, useState } from 'react';
-// import Chart from 'chart.js/auto';
 
 // function TagsChart(q) {
 //   const tags = useFetch('http://localhost:4000/api/tags/user/1');

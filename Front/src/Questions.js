@@ -39,7 +39,7 @@ function Questions() {
                 .then((res) => res.json())
                 .then((data) => setInfo(data));
         }
-    }, [trigger, q, token]);
+    }, [trigger]);
 
     const HandleCloseQuestion = async (e) => {
         //Para cerrar la pregunta siendo el admin
