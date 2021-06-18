@@ -1,100 +1,54 @@
 import { Pie } from 'react-chartjs-2';
 
 import React, { useEffect, useState } from 'react';
+import { random_bg_color } from './helpers';
 
-// function TagsChart(q) {
-//   const tags = useFetch('http://localhost:4000/api/tags/user/1');
-//   console.log(tags);
-
-//   const totalTags = tags?.length;
-//   console.log(totalTags);
-
-//   const repeatedTags = {};
-//   console.log(repeatedTags);
-//   tags?.forEach(function (tag) {
-//     repeatedTags[tag] = (repeatedTags[tag] || 0) + 1;
-//   });
-
-//   const repeatedTagsValues = Object.values(repeatedTags);
-//   console.log(repeatedTagsValues);
-//   const repeatedTagsPercents = repeatedTagsValues.map(
-//     (e) => (e * 100) / totalTags
-//   );
-
-//   console.log(repeatedTagsPercents);
-
-//   const eachTag = [...new Set(tags)];
-//   console.log(eachTag);
-
-//   const color = repeatedTagsValues.map((e) =>
-//     randomColor({
-//       luminosity: 'random',
-//       hue: 'random',
-//     })
-//   );
-//   console.log(color);
-
-//   const [chartData, setChartData] = useState({});
-//   const chart = () => {
-//     setChartData({
-//       labels: eachTag,
-//       datasets: [
-//         {
-//           label: 'Tags',
-//           data: repeatedTagsPercents,
-//           backgroundColor: color,
-//         },
-//       ],
-//       borderWidth: 2,
-//     });
-//   };
-
-//   useEffect(() => {
-//     chart();
-//   }, []);
-
-//   // const data = {
-//   //   title: eachTag,
-//   //   value: repeatedTagsPercents,
-//   //   color: color,
-//   // };
-//   // console.log(data);
-//   // const options = {
-//   //   responsive: true,
-//   // };
-
-//   return (
-//     <div>
-//       <h2>QUESO:</h2>
-//       <div>{tags && <Pie data={chartData} />}</div>
-//     </div>
-//   );
-// }
-
-const TagsChart = () => {
+const TagsChart = ({ id_user }) => {
     const [chartData, setChartData] = useState({});
-    const chart = () => {
+    const chart = (info) => {
+        let labels = [];
+        let data = [];
+        let colors = [];
+        for (const tag of info.tags) {
+            data.push(Number(tag.porcentaje));
+            labels.push(tag.tag_name);
+            colors.push(
+                tag.tag_name.toLowerCase() === 'html'
+                    ? 'rgb(222, 74, 36)'
+                    : tag.tag_name.toLowerCase() === 'css'
+                    ? 'rgb(1, 106, 182)'
+                    : tag.tag_name.toLowerCase() === 'java'
+                    ? 'rgb(227, 16, 22)'
+                    : tag.tag_name.toLowerCase() === 'js' ||
+                      tag.tag_name.toLowerCase() === 'javascript'
+                    ? 'rgb(240, 221, 48)'
+                    : tag.tag_name.toLowerCase() === 'php'
+                    ? 'rgb(121, 121, 179)'
+                    : tag.tag_name.toLowerCase() === 'phyton'
+                    ? 'rgb(54, 107, 152)'
+                    : tag.tag_name.toLowerCase() === 'sql'
+                    ? 'rgb(99, 45, 140)'
+                    : random_bg_color()
+            );
+        }
+
         setChartData({
-            labels: ['css', 'php', 'sql'],
+            labels: labels,
             datasets: [
                 {
                     label: 'Tags',
-                    data: [20, 40, 40],
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.6',
-                        'rgba(75, 100, 192, 0.6',
-
-                        'rgba(75, 15, 192, 0.6',
-                    ],
-
+                    data: data,
+                    backgroundColor: colors,
                     borderWidth: 4,
                 },
             ],
         });
     };
     useEffect(() => {
-        chart();
-    }, []);
+        fetch(`http://localhost:4000/api/tags/user/${id_user}`)
+            .then((res) => res.json())
+            .then((info) => chart(info));
+    }, [id_user]);
 
     return (
         <div>

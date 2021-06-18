@@ -61,9 +61,10 @@
     align-items: center;
     gap: 1rem;
 }
-.update-user h1 {
-    align-self: center;
+.update-user-h1 {
+    text-align: center;
     margin-bottom: 0;
+    color: rgb(0, 0, 0);
 }
 .email {
     display: flex;

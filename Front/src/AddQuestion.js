@@ -15,6 +15,7 @@ function AddQuestion() {
     const [message, setMessage] = useState('');
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState([]);
+
     const tagsToLowerCase = tags.map((v) => v.toLowerCase());
     const dispatch = useDispatch();
     const [tips] = useState(randomQuote());
@@ -76,6 +77,7 @@ function AddQuestion() {
                         onChange={setTags}
                         placeholder="Tags..."
                         className="tags-input"
+                        onKeyPress={(e) => e.key === 'Enter' && e.key === 'Tab'}
                     >
                         <Option></Option>
                     </Select>

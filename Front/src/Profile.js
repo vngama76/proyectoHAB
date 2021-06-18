@@ -7,14 +7,14 @@ import { useEffect, useState } from 'react';
 import UpdateUser from './UpdateUser';
 import QuestionsActivity from './QuestionsActivity';
 import AnswersActivity from './AnswersActivity';
-import { useSetTrigger, useTrigger } from './TriggerContext';
+import { useTrigger } from './TriggerContext';
 import { useSelector } from 'react-redux';
+import TagsChart from './TagsChart';
 
 function Profile() {
     const { q } = useParams();
     const [showModal, setShowModal] = useState(false);
     const trigger = useTrigger();
-    const setTrigger = useSetTrigger();
     const token = useSelector((s) => s.user?.token);
     const [res, setUser] = useState();
 
@@ -38,32 +38,29 @@ function Profile() {
 
     return (
         <div className="profile">
-            <h1>Página de usuario</h1>
+            <h1>Tu Perfil</h1>
             {res && (
                 <>
                     <Helmet>
                         <title>Perfil de {res.name}</title>
                     </Helmet>
-                    <div className="box">
-                        <div className="tabs">
-                            <div className="box-tabs-title">
-                                Info de Usuario
+                    <div className="info-queso-grid">
+                        <div className="box">
+                            <div className="box-nombre">Nombre: {res.name}</div>
+                            <div className="box-email">
+                                Email:{' '}
+                                {res.show_mail
+                                    ? res.email
+                                    : ' el usuario prefiere no mostrar su email'}
                             </div>
-                            Nombre: {res.name} <br />
-                            Email:{' '}
-                            {res.show_mail
-                                ? res.email
-                                : ' el usuario prefiere no mostrar su email'}{' '}
-                            <br />
-                            Rol: {res.rol}
+                            <div className="box-rol">Rol: {res.rol}</div>
+
+                            <div className="box-descripcion">
+                                Mas sobre ti: {res.description}
+                            </div>
                         </div>
-                    </div>
-                    <div className="userinfo">
-                        {' '}
-                        Mas sobre ti:{' '}
-                        <div className="userinfotext" readOnly="readonly">
-                            {res.description}
-                        </div>
+
+                        <TagsChart className="profile-queso" id_user={q} />
                     </div>
 
                     <div
@@ -74,6 +71,38 @@ function Profile() {
                             backgroundImage: `url(https://www.vhv.rs/dpng/d/91-912742_paper-and-pencil-circle-icon-hd-png-download.png)`,
                         }}
                     />
+                    <div className="chart-questions-answers">
+                        <div className="tabs-div">
+                            <div className="tabs">
+                                <NavLink
+                                    to={`/profile/${q}/questions`}
+                                    activeClassName="active"
+                                >
+                                    Preguntas
+                                </NavLink>
+                                <NavLink
+                                    to={`/profile/${q}/answers`}
+                                    exact
+                                    activeClassName="active"
+                                >
+                                    Respuestas
+                                </NavLink>
+                            </div>
+                            <div className="content">
+                                <Switch>
+                                    <Route
+                                        path={`/profile/${q}/questions`}
+                                        exact
+                                    >
+                                        <QuestionsActivity />
+                                    </Route>
+                                    <Route path={`/profile/${q}/answers`} exact>
+                                        <AnswersActivity />
+                                    </Route>
+                                </Switch>
+                            </div>
+                        </div>
+                    </div>
 
                     {showModal && (
                         <UpdateUser
@@ -84,36 +113,6 @@ function Profile() {
                         />
                     )}
                 </>
-            )}
-            {res && (
-                <div>
-                    {' '}
-                    <div className="tabs">
-                        <NavLink
-                            to={`/profile/${q}/questions`}
-                            activeClassName="active"
-                        >
-                            Preguntas
-                        </NavLink>
-                        <NavLink
-                            to={`/profile/${q}/answers`}
-                            exact
-                            activeClassName="active"
-                        >
-                            Respuestas
-                        </NavLink>
-                    </div>
-                    <div className="content">
-                        <Switch>
-                            <Route path={`/profile/${q}/questions`} exact>
-                                <QuestionsActivity />
-                            </Route>
-                            <Route path={`/profile/${q}/answers`} exact>
-                                <AnswersActivity />
-                            </Route>
-                        </Switch>
-                    </div>
-                </div>
             )}
         </div>
     );

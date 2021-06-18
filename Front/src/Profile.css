@@ -1,33 +1,13 @@
 .profile {
     display: flex;
     flex-direction: column;
-    width: 80%;
     gap: 2rem;
 }
 .profile h1 {
-    align-self: center;
-}
-.box {
-    background-color: lightgray;
-    border-radius: 3px;
-    border: 3px solid #9a9a9a;
-    color: black;
-    padding: 1rem;
-    padding-top: 0.5rem;
-    font-size: 1.3rem;
-}
-.box-tabs-title {
-    padding: 0.7rem;
+    text-align: center;
+    background-color: black;
 }
 
-.userinfotext {
-    background-color: lightgray;
-    border-radius: 3px;
-    border: 3px solid #9a9a9a;
-    color: black;
-    font-size: 1.3rem;
-    padding: 0.5rem;
-}
 .pencil {
     width: 4rem;
     height: 4rem;
@@ -35,8 +15,10 @@
     background-size: cover;
     background-position: center;
     margin-bottom: 1rem;
+    margin-left: 18rem;
     font-weight: bold;
     font-size: 1.5rem;
+    align-self: center;
 }
 
 .profile .tabs a {
@@ -64,4 +46,50 @@
     border: 1px solid #444;
     padding: 20px;
     min-height: 40vh;
+}
+.info-queso-grid {
+    display: grid;
+    grid-template-columns: 50rem 25rem;
+    grid-template-rows: 3rem 3rem 2rem 2rem 4rem;
+
+    gap: 1rem;
+    grid-template-areas:
+        '. queso'
+        'nombre .'
+        'email .'
+        'rol .'
+        'descripcion .';
+}
+
+.box-nombre {
+    grid-area: nombre;
+    background-color: lightgray;
+    color: black;
+    padding: 1rem;
+    margin: 1rem;
+}
+.box-email {
+    grid-area: email;
+    background-color: lightgray;
+    color: black;
+    padding: 1rem;
+    margin: 1rem;
+}
+.box-rol {
+    grid-area: rol;
+    background-color: lightgray;
+    color: black;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.box-descripcion {
+    grid-area: descripcion;
+    background-color: lightgray;
+    color: black;
+    padding: 1rem;
+    margin: 1rem;
+}
+.profile-queso {
+    grid-area: queso;
 }

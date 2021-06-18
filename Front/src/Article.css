@@ -58,3 +58,11 @@
     width: 4rem;
     align-self: flex-end;
 }
+.medal {
+    width: 2rem;
+    height: 3rem;
+    filter: invert(100%);
+    background-size: cover;
+    background-position: center;
+    align-self: center;
+}

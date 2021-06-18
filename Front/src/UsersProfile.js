@@ -8,19 +8,22 @@ export default function UsersProfile() {
     const results = useFetch('http://localhost:4000/api/users/' + q);
     return (
         <div className="perfil-usuario-tercero">
-            <p>Perfil de Usuario</p>
+            {results && (
+                <p className="perfil-usuario-tercero-title">
+                    Perfil de {results[0].name}
+                </p>
+            )}
             {!results && <i>Loading...</i>}
             {results?.error ? (
                 <i>No results found!</i>
             ) : (
                 results?.map((u) => (
                     <div key={u.id} className="datos-usuario">
-                        <div className="nombre">Nombre: {u.name}</div>
                         {u.foto ? (
                             <div
                                 className="avatar"
                                 style={{
-                                    backgroundImage: `url(${u.foto})`,
+                                    backgroundImage: `url(http://localhost:4000/uploads/${u.foto})`,
                                 }}
                             />
                         ) : (
@@ -33,18 +36,24 @@ export default function UsersProfile() {
                                 {u.name.slice(0, 1)}
                             </div>
                         )}
-                        <div className="email">
+                        <div className="datos-usuario-nombre">
+                            Nombre: {u.name}
+                        </div>
+                        <div className="datos-usuario-email">
                             Email:{' '}
                             {u.show_mail
                                 ? u.email
                                 : 'El usuario prefiere no mostrar su email'}
                         </div>
-                        <div className="descripcion">
-                            Descripción:
-                            <div>{u.description}</div>
+                        <div className="datos-usuario-descripcion">
+                            <div>Descripción: {u.description}</div>
                         </div>
-                        <div className="puntos">Puntos</div>
-                        <TagsChart className="queso" />
+                        <TagsChart
+                            className="datos-usuario-queso"
+                            id_user={u.id}
+                        />
+                        <div className="datos-usuario-punto" />
+                        <div className="datos-usuario-dot" />
                     </div>
                 ))
             )}

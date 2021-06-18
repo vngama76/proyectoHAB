@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import FindUsers from './FindUsers';
 import { useEffect, useState } from 'react';
 import { useTrigger } from './TriggerContext';
+import medal from './images/medal-icon-symbol-sign-vector.jpg';
 
 export default function Article() {
     const id = useSelector((s) => s.user.info.id);
@@ -33,6 +34,7 @@ export default function Article() {
                                 style={{
                                     backgroundImage: `url(http://localhost:4000/uploads/${user.foto})`,
                                 }}
+                                title="Perfil"
                             />
                         ) : (
                             <div
@@ -40,14 +42,21 @@ export default function Article() {
                                 style={{
                                     backgroundColor: user.color,
                                 }}
+                                title="Perfil"
                             >
                                 {user.name.slice(0, 1)}
                             </div>
                         )}
                     </Link>
-
-                    <p className="username">{user.name}</p>
-
+                    {user.rol === 'expert' && (
+                        <div
+                            className="medal"
+                            style={{
+                                backgroundImage: `url(${medal})`,
+                            }}
+                            title="Usuario Experto"
+                        />
+                    )}
                     <div className="article-rol">
                         {' '}
                         {user.rol === 'admin'
@@ -56,6 +65,8 @@ export default function Article() {
                             ? 'Experto'
                             : 'User'}
                     </div>
+
+                    <p className="username">{user.name}</p>
 
                     <FindUsers />
                 </>

@@ -136,12 +136,12 @@ select tag_name, count(*) as incidencia,
 (COUNT(*)/(select count('incidencia') from tags inner join question_tags on tags.id_tag = question_tags.id_tag
 inner join questions on questions.id_question = question_tags.id_question
 inner join users on users.id_user = questions.id_user
-where users.id_user=1)) * 100 as 'porcentaje'
+where users.id_user=4)) * 100 as 'porcentaje'
 from tags
 inner join question_tags on tags.id_tag = question_tags.id_tag
 inner join questions on questions.id_question = question_tags.id_question
 inner join users on users.id_user = questions.id_user
-where users.id_user=1
+where users.id_user=4
 group by tags.tag_name order by incidencia desc;
 
 
@@ -150,3 +150,15 @@ group by tags.tag_name order by incidencia desc;
 select tag_name, count(*) as incidencia from tags
  inner join question_tags on tags.id_tag = question_tags.id_tag
  group by tags.id_tag order by incidencia desc;
+
+
+
+----retorna porcentaje de tags por incidencia de un usuario(VERSION ADAPTADA PARA REPOSITORIES)----
+select tag_name, count(*) as incidencia,
+(COUNT(*)/(select count('incidencia') from tags 
+inner join question_tags on tags.id_tag = question_tags.id_tag
+inner join questions on questions.id_question = question_tags.id_question
+inner join users on users.id_user = questions.id_user
+where users.id_user=4)) * 100 as 'porcentaje'
+from tags
+group by tags.tag_name order by incidencia desc;

@@ -92,7 +92,6 @@ async function getQuestionsByUserId(req, res, next) {
         const question = await questionsRepository.findQuestionByUserId(
             id_user
         );
-        console.log(question);
         if (!question) {
             console.log('Usuario no ha realizado ninguna pregunta');
         }

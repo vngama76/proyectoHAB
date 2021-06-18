@@ -10,6 +10,7 @@ const {
     answersController,
     commentsController,
     scoresController,
+    tagsController,
 } = require('./Controllers/index');
 
 const { validateAuthorization } = require('./Middlewares/validate_auth');
@@ -142,6 +143,14 @@ app.get(
     '/api/comments/:id_answer_father',
     validateAuthorization,
     commentsController.getCommentsByAnswerFatherId
+);
+//Tags:
+
+app.get('/api/tags/user/:id_user', tagsController.getTagsForChartByUserId);
+app.get(
+    '/api/tags/incidence/',
+    validateAuthorization,
+    tagsController.getTagByIncidence
 );
 
 // Score;

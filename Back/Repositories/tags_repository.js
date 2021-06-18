@@ -30,8 +30,32 @@ async function findTagsByUserId(id) {
     return tagsArray;
 }
 
+async function findTagsForChartByUserId(id_user) {
+    const query = `
+    select tag_name, count(*) as incidencia,
+    (COUNT(*)/(select count('incidencia') from tags inner join question_tags on tags.id_tag = question_tags.id_tag
+    inner join questions on questions.id_question = question_tags.id_question
+    where questions.id_user=?)) * 100 as 'porcentaje'
+    from tags
+    inner join question_tags on tags.id_tag = question_tags.id_tag
+    inner join questions on questions.id_question = question_tags.id_question
+    where questions.id_user=?
+    group by tags.tag_name order by incidencia desc;`;
+    const [tags] = await database.pool.query(query, [id_user, id_user]);
+    return tags;
+}
+async function findTagsByIncidence() {
+    const query = `select tag_name, count(*) as incidencia from tags
+    inner join question_tags on tags.id_tag = question_tags.id_tag
+    group by tags.id_tag order by incidencia desc`;
+    const [tags] = await database.pool.query(query);
+    return tags;
+}
+
 module.exports = {
     findTag,
     createTag,
     findTagsByUserId,
+    findTagsForChartByUserId,
+    findTagsByIncidence,
 };

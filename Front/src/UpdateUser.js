@@ -77,16 +77,15 @@ function UpdateUser({ closeModal }) {
             });
 
             if (res.ok) {
-                // const res = await fetch(
-                //     `http://localhost:4000/api/users/${user.info.id}`,
-                //     { headers }
-                // );
+                const res = await fetch(
+                    `http://localhost:4000/api/users/${user.info.id}`,
+                    { headers }
+                );
 
-                // const [userInfo] = await res.json();
+                const [userInfo] = await res.json();
 
-                // dispatch({ type: 'INFO', info: userInfo });
+                dispatch({ type: 'INFO', info: userInfo });
                 setTrigger(trigger === 1 ? 2 : 1);
-                // history.go(0);
 
                 closeModal();
             } else {
@@ -105,7 +104,7 @@ function UpdateUser({ closeModal }) {
             >
                 <div className="modal-fg" onClick={(e) => e.stopPropagation()}>
                     <form className="update-user" onSubmit={handleSubmit}>
-                        <h1>Actualiza tus datos</h1>
+                        <h1 className="update-user-h1">Actualiza tus datos</h1>
                         <label>
                             {preview ? (
                                 <div

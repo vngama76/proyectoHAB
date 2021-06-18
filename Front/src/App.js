@@ -13,6 +13,8 @@ import ErrorMessage from './ErrorMessage';
 import AddQuestion from './AddQuestion';
 import ExpertsFound from './ExpertsFound';
 import FindExperts from './FindExperts';
+import TableTags from './TableTags';
+import TagsResults from './TagsResults';
 
 const PrivateRoute = ({ children }) => {
     const isLoggedIn = useSelector((s) => !!s.user.token);
@@ -39,6 +41,7 @@ function App() {
             <Navbar />
 
             {isLoggedIn && user && <FindExperts />}
+            {isLoggedIn && user && <TableTags />}
 
             {isLoggedIn && user && <Article />}
             <main className="main">
@@ -60,11 +63,7 @@ function App() {
                             <Profile />
                         </PrivateRoute>
                     </Route>
-                    {/* <Route path="/profile/">
-                        <PrivateRoute>
-                            <Profile />
-                        </PrivateRoute>
-                    </Route> */}
+
                     <Route path="/search/users/:q" exact>
                         <PrivateRoute>
                             <UsersFound />
@@ -75,6 +74,9 @@ function App() {
                             <ExpertsFound />
                         </PrivateRoute>
                     </Route>
+                    <Route path="/tagsresults/:q" exact>
+                        <TagsResults />
+                    </Route>
                     <Route path="/">
                         <Home />
                     </Route>
@@ -82,7 +84,7 @@ function App() {
             </main>
 
             <footer className={isLoggedIn ? 'footer' : 'footer-long'}>
-                Gapp™ - Get Answered Application -
+                Gapp™ - Get Answered Application{' '}
             </footer>
         </div>
     );
