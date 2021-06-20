@@ -1,4 +1,10 @@
-import { useParams, NavLink, Switch, Route } from 'react-router-dom';
+import {
+    useParams,
+    NavLink,
+    Switch,
+    Route,
+    useHistory,
+} from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import './Profile.css';
 
@@ -7,7 +13,7 @@ import { useEffect, useState } from 'react';
 import UpdateUser from './UpdateUser';
 import QuestionsActivity from './QuestionsActivity';
 import AnswersActivity from './AnswersActivity';
-import { useTrigger } from './TriggerContext';
+import { useSetTrigger, useTrigger } from './TriggerContext';
 import { useSelector } from 'react-redux';
 import TagsChart from './TagsChart';
 
@@ -15,13 +21,15 @@ function Profile() {
     const { q } = useParams();
     const [showModal, setShowModal] = useState(false);
     const trigger = useTrigger();
+    const history = useHistory();
     const token = useSelector((s) => s.user?.token);
     const [res, setUser] = useState();
-
-    const handleClick = (e) => {
-        e.preventDefault();
-        setShowModal(true);
-    };
+    const id_user = useSelector((u) => u.user.info.id);
+    const rol = useSelector((u) => u.user.info.rol);
+    const setTrigger = useSetTrigger();
+    if (id_user !== Number(q) && rol !== 'admin') {
+        history.push(`/profile/users/${q}`);
+    }
 
     useEffect(() => {
         if (trigger) {
@@ -34,7 +42,34 @@ function Profile() {
                 .then(([data]) => setUser(data));
         }
     }, [q, trigger, setUser, token]);
-    console.log(res);
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        setShowModal(true);
+    };
+
+    function HandleBlock() {
+        console.log(res.isVerify);
+        if (res.isVerify) {
+            fetch('http://localhost:4000/api/admin/blockuser/' + q, {
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            });
+
+            setTrigger(trigger === 1 ? 2 : 1);
+        } else {
+            fetch('http://localhost:4000/api/admin/unblockuser/' + q, {
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            });
+
+            setTrigger(trigger === 1 ? 2 : 1);
+        }
+    }
 
     return (
         <div className="profile">
@@ -62,6 +97,14 @@ function Profile() {
 
                         <TagsChart className="profile-queso" id_user={q} />
                     </div>
+
+                    {rol === 'admin' && Number(q) !== id_user && (
+                        <button onClick={HandleBlock} className="admin-button">
+                            {res.isVerify
+                                ? 'Bloquear Usuario'
+                                : 'Desbloquear Usuario'}
+                        </button>
+                    )}
 
                     <div
                         onClick={handleClick}
@@ -94,10 +137,10 @@ function Profile() {
                                         path={`/profile/${q}/questions`}
                                         exact
                                     >
-                                        <QuestionsActivity />
+                                        <QuestionsActivity q={q} />
                                     </Route>
                                     <Route path={`/profile/${q}/answers`} exact>
-                                        <AnswersActivity />
+                                        <AnswersActivity q={q} />
                                     </Route>
                                 </Switch>
                             </div>

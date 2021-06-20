@@ -216,6 +216,7 @@ async function getUserById(req, res, next) {
                 description: user.descritpion,
                 show_mail: user.show_mail,
                 rol: user.rol,
+                isVerify: user.isVerify,
             },
         ]);
     } catch (err) {
@@ -383,6 +384,54 @@ async function getUserByRol(req, res, next) {
         next(err);
     }
 }
+async function blockUser(req, res, next) {
+    try {
+        const { rol } = req.auth;
+        const { id_user } = req.params;
+        if (rol !== 'admin') {
+            const error = new Error('Solo admins pueden bloquear usuarios');
+            error.code = 403;
+            throw error;
+        }
+        await userRepository.blockUserById(id_user);
+        const { isVerify } = await userRepository.findVerifySituation(id_user);
+        res.send({
+            isVerify,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+async function unBlockUser(req, res, next) {
+    try {
+        const { rol } = req.auth;
+        const { id_user } = req.params;
+        if (rol !== 'admin') {
+            const error = new Error('Solo admins pueden bloquear usuarios');
+            error.code = 403;
+            throw error;
+        }
+        await userRepository.unBlockUserById(id_user);
+        const { isVerify } = await userRepository.findVerifySituation(id_user);
+        res.send({
+            isVerify,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getVerifySituation(req, res, next) {
+    try {
+        const { id_user } = req.params;
+        const { isVerify } = await userRepository.findVerifySituation(id_user);
+        res.send({
+            isVerify,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
 
 module.exports = {
     register,
@@ -398,4 +447,7 @@ module.exports = {
     addAvatar,
     getUserByRolRandom,
     getUserByRol,
+    blockUser,
+    unBlockUser,
+    getVerifySituation,
 };

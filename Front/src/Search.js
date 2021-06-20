@@ -10,18 +10,21 @@ function Search() {
 
     return (
         <div className="search">
-            <h1>Busca preguntas</h1>
-            <Helmet>
-                <title>GAPP - HOME</title>
-            </Helmet>
-            <form onSubmit={handleSubmit}>
-                <input
-                    placeholder="Search..."
-                    value={search === ' ' ? '' : search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-                <button>🔍</button>
-            </form>
+            <div className="search-input">
+                <div className="search-title-input">Busca tu pregunta</div>
+                <Helmet>
+                    <title>GAPP - HOME</title>
+                </Helmet>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        placeholder="Search..."
+                        value={search === ' ' ? '' : search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <button>🔍</button>
+                </form>
+            </div>
+
             {search && search !== ' ' && <SearchResults q={search} />}
         </div>
     );

@@ -6,6 +6,7 @@ import './antd.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { randomQuote } from './helpers';
+import { useSetTrigger, useTrigger } from './TriggerContext';
 
 const { Option } = Select;
 
@@ -15,11 +16,11 @@ function AddQuestion() {
     const [message, setMessage] = useState('');
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState([]);
-
+    const setTrigger = useSetTrigger();
     const tagsToLowerCase = tags.map((v) => v.toLowerCase());
     const dispatch = useDispatch();
     const [tips] = useState(randomQuote());
-
+    const trigger = useTrigger();
     const handleSubmit = async (e) => {
         e.preventDefault();
         setTitle('');
@@ -39,6 +40,7 @@ function AddQuestion() {
         });
         if (res.ok) {
             const question = await res.json();
+            setTrigger(trigger === 1 ? 2 : 1);
             history.push('/questions/' + question.question.id_question);
         } else {
             dispatch({

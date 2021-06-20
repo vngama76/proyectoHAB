@@ -15,10 +15,10 @@
     padding-top: 0.3rem;
     margin-left: 2rem;
     display: grid;
-    grid-template-columns: 10rem 20rem 15rem 20rem;
+    grid-template-columns: 13rem 20rem 15rem 20rem;
     grid-template-rows: 3rem 3rem 3rem 4rem;
     grid-template-areas:
-        'foto    dot dot queso'
+        'foto dot dot queso'
         'foto nombre nombre queso'
         'foto email email queso'
         'foto descrp descrp queso';

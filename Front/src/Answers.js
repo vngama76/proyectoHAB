@@ -12,6 +12,7 @@ export default function Answers({
 }) {
     const trigger = useTrigger();
     const [res, setRes] = useState();
+    const rol = useSelector((u) => u.user.info.rol);
 
     const token = useSelector((s) => s.user?.token);
     const dispatch = useDispatch();
@@ -64,7 +65,13 @@ export default function Answers({
                         <>
                             <div key={a.id_answer} className="answer">
                                 <Link
-                                    to={'/profile/users/' + a.id_user}
+                                    to={
+                                        id_user === a.id_user || rol === 'admin'
+                                            ? '/profile/' +
+                                              a.id_user +
+                                              '/questions'
+                                            : '/profile/users/' + a.id_user
+                                    }
                                     className="profile-link"
                                 >
                                     <div className="answer-owner">
@@ -149,7 +156,13 @@ export default function Answers({
                         <>
                             <div key={a.id_answer} className="answer">
                                 <Link
-                                    to={'/profile/users/' + a.id_user}
+                                    to={
+                                        id_user === a.id_user
+                                            ? '/profile/' +
+                                              id_user +
+                                              '/questions'
+                                            : '/profile/users/' + a.id_user
+                                    }
                                     className="profile-link"
                                 >
                                     <div className="answer-owner">

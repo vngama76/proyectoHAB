@@ -2,11 +2,14 @@ import useFetch from './useFetch';
 import './UsersFound.css';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 
 export default function ExpertsFound() {
     const s = 'expert';
     const result = useFetch('http://localhost:4000/api/users/rol/' + s);
-    console.log(result);
+    const id_user = useSelector((u) => u.user.info.id);
+    const rol = useSelector((u) => u.user.info.rol);
+
     return (
         <>
             <h3 className="experts-h3">Nuestros Expertos</h3>
@@ -18,7 +21,11 @@ export default function ExpertsFound() {
                     result[0].users.map((h) => (
                         <Link
                             className="experts-gap"
-                            to={'/profile/users/' + h.id_user}
+                            to={
+                                id_user === h.id_user || rol === 'admin'
+                                    ? '/profile/' + h.id_user + '/questions'
+                                    : '/profile/users/' + h.id_user
+                            }
                         >
                             {h.foto ? (
                                 <div className="user-data" key={h.id_user}>

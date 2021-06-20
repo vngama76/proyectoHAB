@@ -92,16 +92,26 @@ app.put(
     validateAuthorization,
     questionsController.acceptAnswer
 );
-app.put(
-    '/api/admin/questions/:id_question',
-    validateAuthorization,
-    questionsController.closeQuestionByAdmin
-);
 
 app.delete(
     '/api/questions/:id_question',
     validateAuthorization,
     questionsController.removeQuestion
+);
+app.get('/api/questions/home/random', questionsController.getRandomQuestions);
+
+app.get('/api/questions/home/hot', questionsController.getHotQuestions);
+
+app.get('/api/questions/home/last', questionsController.getLastQuestions);
+app.get(
+    '/api/questions/home/notanswered',
+    questionsController.getNotAnsweredQuestions
+);
+
+app.get(
+    '/api/questions/bytags/:words',
+    validateAuthorization,
+    questionsController.getQuestionsByTags
 );
 
 //Answers
@@ -192,6 +202,23 @@ app.get(
     '/api/getTotalScore/answer/:id_answer',
     scoresController.getTotalAnswerVotes
 );
+//Admin
+app.put(
+    '/api/admin/questions/:id_question',
+    validateAuthorization,
+    questionsController.closeQuestionByAdmin
+);
+app.put(
+    '/api/admin/blockuser/:id_user',
+    validateAuthorization,
+    usersController.blockUser
+);
+app.put(
+    '/api/admin/unblockuser/:id_user',
+    validateAuthorization,
+    usersController.unBlockUser
+);
+app.get('/api/admin/isVerify/:id_user', usersController.getVerifySituation);
 
 app.use((err, req, res, next) => {
     +console.error(err);

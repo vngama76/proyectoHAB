@@ -1,13 +1,9 @@
 import { Link } from 'react-router-dom';
 import useFetch from './useFetch';
-import { useSelector } from 'react-redux';
 import './Activity.css';
 
-function AnswersActivity() {
-    const user = useSelector((s) => s.user);
-    const results = useFetch(
-        `http://localhost:4000/api/answers/user/${user.info.id}`
-    );
+function AnswersActivity({ q }) {
+    const results = useFetch(`http://localhost:4000/api/answers/user/${q}`);
 
     return (
         <div className="activity-box">
@@ -17,7 +13,11 @@ function AnswersActivity() {
                     <div key={e.id_question}>
                         <Link to={`/questions/${e.id_question}`}>
                             <div className="results-activity-box">
-                                <div className="activity-q-a">{e.title}</div>
+                                <div className="activity-q-a">
+                                    {e.title.length >= 36
+                                        ? e.title.slice(0, 35) + '...'
+                                        : e.title}
+                                </div>
                                 <div className="activity-date">
                                     {e.creation_date.slice(0, 10)} at{' '}
                                     {e.creation_date.slice(11, 19)}

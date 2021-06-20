@@ -15,9 +15,9 @@ async function refreshUser(email, password, dispatch) {
 }
 
 function random_bg_color() {
-    var x = Math.floor(Math.random() * 90);
-    var y = Math.floor(Math.random() * 90);
-    var z = Math.floor(Math.random() * 90);
+    var x = Math.floor(Math.random() * 255);
+    var y = Math.floor(Math.random() * 255);
+    var z = Math.floor(Math.random() * 255);
     return 'rgb(' + x + ',' + y + ',' + z + ')';
 }
 

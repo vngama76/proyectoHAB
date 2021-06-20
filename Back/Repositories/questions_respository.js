@@ -119,7 +119,49 @@ async function chiudiQuestionByAdmin(id_question) {
     await database.pool.query(query, 'PREGUNTA CERRADA');
     return;
 }
+async function findRandomQuestions() {
+    const [questions] = await database.pool.query(
+        'SELECT * FROM questions ORDER BY rand() LIMIT 20'
+    );
 
+    return Promise.all(
+        questions.map(async (question) => {
+            return await findQuestionById(question.id_question);
+        })
+    );
+}
+async function findLastQuestions() {
+    const [questions] = await database.pool.query(
+        'SELECT * FROM questions ORDER BY id_question DESC LIMIT 20'
+    );
+
+    return Promise.all(
+        questions.map(async (question) => {
+            return await findQuestionById(question.id_question);
+        })
+    );
+}
+
+async function findHotQuestions() {
+    const [questions] = await database.pool.query(
+        'SELECT id_question, count(*) AS votes FROM questions_points GROUP BY id_question ORDER BY votes DESC LIMIT 20'
+    );
+    return Promise.all(
+        questions.map(async (question) => {
+            return await findQuestionById(question.id_question);
+        })
+    );
+}
+async function findNotAnsweredQuestions() {
+    const [questions] = await database.pool.query(
+        'SELECT id_question FROM questions WHERE status_enum = "NO TIENE RESPUESTAS" or status_enum = "TIENE RESPUESTAS" ORDER BY creation_date DESC LIMIT 20'
+    );
+    return Promise.all(
+        questions.map(async (question) => {
+            return await findQuestionById(question.id_question);
+        })
+    );
+}
 module.exports = {
     findQuestionById,
     addQuestion,
@@ -131,4 +173,8 @@ module.exports = {
     findQuestionsByTag,
     findQuestionByTitle,
     chiudiQuestionByAdmin,
+    findRandomQuestions,
+    findLastQuestions,
+    findHotQuestions,
+    findNotAnsweredQuestions,
 };

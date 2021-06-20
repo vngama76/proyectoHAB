@@ -129,13 +129,21 @@ async function getQuestions(req, res, next) {
     }
 }
 
-// async function getRandomQuestions(req,res, next){
-//   const arrayOfId = [1, 3, 5, 8, 9];
-//   SELECT * FROM questions WHERE id_question IN (${arrayOfId});
-//   Devuelve todas las preguntas con esos id
-//   Esto nos va a servir para encontrar preguntas random e imrpimir por pantalla.
+async function getQuestionsByTags(req, res, next) {
+    try {
+        const { words } = req.params;
+        const wordsSplit = words.split(' ');
+        let questions = await questionsRepository.findQuestionsByTag(
+            wordsSplit
+        );
 
-// }
+        res.send({
+            questions,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
 
 async function acceptAnswer(req, res, next) {
     try {
@@ -201,6 +209,51 @@ async function removeQuestion(req, res, next) {
     }
 }
 
+async function getRandomQuestions(req, res, next) {
+    try {
+        const questions = await questionsRepository.findRandomQuestions();
+        res.send({
+            questions,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getLastQuestions(req, res, next) {
+    try {
+        const questions = await questionsRepository.findLastQuestions();
+
+        res.send({
+            questions,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+async function getHotQuestions(req, res, next) {
+    try {
+        const questions = await questionsRepository.findHotQuestions();
+        res.send({
+            questions,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getNotAnsweredQuestions(req, res, next) {
+    try {
+        console.log('hola');
+        const questions = await questionsRepository.findNotAnsweredQuestions();
+        console.log(questions);
+        res.send({
+            questions,
+        });
+    } catch (err) {
+        next(err);
+    }
+}
 module.exports = {
     createQuestion,
     getQuestionById,
@@ -209,4 +262,9 @@ module.exports = {
     closeQuestionByAdmin,
     removeQuestion,
     getQuestions,
+    getRandomQuestions,
+    getLastQuestions,
+    getHotQuestions,
+    getQuestionsByTags,
+    getNotAnsweredQuestions,
 };

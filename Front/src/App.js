@@ -15,7 +15,7 @@ import ExpertsFound from './ExpertsFound';
 import FindExperts from './FindExperts';
 import TableTags from './TableTags';
 import TagsResults from './TagsResults';
-
+import Landing from './Landing';
 const PrivateRoute = ({ children }) => {
     const isLoggedIn = useSelector((s) => !!s.user.token);
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const PrivateRoute = ({ children }) => {
             type: 'NEW_ERROR',
             error: 'Tienes que acceder para ver esta página',
         });
-        return <Redirect to="/" />;
+        return <Redirect to="/landing" />;
     }
 
     return <>{children}</>;
@@ -46,6 +46,9 @@ function App() {
             {isLoggedIn && user && <Article />}
             <main className="main">
                 <Switch>
+                    <Route path="/landing">
+                        <Landing />
+                    </Route>
                     <Route path="/questions/:q" exact>
                         <Questions />
                     </Route>
@@ -75,7 +78,9 @@ function App() {
                         </PrivateRoute>
                     </Route>
                     <Route path="/tagsresults/:q" exact>
-                        <TagsResults />
+                        <PrivateRoute>
+                            <TagsResults />
+                        </PrivateRoute>
                     </Route>
                     <Route path="/">
                         <Home />

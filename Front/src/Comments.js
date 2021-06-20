@@ -10,6 +10,8 @@ export default function Comments({ id_answer_father, id_target_user }) {
     const token = useSelector((s) => s.user?.token);
     const trigger = useTrigger();
     const [res, setRes] = useState();
+    const id_user = useSelector((s) => s.user?.info.id);
+    const rol = useSelector((u) => u.user.info.rol);
 
     useEffect(() => {
         if (trigger) {
@@ -43,7 +45,11 @@ export default function Comments({ id_answer_father, id_target_user }) {
                 res.comments.map((a) => (
                     <div key={a.id_answer} className="comment">
                         <Link
-                            to={'/profile/users/' + a.id_user}
+                            to={
+                                id_user === a.id_user || rol === 'admin'
+                                    ? '/profile/' + a.id_user + '/questions'
+                                    : '/profile/users/' + a.id_user
+                            }
                             className="profile-link"
                         >
                             <div className="comment-owner">

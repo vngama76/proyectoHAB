@@ -1,11 +1,30 @@
 import { Link } from 'react-router-dom';
-import useFetch from './useFetch';
 import './FindExperts.css';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useTrigger } from './TriggerContext';
 
 export default function FindExperts() {
     const q = 'expert';
-    const results = useFetch('http://localhost:4000/api/users/rolrandom/' + q);
+    const token = useSelector((s) => s.user?.token);
+    const trigger = useTrigger();
+    const [results, setRes] = useState();
+    const rol = useSelector((u) => u.user.info.rol);
+
+    useEffect(() => {
+        if (trigger) {
+            fetch('http://localhost:4000/api/users/rolrandom/' + q, {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => setRes(data));
+        }
+    }, [trigger, q, token]);
+
     console.log(results);
+    const user = useSelector((u) => u.user.info.id);
     return (
         <div className="find-experts">
             <Link to="/expertsfound">
@@ -16,7 +35,13 @@ export default function FindExperts() {
             <div className="expert-card">
                 {results &&
                     results[0].users.map((e) => (
-                        <Link to={'/profile/users/' + e.id_user}>
+                        <Link
+                            to={
+                                user === e.id_user || rol === 'admin'
+                                    ? '/profile/' + e.id_user + '/questions'
+                                    : '/profile/users/' + e.id_user
+                            }
+                        >
                             {e.foto ? (
                                 <div className="user--data" key={e.id_user}>
                                     <h5>{e.name_user}</h5>

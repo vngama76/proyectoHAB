@@ -101,6 +101,24 @@ async function findUserByRol(rol) {
     return user;
 }
 
+async function blockUserById(id_user) {
+    const query = 'UPDATE users SET isVerify = 0 WHERE id_user = ?';
+    await database.pool.query(query, [id_user]);
+    return;
+}
+
+async function unBlockUserById(id_user) {
+    const query = 'UPDATE users SET isVerify = 1 WHERE id_user = ?';
+    await database.pool.query(query, [id_user]);
+    return;
+}
+
+async function findVerifySituation(id_user) {
+    const query = 'SELECT isVerify FROM users WHERE id_user = ?';
+    const [isVerify] = await database.pool.query(query, id_user);
+    return isVerify[0];
+}
+
 module.exports = {
     findUserByEmail,
     verifyUser,
@@ -115,4 +133,7 @@ module.exports = {
     changeAvatar,
     findUserByRolRandom,
     findUserByRol,
+    blockUserById,
+    unBlockUserById,
+    findVerifySituation,
 };

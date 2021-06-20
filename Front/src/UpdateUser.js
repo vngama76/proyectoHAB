@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './UpdateUser.css';
 import { useSetTrigger, useTrigger } from './TriggerContext';
-import { useHistory } from 'react-router-dom';
 
 function UpdateUser({ closeModal }) {
     const user = useSelector((u) => u.user);
@@ -15,7 +14,6 @@ function UpdateUser({ closeModal }) {
 
     const dispatch = useDispatch();
 
-    const history = useHistory();
     const [file, setFile] = useState();
     const setTrigger = useSetTrigger();
     const trigger = useTrigger();

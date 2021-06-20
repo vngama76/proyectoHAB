@@ -8,6 +8,7 @@ export default function UsersFound() {
     const { q } = useParams();
     const results = useFetch('http://localhost:4000/api/users/name/' + q);
     const user = useSelector((u) => u.user.info.id);
+    const rol = useSelector((u) => u.user.info.rol);
 
     return (
         <>
@@ -23,7 +24,7 @@ export default function UsersFound() {
                     results?.user.map((u) => (
                         <Link
                             to={
-                                user === u.id_user
+                                user === u.id_user || rol === 'admin'
                                     ? '/profile/' + u.id_user + '/questions'
                                     : '/profile/users/' + u.id_user
                             }

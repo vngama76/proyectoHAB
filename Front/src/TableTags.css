@@ -1,23 +1,29 @@
+.table-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 170px;
+}
+
 .top-tags {
     text-transform: capitalize;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 1.5px 1.5px 3px rgb(126, 120, 120);
-    width: 170px;
-    margin-top: 20px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 .head {
-    text-align: center;
-    width: 170px;
-    height: 50px 50px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
     background-image: linear-gradient(to top left, #000000, #708090);
     box-shadow: 1.5px 1.5px 3px rgb(126, 120, 120);
-    border-radius: 5px;
+    border-radius: 2px;
 }
 .tags {
     margin: 0;
@@ -28,16 +34,17 @@
     background-image: linear-gradient(to top left, #000000, #708090);
     box-shadow: 1.5px 1.5px 3px rgb(126, 120, 120);
     transition: transform 200ms ease-out 100ms;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 .tags:hover {
     transform: scale(1.1, 1.1);
 }
 .tag-results h2 {
-    text-align: center;
-    text-transform: capitalize;
-    width: 50rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    padding: 0.5rem;
+    font-weight: 600;
     background-color: black;
-    padding: 0.3rem;
-    font-size: 1.2rem;
 }

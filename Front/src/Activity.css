@@ -1,7 +1,7 @@
-.activity-box {
+/* .activity-box {
     width: 50rem;
     display: table-row;
-}
+} */
 
 .activity-title {
     align-self: center;
@@ -9,28 +9,23 @@
 }
 .activity-q-a {
     text-transform: capitalize;
+    font-size: 25px;
+}
+.activity-date {
     font-size: 20px;
 }
 
 .results-activity-box {
     display: flex;
     justify-content: space-between;
-    width: 50rem;
+    width: 70rem;
+    padding-left: 1rem;
 }
 
 .results-activity-box:hover {
     background-color: darksalmon;
     color: black;
     font-weight: bold;
-}
-
-.search {
-    margin-top: 5rem;
-    padding-left: 3rem;
-}
-
-.results {
-    margin-top: 3rem;
 }
 
 .search input {

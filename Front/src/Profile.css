@@ -3,9 +3,10 @@
     flex-direction: column;
     gap: 2rem;
 }
-.profile h1 {
+.profile > h1 {
     text-align: center;
     background-color: black;
+    padding: 0.5rem;
 }
 
 .pencil {

@@ -1,4 +1,4 @@
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 import React, { useEffect, useState } from 'react';
 import { random_bg_color } from './helpers';
@@ -39,7 +39,8 @@ const TagsChart = ({ id_user }) => {
                     label: 'Tags',
                     data: data,
                     backgroundColor: colors,
-                    borderWidth: 4,
+                    borderWidth: 1,
+                    hoverOffset: 4,
                 },
             ],
         });
@@ -52,7 +53,7 @@ const TagsChart = ({ id_user }) => {
 
     return (
         <div>
-            <Pie data={chartData} />
+            <Doughnut data={chartData} />
         </div>
     );
 };

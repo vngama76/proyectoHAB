@@ -12,12 +12,14 @@ import { useSetTrigger, useTrigger } from './TriggerContext';
 function Questions() {
     const userIsAdmin = useSelector((s) => !!s.user.info.rol.includes('admin'));
     const token = useSelector((s) => s.user?.token);
+    const id_user = useSelector((u) => u.user.info.id);
     const dispatch = useDispatch();
     const { q } = useParams();
     const [user, setUser] = useState();
     const [info, setInfo] = useState();
     const trigger = useTrigger();
     const setTrigger = useSetTrigger();
+    const rol = useSelector((u) => u.user.info.rol);
 
     useEffect(() => {
         if (trigger) {
@@ -39,7 +41,7 @@ function Questions() {
                 .then((res) => res.json())
                 .then((data) => setInfo(data));
         }
-    }, [trigger]);
+    }, [trigger, q, token]);
 
     const HandleCloseQuestion = async (e) => {
         //Para cerrar la pregunta siendo el admin
@@ -72,7 +74,13 @@ function Questions() {
                         <div className="question-owner">
                             <h2 className="question-title">{info.title}</h2>
                             <Link
-                                to={'/profile/users/' + info.id_user}
+                                to={
+                                    id_user === info.id_user || rol === 'admin'
+                                        ? '/profile/' +
+                                          info.id_user +
+                                          '/questions'
+                                        : '/profile/users/' + info.id_user
+                                }
                                 className="profile-link"
                             >
                                 <div className="question-userinfo">

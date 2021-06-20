@@ -3,19 +3,22 @@ import useFetch from './useFetch';
 
 function SearchResults({ q }) {
     const results = useFetch(`http://localhost:4000/api/questions/tags/${q}`);
-    console.log(results);
     return (
         <>
-            <div className="results">
-                {results?.questions.map((e) => (
+            <div className="home-results">
+                {results?.questions.slice(0, 8).map((e) => (
                     <Link
                         key={e.id_question}
                         to={`/questions/${e.id_question}`}
                         className="search-results-each"
                     >
-                        <div className="results-activity-box">
-                            <div className="activity-q-a">{e.title}</div>
-                            <div className="activity-date">
+                        <div className="home-results-activity-box">
+                            <div className="home-activity-q-a">
+                                {e.title.length >= 36
+                                    ? e.title.slice(0, 35) + '...'
+                                    : e.title}
+                            </div>
+                            <div className="home-activity-date">
                                 {e.creation_date
                                     .slice(0, 10)
                                     .split('-')
@@ -26,8 +29,26 @@ function SearchResults({ q }) {
                         </div>
                     </Link>
                 ))}
-                {!results && <i>Loading...</i>}
-                {!results?.questions.length && <h3>No results found!</h3>}
+                {!results && <div>Loading...</div>}
+                {!results?.questions.length && (
+                    <div>
+                        <div>Al parecer no pudimos encontrar tu pregunta</div>
+                        <div>
+                            Puedes realizar una{' '}
+                            <Link
+                                to="/addQuestion"
+                                style={{
+                                    backgroundColor: 'blue',
+                                    borderRadius: 5,
+                                    padding: 3,
+                                    fontWeight: 600,
+                                }}
+                            >
+                                Aqui
+                            </Link>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

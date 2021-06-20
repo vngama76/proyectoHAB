@@ -26,7 +26,7 @@ CREATE TABLE users (
     verify_code VARCHAR(20),
     descritpion VARCHAR(1000),
     sum INT DEFAULT 0,
-    rol VARCHAR(10) DEFAULT "user"
+    rol VARCHAR(10) DEFAULT "user",    
     );
    
     INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', 'rgb(22,88,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'The Boss', 'admin');
@@ -109,26 +109,6 @@ CREATE TABLE users (
 
 
 
---  select * from answers;
---  INSERT INTO users (name_user, super_user, email, password_user, reg_date, show_mail, descritpion) VALUES('Zé Tó', 1, 'zeto@gmail.com', '123456789', '2021-04-23 10:16:23', '1', 'que guay');
---  select * from users;
- /*
- select tag_name, count(*) as incidencia,
-(COUNT(*)/(select count('incidencia') from tags)) * 100
-from tags
-inner join question_tags on tags.id_tag = question_tags.id_tag
-inner join questions on questions.id_question = question_tags.id_question
-inner join users on users.id_user = questions.id_user
-where users.id_user=1
-group by tags.tag_name order by incidencia desc;
-+----------+------------+---------------------------------------------------------+
-| tag_name | incidencia | (COUNT(*)/(select count('incidencia') from tags)) * 100 |
-+----------+------------+---------------------------------------------------------+
-| css      |          2 |                                                 33.3333 |
-| php      |          3 |                                                 50.0000 |
-| sql      |          2 |                                                 33.3333 |
------------------------------------------------------------------------------------
-*/
 
 
 ----retorna porcentaje de tags por incidencia de un usuario----
@@ -136,29 +116,137 @@ select tag_name, count(*) as incidencia,
 (COUNT(*)/(select count('incidencia') from tags inner join question_tags on tags.id_tag = question_tags.id_tag
 inner join questions on questions.id_question = question_tags.id_question
 inner join users on users.id_user = questions.id_user
-where users.id_user=4)) * 100 as 'porcentaje'
+where questions.id_user=1)) * 100 as 'porcentaje'
 from tags
 inner join question_tags on tags.id_tag = question_tags.id_tag
 inner join questions on questions.id_question = question_tags.id_question
 inner join users on users.id_user = questions.id_user
-where users.id_user=4
+where questions.id_user=1
 group by tags.tag_name order by incidencia desc;
-
++----------+------------+------------+
+| tag_name | incidencia | porcentaje |
++----------+------------+------------+
+| java     |          1 |     8.3333 |
+| php      |          1 |     8.3333 |
+| hhh      |          1 |     8.3333 |
+| ttt      |          1 |     8.3333 |
+| s        |          1 |     8.3333 |
+| w        |          1 |     8.3333 |
+| a        |          1 |     8.3333 |
+| g        |          1 |     8.3333 |
+| u        |          1 |     8.3333 |
+| p        |          1 |     8.3333 |
+| e        |          1 |     8.3333 |
+| y        |          1 |     8.3333 |
++----------+------------+------------+
 
 
 ---Devuelve los tags con su total de incidencias en orden descendente---
 select tag_name, count(*) as incidencia from tags
  inner join question_tags on tags.id_tag = question_tags.id_tag
  group by tags.id_tag order by incidencia desc;
++----------+------------+
+| tag_name | incidencia |
++----------+------------+
+| php      |          3 |
+| java     |          2 |
+| linkedin |          1 |
++----------+------------+
 
 
 
-----retorna porcentaje de tags por incidencia de un usuario(VERSION ADAPTADA PARA REPOSITORIES)----
-select tag_name, count(*) as incidencia,
-(COUNT(*)/(select count('incidencia') from tags 
-inner join question_tags on tags.id_tag = question_tags.id_tag
-inner join questions on questions.id_question = question_tags.id_question
-inner join users on users.id_user = questions.id_user
-where users.id_user=4)) * 100 as 'porcentaje'
-from tags
-group by tags.tag_name order by incidencia desc;
+
+----query que retorna la cantaidad de votos qye tiene una pregunta------
+mysql> select count(*) as votes from questions_points where id_question = 20;
++-------+
+| votes |
++-------+
+|     3 |
++-------+
+
+-----------retorna cada id con su cantidad de votos ordenada de mas votada a menos ----------------
+mysql> SELECT id_question, count(*) AS votes FROM questions_points GROUP BY id_question ORDER BY votes DESC LIMIT 20;
++-------------+-------+
+| id_question | votes |
++-------------+-------+
+|          20 |     3 |
+|           4 |     1 |
+|          15 |     1 |
++-------------+-------+
+
+----cuenta la cantidad de preguntas hechas por un usuario---
+select count(*) as incidencia from questions  
+where id_user = 1;
++------------+
+| incidencia |
++------------+
+|         18 |
++------------+
+---multiplica la cantidad de preguntas de un usuario por 15 
+select count(*) * 15 as total_preg from questions where id_user = 1;
++------------+
+| total_preg |
++------------+
+|        270 |
++------------+
+
+
+----multiplica la cantidad de respyestas de un usuario por 10
+select count(*) * 10 as total_resp from answers 
+where id_user = 1 and id_answer_father is null;
++------------+
+| total_resp |
++------------+
+|        120 |
++------------+
+
+
+---multiplica la cantidad de comentarios de un usuario por 5
+select count(*) * 5 as total_coment from answers where id_user = 1 and id_answer_father is not null;
++--------------+
+| total_coment |
++--------------+
+|           10 |
++--------------+
+
+---total de puntos de usuario obtenidos por la cantidad de votos que han recibido sus preguntas mult por 7---
+SELECT COUNT(*) * 7 AS votos_preg FROM questions_points 
+inner join questions ON questions.id_question = questions_points.id_question 
+where questions.id_user = 1;
++------------+
+| votos_preg |
++------------+
+|         14 |
++------------+
+
+---total de puntos de usuario obtenidos por la cantidad de votos que hayan recibido sus respuestas mult por 5---
+SELECT COUNT(*) * 5 AS votos_resp FROM answers_points 
+inner join answers ON answers.id_answer = answers_points.id_answer 
+where answers.id_user = 1 and answers.id_answer_father is null;
++------------+
+| votos_resp |
++------------+
+|         35 |
++------------+
+
+---total de puntos de usuario obtenidos por la cantidad de votos que hayan recibido sus comentarios mult por 5---
+SELECT COUNT(*) * 3 AS votos_comm FROM answers_points 
+inner join answers ON answers.id_answer = answers_points.id_answer 
+where answers.id_user = 1 and answers.id_answer_father is not null;
++------------+
+| votos_comm |
++------------+
+|          6 |
++------------+
+
+----total de puntos de usuario por respuestas que hayan sido aceptadas-----
+select count(*) * 20 as puntos_x_resp_aceptadas from questions 
+inner join answers on answers.id_answer = questions.id_answer_acepted 
+where answers.id_user = 1;
++----------------------------+
+| puntos_x_resp_aceptadas |
++----------------------------+
+|                         60 |
++----------------------------+
+
+zeto deberia tener 515 puntos.-

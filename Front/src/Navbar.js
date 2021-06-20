@@ -4,6 +4,7 @@ import './Navbar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import LoginModal from './LoginModal';
+import { Redirect } from 'react-router-dom';
 
 function Navbar() {
     const isLoggedIn = useSelector((s) => !!s.user.token);
@@ -16,13 +17,16 @@ function Navbar() {
         dispatch({
             type: 'LOGOUT',
         });
+        if (isLoggedIn) {
+            return <Redirect to="/landing" />;
+        }
     };
     const [showModal, setShowModal] = useState(false);
 
     return (
         <>
             <div className="navbar">
-                <Link to="/" className="logo-container">
+                <Link to="/lastquestions" className="logo-container">
                     <div
                         style={{
                             backgroundImage: `url(${logo})`,
