@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
 .profile {
     display: flex;
     flex-direction: column;
@@ -8,6 +10,14 @@
     background-color: black;
     padding: 0.5rem;
 }
+.pencil-container {
+    display: flex;
+    width: 48rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-left: 1rem;
+}
 
 .pencil {
     width: 4rem;
@@ -15,8 +25,6 @@
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    margin-bottom: 1rem;
-    margin-left: 18rem;
     font-weight: bold;
     font-size: 1.5rem;
     align-self: center;
@@ -93,4 +101,25 @@
 }
 .profile-queso {
     grid-area: queso;
+}
+.user-points {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('http://localhost:4000/uploads/test.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    line-height: 1.5rem;
+    color: #057f8d;
+    text-align: center;
+    align-self: flex-start;
+    font-family: 'orbitron';
+    font-size: 1.6rem;
+    font-weight: 400;
+    width: 5rem;
+    height: 5rem;
+    padding: 3.8rem;
+    border-radius: 25%;
+    filter: invert(100%);
 }

@@ -1,5 +1,5 @@
 import Helmet from 'react-helmet';
-import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
+import { NavLink, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import RandomQuestions from './RandomQuestions';
 import LastQuestions from './LastQuestions';
 import HotQuestions from './HotQuestions';
@@ -11,9 +11,11 @@ import { useSelector } from 'react-redux';
 function Home() {
     const isLoggedIn = useSelector((u) => !!u.user.token);
     const user = useSelector((u) => u.user.info);
-
+    const history = useHistory();
     if (!isLoggedIn) {
         return <Redirect to="/landing" />;
+    } else {
+        history.push('/lastquestions');
     }
 
     return (

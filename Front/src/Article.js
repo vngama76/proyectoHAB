@@ -11,6 +11,7 @@ export default function Article() {
     const [user, setUser] = useState();
     const token = useSelector((s) => s.user?.token);
     const trigger = useTrigger();
+    const [userPoints, setUserPoints] = useState();
 
     useEffect(() => {
         if (trigger) {
@@ -21,6 +22,10 @@ export default function Article() {
             })
                 .then((res) => res.json())
                 .then(([data]) => setUser(data));
+
+            fetch('http://localhost:4000/api/user_points/' + id)
+                .then((res) => res.json())
+                .then(({ user_points }) => setUserPoints(user_points));
         }
     }, [id, trigger, setUser, token]);
     return (
@@ -67,6 +72,12 @@ export default function Article() {
                     </div>
 
                     <p className="username">{user.name}</p>
+                    <div
+                        className="article-points"
+                        title="Puntuación de Usuario"
+                    >
+                        {userPoints} puntos
+                    </div>
 
                     <FindUsers />
                 </>

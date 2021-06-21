@@ -31,6 +31,8 @@ function Profile() {
         history.push(`/profile/users/${q}`);
     }
 
+    const [userPoints, setUserPoints] = useState();
+
     useEffect(() => {
         if (trigger) {
             fetch(`http://localhost:4000/api/users/${q}`, {
@@ -40,6 +42,10 @@ function Profile() {
             })
                 .then((res) => res.json())
                 .then(([data]) => setUser(data));
+
+            fetch('http://localhost:4000/api/user_points/' + q)
+                .then((res) => res.json())
+                .then(({ user_points }) => setUserPoints(user_points));
         }
     }, [q, trigger, setUser, token]);
 
@@ -105,15 +111,23 @@ function Profile() {
                                 : 'Desbloquear Usuario'}
                         </button>
                     )}
+                    <div className="pencil-container">
+                        <div
+                            className="user-points"
+                            title="Puntuación de Usuario"
+                        >
+                            {userPoints} puntos
+                        </div>
+                        <div
+                            onClick={handleClick}
+                            title="modifica tus datos"
+                            style={{
+                                backgroundImage: `url(https://www.vhv.rs/dpng/d/91-912742_paper-and-pencil-circle-icon-hd-png-download.png)`,
+                            }}
+                            className="pencil"
+                        />
+                    </div>
 
-                    <div
-                        onClick={handleClick}
-                        className="pencil"
-                        title="modifica tus datos"
-                        style={{
-                            backgroundImage: `url(https://www.vhv.rs/dpng/d/91-912742_paper-and-pencil-circle-icon-hd-png-download.png)`,
-                        }}
-                    />
                     <div className="chart-questions-answers">
                         <div className="tabs-div">
                             <div className="tabs">

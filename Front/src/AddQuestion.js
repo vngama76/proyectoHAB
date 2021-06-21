@@ -17,7 +17,12 @@ function AddQuestion() {
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState([]);
     const setTrigger = useSetTrigger();
-    const tagsToLowerCase = tags.map((v) => v.toLowerCase());
+
+    const tagsToLowerCase = tags
+        .filter((tag) => tag)
+        .map((tag) => tag.replace(/[^A-Za-z0-9]/g, '').trim())
+        .filter((tag) => tag !== '');
+    console.log(tagsToLowerCase);
     const dispatch = useDispatch();
     const [tips] = useState(randomQuote());
     const trigger = useTrigger();
@@ -35,7 +40,7 @@ function AddQuestion() {
             body: JSON.stringify({
                 title: title,
                 body: message,
-                tags: tagsToLowerCase,
+                tags: tags,
             }),
         });
         if (res.ok) {

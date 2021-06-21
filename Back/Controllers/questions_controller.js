@@ -18,7 +18,6 @@ async function createQuestion(req, res, next) {
             body: Joi.string().max(2500).required(),
             tags: Joi.array(),
         });
-
         await schema.validateAsync({ title, body, tags });
 
         const resp = await questionsRepository.addQuestion(title, body, id);
@@ -34,7 +33,7 @@ async function createQuestion(req, res, next) {
 
                 if (!dbTag) {
                     // Si no existe lo creamos
-                    id_tag = await tagsRepository.createTag(tag);
+                    id_tag = await tagsRepository.createTag(tag.toLowerCase());
                 } else {
                     // Si existe cogemos su id
                     id_tag = dbTag.id_tag;

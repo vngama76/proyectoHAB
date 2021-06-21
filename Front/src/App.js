@@ -1,6 +1,6 @@
 import Navbar from './Navbar';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
+import background from './images/9YKVj.jpg';
 import Home from './Home';
 import Questions from './Questions';
 import './App.css';
@@ -35,7 +35,12 @@ function App() {
     const isLoggedIn = useSelector((s) => !!s.user.token);
     const user = useSelector((u) => u.user.info);
     return (
-        <div className="App">
+        <div
+            className="App"
+            style={{
+                backgroundImage: `url(${background})`,
+            }}
+        >
             <ErrorMessage />
 
             <Navbar />

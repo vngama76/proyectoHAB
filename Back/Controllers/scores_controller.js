@@ -152,6 +152,18 @@ async function voteComment(req, res, next) {
         next(err);
     }
 }
+
+async function getUserPoints(req, res, next) {
+    try {
+        const { id_user } = req.params;
+        const { user_points } = await scoresRepository.sumUserPoints(id_user);
+        res.status(201);
+        res.send({ user_points });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     voteQuestion,
     getAmmountOfQuestionVotesByUserId,
@@ -160,4 +172,5 @@ module.exports = {
     getAmmountOfAnswerVotesByUserId,
     getTotalAnswerVotes,
     voteComment,
+    getUserPoints,
 };

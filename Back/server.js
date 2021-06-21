@@ -202,6 +202,7 @@ app.get(
     '/api/getTotalScore/answer/:id_answer',
     scoresController.getTotalAnswerVotes
 );
+app.get('/api/user_points/:id_user', scoresController.getUserPoints);
 //Admin
 app.put(
     '/api/admin/questions/:id_question',

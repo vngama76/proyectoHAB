@@ -97,15 +97,15 @@ CREATE TABLE users (
               
     );
 
-    CREATE TABLE comments_points (
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        id_comment INT,
-        id_user INT,
-        id_comment_user INT,
-        FOREIGN KEY (id_comment) REFERENCES answers(id_answer),
-        FOREIGN KEY (id_user) REFERENCES users(id_user),
-        FOREIGN KEY (id_comment_user) REFERENCES users (id_user)      
-    );
+    -- CREATE TABLE comments_points (
+    --     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    --     id_comment INT,
+    --     id_user INT,
+    --     id_comment_user INT,
+    --     FOREIGN KEY (id_comment) REFERENCES answers(id_answer),
+    --     FOREIGN KEY (id_user) REFERENCES users(id_user),
+    --     FOREIGN KEY (id_comment_user) REFERENCES users (id_user)      
+    -- );
 
 
 
@@ -250,3 +250,48 @@ where answers.id_user = 1;
 +----------------------------+
 
 zeto deberia tener 515 puntos.-
+
+
+SELECT SUM(puntos) user_points
+    FROM (    
+        select count(*) * 15 as puntos from questions where id_user = 1
+    
+        UNION
+    
+        select count(*) * 10 as puntos from answers 
+        where id_user = 1 and id_answer_father is null
+    
+        UNION
+    
+        select count(*) * 5 as puntos from answers where id_user = 1 and id_answer_father is not null
+    
+        UNION
+    
+        SELECT COUNT(*) * 7 AS puntos FROM questions_points 
+        inner join questions ON questions.id_question = questions_points.id_question 
+        where questions.id_user = 1
+    
+        UNION
+    
+        SELECT COUNT(*) * 5 AS puntos FROM answers_points 
+        inner join answers ON answers.id_answer = answers_points.id_answer 
+        where answers.id_user = 1 and answers.id_answer_father is null    
+    
+        UNION
+    
+        SELECT COUNT(*) * 3 AS puntos FROM answers_points 
+        inner join answers ON answers.id_answer = answers_points.id_answer 
+        where answers.id_user = 1 and answers.id_answer_father is not null
+    
+        UNION
+    
+        select count(*) * 20 as puntos from questions 
+        inner join answers on answers.id_answer = questions.id_answer_acepted 
+        where answers.id_user = 1
+    
+    )user_points;
++-------------+
+| user_points |
++-------------+
+|         810 |
++-------------+

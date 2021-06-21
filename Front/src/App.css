@@ -18,6 +18,9 @@
         'article article main main main .'
         'article article footer footer footer footer';
     color: white;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .App a {
     color: #ffffff;
@@ -25,14 +28,15 @@
 }
 .navbar {
     grid-area: header;
-    border-bottom-style: outset;
-    border-bottom-width: 1px;
     height: 5rem;
     background-color: #111;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 10px 0px,
+        rgba(255, 255, 255, 0.8) -6px -2px 10px 0px;
+    z-index: 5;
 }
 .main {
     grid-area: main;
@@ -43,13 +47,12 @@
 
 .article {
     grid-area: article;
-    margin-top: 0.2rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     background-color: #111;
-    border-right-style: outset;
-    border-right-width: 1px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 10px 0px,
+        rgba(160, 158, 158, 0.8) -6px -2px 10px 0px;
 }
 
 .footer {
