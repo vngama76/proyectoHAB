@@ -7,6 +7,7 @@ import './Home.css';
 import NotAnsweredQuestions from './NotAnsweredQuestions';
 import Search from './Search';
 import { useSelector } from 'react-redux';
+import bienvenido from './images/bienvenido2.png';
 
 function Home() {
     const isLoggedIn = useSelector((u) => !!u.user.token);
@@ -22,7 +23,10 @@ function Home() {
         user && (
             <>
                 <div className="home-grid">
-                    <div className="home-welcome"> Bienvenid@ a GAPP</div>
+                    <div
+                        className="home-welcome"
+                        style={{ backgroundImage: `url(${bienvenido})` }}
+                    />
 
                     <div className="home">
                         <Helmet>

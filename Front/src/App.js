@@ -1,6 +1,5 @@
 import Navbar from './Navbar';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import background from './images/9YKVj.jpg';
 import Home from './Home';
 import Questions from './Questions';
 import './App.css';
@@ -35,15 +34,18 @@ function App() {
     const isLoggedIn = useSelector((s) => !!s.user.token);
     const user = useSelector((u) => u.user.info);
     return (
-        <div
-            className="App"
-            style={{
-                backgroundImage: `url(${background})`,
-            }}
-        >
+        <div className="App">
             <ErrorMessage />
 
             <Navbar />
+
+            {!isLoggedIn && (
+                <Switch>
+                    <Route path="/landing" exact>
+                        <Landing />
+                    </Route>
+                </Switch>
+            )}
 
             {isLoggedIn && user && <FindExperts />}
             {isLoggedIn && user && <TableTags />}
@@ -51,15 +53,16 @@ function App() {
             {isLoggedIn && user && <Article />}
             <main className="main">
                 <Switch>
-                    <Route path="/landing">
-                        <Landing />
-                    </Route>
                     <Route path="/questions/:q" exact>
-                        <Questions />
+                        <PrivateRoute>
+                            <Questions />
+                        </PrivateRoute>
                     </Route>
                     <Route path="/temp" exact />
                     <Route path="/addQuestion" exact>
-                        <AddQuestion />
+                        <PrivateRoute>
+                            <AddQuestion />
+                        </PrivateRoute>
                     </Route>
                     <Route path="/profile/users/:q" exact>
                         <PrivateRoute>
@@ -88,7 +91,9 @@ function App() {
                         </PrivateRoute>
                     </Route>
                     <Route path="/">
-                        <Home />
+                        <PrivateRoute>
+                            <Home />
+                        </PrivateRoute>
                     </Route>
                 </Switch>
             </main>

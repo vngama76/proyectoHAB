@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
-import logo from './Logo.png';
+import logo from './images/Logo.png';
 import './Navbar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import LoginModal from './LoginModal';
-import { Redirect } from 'react-router-dom';
 
 function Navbar() {
     const isLoggedIn = useSelector((s) => !!s.user.token);
@@ -17,27 +16,51 @@ function Navbar() {
         dispatch({
             type: 'LOGOUT',
         });
-        if (isLoggedIn) {
-            return <Redirect to="/landing" />;
-        }
     };
     const [showModal, setShowModal] = useState(false);
 
     return (
         <>
             <div className="navbar">
-                <Link to="/lastquestions" className="logo-container">
-                    <div
-                        style={{
-                            backgroundImage: `url(${logo})`,
-                        }}
-                        id="app-logo"
-                    />
-                </Link>
-                {isLoggedIn && (
+                {isLoggedIn ? (
+                    <Link to="/lastquestions" className="logo-container">
+                        <div
+                            style={{
+                                backgroundImage: `url(${logo})`,
+                            }}
+                            id="app-logo"
+                        />
+                    </Link>
+                ) : (
+                    <Link to="/landing" className="logo-container">
+                        <div
+                            style={{
+                                backgroundImage: `url(${logo})`,
+                            }}
+                            id="app-logo"
+                        />
+                    </Link>
+                )}
+
+                {isLoggedIn ? (
                     <Link className="pregunta-button" to="/addQuestion">
                         Haz una Pregunta
                     </Link>
+                ) : (
+                    <form
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <input
+                            className="log-input"
+                            onClick={() => setShowModal(true)}
+                            placeholder="Busca tu Pregunta"
+                        />
+                        <span style={{ backgroundColor: 'white' }}>🔍</span>
+                    </form>
                 )}
                 <div className="user-area">
                     {!isLoggedIn && (
@@ -49,7 +72,7 @@ function Navbar() {
                         </div>
                     )}
                     {isLoggedIn && (
-                        <Link to="/">
+                        <Link to={'/landing'}>
                             <div className="log-button" onClick={handleLogout}>
                                 LogOut
                             </div>

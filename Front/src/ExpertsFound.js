@@ -3,6 +3,7 @@ import './UsersFound.css';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
+import nuestrosexpertos from './images/nuestrosexpertos.png';
 
 export default function ExpertsFound() {
     const s = 'expert';
@@ -12,7 +13,10 @@ export default function ExpertsFound() {
 
     return (
         <>
-            <h3 className="experts-h3">Nuestros Expertos</h3>
+            <div
+                className="experts-h3"
+                style={{ backgroundImage: `url(${nuestrosexpertos})` }}
+            />
             <Helmet>
                 <title>GAPP - Experts</title>
             </Helmet>

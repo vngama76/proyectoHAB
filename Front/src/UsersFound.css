@@ -1,9 +1,11 @@
 .users-h3 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 4rem;
-    background-color: black;
-    padding: 0.3rem;
+    width: 75.5rem;
+    height: 4rem;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
+    margin-bottom: 1rem;
 }
 
 .user-found {
@@ -72,9 +74,11 @@
     justify-content: space-around;
 }
 .experts-h3 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 4rem;
-    background-color: black;
-    padding: 0.3rem;
+    width: 73rem;
+    height: 4rem;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
+    margin-bottom: 1rem;
 }

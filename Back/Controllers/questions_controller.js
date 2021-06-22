@@ -15,7 +15,7 @@ async function createQuestion(req, res, next) {
 
         const schema = Joi.object({
             title: Joi.string().max(50).required(),
-            body: Joi.string().max(2500).required(),
+            body: Joi.string().max(2500).min(150).required(),
             tags: Joi.array(),
         });
         await schema.validateAsync({ title, body, tags });
@@ -253,6 +253,16 @@ async function getNotAnsweredQuestions(req, res, next) {
         next(err);
     }
 }
+
+async function getRandomQuestionWithAnswer(req, res, next) {
+    try {
+        const question = await questionsRepository.findRandomQuestionWithAnswer();
+        console.log(question);
+        res.send(question);
+    } catch (err) {
+        next(err);
+    }
+}
 module.exports = {
     createQuestion,
     getQuestionById,
@@ -266,4 +276,5 @@ module.exports = {
     getHotQuestions,
     getQuestionsByTags,
     getNotAnsweredQuestions,
+    getRandomQuestionWithAnswer,
 };

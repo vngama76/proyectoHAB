@@ -2,17 +2,18 @@ import { useParams } from 'react-router-dom';
 import TagsChart from './TagsChart';
 import useFetch from './useFetch';
 import './UsersProfile.css';
+import perfildeusuario from './images/perfildeusuario.png';
 
 export default function UsersProfile() {
     const { q } = useParams();
     const results = useFetch('http://localhost:4000/api/users/' + q);
     return (
         <div className="perfil-usuario-tercero">
-            {results && (
-                <p className="perfil-usuario-tercero-title">
-                    Perfil de {results[0].name}
-                </p>
-            )}
+            <div
+                className="perfil-usuario-tercero-title"
+                style={{ backgroundImage: `url(${perfildeusuario})` }}
+            />
+
             {!results && <i>Loading...</i>}
             {results?.error ? (
                 <i>No results found!</i>

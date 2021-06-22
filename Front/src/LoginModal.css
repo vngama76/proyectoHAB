@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
 }
 
 .modal-fg {
@@ -15,14 +16,15 @@
     border-radius: 4px;
     box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.4);
     color: black;
-    padding: 20px;
+    padding: 20rem;
     text-align: center;
-    min-width: 350px;
+    min-height: 450px;
 }
 
 /* ----------------Login-------------- */
 .login h1 {
     align-self: center;
+    margin-top: 3rem;
 }
 .login-form {
     display: flex;

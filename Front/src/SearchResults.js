@@ -31,16 +31,17 @@ function SearchResults({ q }) {
                 ))}
                 {!results && <div>Loading...</div>}
                 {!results?.questions.length && (
-                    <div>
+                    <div className="no-question">
                         <div>Al parecer no pudimos encontrar tu pregunta</div>
                         <div>
-                            Puedes realizar una{' '}
+                            puedes realizar una{' '}
                             <Link
                                 to="/addQuestion"
                                 style={{
-                                    backgroundColor: 'blue',
+                                    color: 'black',
                                     borderRadius: 5,
-                                    padding: 3,
+                                    padding: 5,
+                                    textAlign: 'center',
                                     fontWeight: 600,
                                 }}
                             >

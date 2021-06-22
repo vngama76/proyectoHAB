@@ -2,12 +2,15 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    margin-left: 1rem;
 }
 .perfil-usuario-tercero-title {
-    text-align: center;
-    font-size: 2rem;
-    background-color: black;
-    padding: 0.3rem;
+    width: 73rem;
+    height: 4rem;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
 }
 
 .datos-usuario {
@@ -15,7 +18,7 @@
     padding-top: 0.3rem;
     margin-left: 2rem;
     display: grid;
-    grid-template-columns: 13rem 20rem 15rem 20rem;
+    grid-template-columns: 13rem 15rem 15rem 20rem;
     grid-template-rows: 3rem 3rem 3rem 4rem;
     grid-template-areas:
         'foto dot dot queso'

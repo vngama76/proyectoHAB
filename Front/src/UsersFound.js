@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import useFetch from './useFetch';
 import './UsersFound.css';
+import usauriosencontrados from './images/usuariosencontrados.png';
 
 export default function UsersFound() {
     const { q } = useParams();
@@ -12,7 +13,10 @@ export default function UsersFound() {
 
     return (
         <>
-            <h3 className="users-h3">Usuarios Encontrados:</h3>
+            <div
+                className="users-h3"
+                style={{ backgroundImage: `url(${usauriosencontrados})` }}
+            />
             <Helmet>
                 <title>GAPP - Users</title>
             </Helmet>

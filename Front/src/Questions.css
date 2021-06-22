@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    border: 1px solid black;
 }
 .profile-link {
     display: inline-block;
@@ -83,7 +84,7 @@
     background-position: center;
     border: none;
     align-self: center;
-    background-color: #282c34;
+    background-color: transparent;
     color: white;
 }
 
@@ -232,7 +233,7 @@
     background-position: center;
     border: none;
     align-self: center;
-    background-color: #282c34;
+    background-color: transparent;
     color: white;
 }
 
@@ -376,7 +377,7 @@
     background-position: center;
     border: none;
     align-self: center;
-    background-color: #282c34;
+    background-color: transparent;
     color: white;
 }
 

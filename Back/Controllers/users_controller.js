@@ -432,6 +432,23 @@ async function getVerifySituation(req, res, next) {
         next(err);
     }
 }
+async function promoteToExpert(req, res, next) {
+    try {
+        const { id_user } = req.params;
+        const { rol } = req.auth;
+        if (rol !== 'admin') {
+            const error = new Error('Solo admins pueden promover usuarios');
+            error.code = 403;
+            throw error;
+        }
+        await userRepository.ascenderUsuarioAExperto(id_user);
+        res.send({
+            message: 'Usuario Promovido a Experto',
+        });
+    } catch (err) {
+        next(err);
+    }
+}
 
 module.exports = {
     register,
@@ -450,4 +467,5 @@ module.exports = {
     blockUser,
     unBlockUser,
     getVerifySituation,
+    promoteToExpert,
 };

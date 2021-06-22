@@ -16,6 +16,8 @@ import AnswersActivity from './AnswersActivity';
 import { useSetTrigger, useTrigger } from './TriggerContext';
 import { useSelector } from 'react-redux';
 import TagsChart from './TagsChart';
+import tuperfil from './images/tuperfil.png';
+import perfildeusuario from './images/perfildeusuario.png';
 
 function Profile() {
     const { q } = useParams();
@@ -76,10 +78,28 @@ function Profile() {
             setTrigger(trigger === 1 ? 2 : 1);
         }
     }
+    function HandlePromote() {
+        fetch('http://localhost:4000/api/admin/promoteuser/' + q, {
+            method: 'PUT',
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+
+        setTrigger(trigger === 1 ? 2 : 1);
+    }
 
     return (
         <div className="profile">
-            <h1>Tu Perfil</h1>
+            <div
+                className="profile-title"
+                style={{
+                    backgroundImage: `url(${
+                        Number(q) === id_user ? tuperfil : perfildeusuario
+                    })`,
+                }}
+            />
+
             {res && (
                 <>
                     <Helmet>
@@ -104,13 +124,6 @@ function Profile() {
                         <TagsChart className="profile-queso" id_user={q} />
                     </div>
 
-                    {rol === 'admin' && Number(q) !== id_user && (
-                        <button onClick={HandleBlock} className="admin-button">
-                            {res.isVerify
-                                ? 'Bloquear Usuario'
-                                : 'Desbloquear Usuario'}
-                        </button>
-                    )}
                     <div className="pencil-container">
                         <div
                             className="user-points"
@@ -118,6 +131,27 @@ function Profile() {
                         >
                             {userPoints} puntos
                         </div>
+                        {rol === 'admin' && Number(q) !== id_user && (
+                            <>
+                                <button
+                                    onClick={HandleBlock}
+                                    className="admin-button"
+                                >
+                                    {res.isVerify
+                                        ? 'Bloquear Usuario'
+                                        : 'Desbloquear Usuario'}
+                                </button>
+
+                                {res.rol === 'user' && (
+                                    <button
+                                        onClick={HandlePromote}
+                                        className="admin-button"
+                                    >
+                                        Promover a Experto
+                                    </button>
+                                )}
+                            </>
+                        )}
                         <div
                             onClick={handleClick}
                             title="modifica tus datos"

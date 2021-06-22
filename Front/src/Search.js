@@ -17,7 +17,7 @@ function Search() {
                 </Helmet>
                 <form onSubmit={handleSubmit}>
                     <input
-                        placeholder="Search..."
+                        placeholder="..."
                         value={search === ' ' ? '' : search}
                         onChange={(e) => setSearch(e.target.value)}
                     />

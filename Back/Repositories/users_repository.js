@@ -119,6 +119,12 @@ async function findVerifySituation(id_user) {
     return isVerify[0];
 }
 
+async function ascenderUsuarioAExperto(id_user) {
+    const query = `UPDATE users SET rol = 'expert' WHERE id_user = ?`;
+    await database.pool.query(query, id_user);
+    return;
+}
+
 module.exports = {
     findUserByEmail,
     verifyUser,
@@ -136,4 +142,5 @@ module.exports = {
     blockUserById,
     unBlockUserById,
     findVerifySituation,
+    ascenderUsuarioAExperto,
 };

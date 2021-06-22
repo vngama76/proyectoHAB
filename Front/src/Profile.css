@@ -3,16 +3,20 @@
 .profile {
     display: flex;
     flex-direction: column;
+    padding-left: 2rem;
     gap: 2rem;
 }
-.profile > h1 {
-    text-align: center;
-    background-color: black;
-    padding: 0.5rem;
+.profile-title {
+    width: 73rem;
+    height: 4rem;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
 }
 .pencil-container {
     display: flex;
-    width: 48rem;
+    width: 40rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
@@ -58,7 +62,7 @@
 }
 .info-queso-grid {
     display: grid;
-    grid-template-columns: 50rem 25rem;
+    grid-template-columns: 45rem 25rem;
     grid-template-rows: 3rem 3rem 2rem 2rem 4rem;
 
     gap: 1rem;

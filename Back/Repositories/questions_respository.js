@@ -162,6 +162,12 @@ async function findNotAnsweredQuestions() {
         })
     );
 }
+async function findRandomQuestionWithAnswer() {
+    const query =
+        'SELECT * FROM questions WHERE status_enum="TIENE RESPUESTAS" ORDER BY rand() LIMIT 4';
+    const [questions] = await database.pool.query(query);
+    return questions;
+}
 module.exports = {
     findQuestionById,
     addQuestion,
@@ -177,4 +183,5 @@ module.exports = {
     findLastQuestions,
     findHotQuestions,
     findNotAnsweredQuestions,
+    findRandomQuestionWithAnswer,
 };

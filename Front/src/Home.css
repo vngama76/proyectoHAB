@@ -4,22 +4,24 @@
         'welcome'
         'search'
         'tabs';
-    grid-template-rows: 8rem 20rem auto;
+    grid-template-rows: 11.5rem 20rem auto;
+    gap: 1rem;
 }
 
 .home-welcome {
     grid-area: welcome;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 50px;
-    font-weight: 600;
-    background-color: black;
+    width: 75rem;
+    height: 10.8rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
+    margin-top: 0.5rem;
 }
 
 .home {
     grid-area: search;
-    padding-top: 4rem;
+    border: 1px solid black;
 }
 
 .home-questions-answers {
@@ -37,14 +39,14 @@
     width: 8rem;
     height: 2.4rem;
     font-size: 20px;
-    border-top: 1px solid #444;
-    border-left: 1px solid #444;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
     padding: 4px 8px;
     text-decoration: none;
     align-self: flex-end;
 }
 .home-tabs a:last-child {
-    border-right: 1px solid #444;
+    border-right: 1px solid black;
 }
 
 .home-tabs a.active {
@@ -61,17 +63,19 @@
     background-color: #444;
 }
 .content {
-    border: 1px solid #444;
+    border: 1px solid black;
     padding: 20px;
     min-height: 63vh;
 }
 .search {
     display: flex;
     flex-direction: row;
+    gap: 1rem;
 }
 .search-input {
     width: 25rem;
     padding-left: 2rem;
+    margin-top: 2rem;
 }
 .search-title-input {
     padding-left: 2.5rem;
@@ -87,7 +91,8 @@
 .home-results-activity-box {
     display: flex;
     justify-content: space-between;
-    width: 50rem;
+
+    width: 45rem;
 }
 
 .home-results-activity-box:hover {
@@ -99,4 +104,9 @@
 .home-results {
     margin-top: 3rem;
     margin-left: 0.5rem;
+}
+
+.no-question {
+    padding: 1rem;
+    padding-top: 3rem;
 }

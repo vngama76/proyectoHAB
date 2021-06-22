@@ -31,12 +31,16 @@
     margin-right: 5rem;
     text-decoration: none;
 }
+
 .log-button:hover {
     font-weight: bolder;
     cursor: pointer;
     color: black;
     background-color: white;
     border-color: black;
+}
+
+.log-input {
 }
 .pregunta-button {
     font-weight: 600;

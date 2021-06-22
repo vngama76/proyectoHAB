@@ -113,6 +113,10 @@ app.get(
     validateAuthorization,
     questionsController.getQuestionsByTags
 );
+app.get(
+    '/api/randomquestions',
+    questionsController.getRandomQuestionWithAnswer
+);
 
 //Answers
 app.post(
@@ -219,7 +223,14 @@ app.put(
     validateAuthorization,
     usersController.unBlockUser
 );
+
 app.get('/api/admin/isVerify/:id_user', usersController.getVerifySituation);
+
+app.put(
+    '/api/admin/promoteuser/:id_user',
+    validateAuthorization,
+    usersController.promoteToExpert
+);
 
 app.use((err, req, res, next) => {
     +console.error(err);
