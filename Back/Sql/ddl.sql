@@ -26,16 +26,23 @@ CREATE TABLE users (
     verify_code VARCHAR(20),
     descritpion VARCHAR(1000),
     sum INT DEFAULT 0,
-    rol VARCHAR(10) DEFAULT "user",    
+    rol VARCHAR(10) DEFAULT "user"    
     );
    
-    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', 'rgb(22,88,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'The Boss', 'admin');
-    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('The Dude', 'thedude@gmail.com', 'rgb(221,188,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'El duderino', 'expert');
-    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Lone Ranger', 'loneranger@gmail.com', 'rgb(222,88,227)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'Hi ho Silver!', 'expert');
-    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Han Acompañado', 'accompanied@gmail.com', 'rgb(22,188,227)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'Nunca solo, siempre acompañado', 'user');
-    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Beatrix Kiddo', 'beakiddo@gmail.com',  'rgb(32,18,157)','$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'It is mercy, compassion and forgiveness I lack. Not rationality.', 'expert');
-    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Juno MacGuff', 'juno@gmail.com', 'rgb(222,25,57)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'I do not know what kind of girl I am', 'user');
-    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Mia Wallace', 'themia@gmail.com', 'rgb(122,48,27)', '$2a$10$3yN.glbrrQ5s9XXyyS/F0.GqxRTclPpADWTZ4VIePIQZkKJJP4ro.', 1, 'Why do we feel it is necessary to yak about bullshit in order to be comfortable?', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Zé Tó', 'zeto@gmail.com', 'rgb(22,88,27)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'The Boss', 'admin');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('The Dude', 'thedude@gmail.com', 'rgb(221,188,27)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'El duderino', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Lone Ranger', 'loneranger@gmail.com', 'rgb(222,88,227)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'Hi ho Silver!', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Han Acompañado', 'accompanied@gmail.com', 'rgb(22,188,227)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'Nunca solo, siempre acompañado', 'user');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Beatrix Kiddo', 'beakiddo@gmail.com',  'rgb(32,18,157)','$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'It is mercy, compassion and forgiveness I lack. Not rationality.', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Juno MacGuff', 'juno@gmail.com', 'rgb(222,25,57)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'I do not know what kind of girl I am', 'user');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Mia Wallace', 'themia@gmail.com', 'rgb(122,48,27)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'Why do we feel it is necessary to yak about bullshit in order to be comfortable?', 'expert');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Jules Winnfield', 'julesw@gmail.com', 'rgb(112,45,11)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'The path of the righteous man is beset on all sides by the inequities of the selfish and the tyranny of evil men.', 'user');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Walter Sobchak', 'wsob@gmail.com', 'rgb(155,99,27)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'This Is Not ‘Nam. This Is Bowling. There Are Rules.', 'user');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Zare Destanov', 'zared@gmail.com', 'rgb(200,95,25)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'Pitbull terrier', 'user');
+    INSERT INTO users (name_user, email, color, password_user, isVerify, descritpion, rol) VALUES('Joy Jordan', 'jjordan@gmail.com', 'rgb(100,11,99)', '$2a$10$wS/M8rBJl6T9dPJLUBvbYOFSwL3rbShzbEjx0BAaTdRflJpLcE0bm', 1, 'Dont you miss Russia?', 'user');
+   
+   
+   
    CREATE TABLE questions (
 	id_question INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(250) NOT NULL,
@@ -47,7 +54,23 @@ CREATE TABLE users (
     FOREIGN KEY (id_user) REFERENCES users(id_user)
     );
 
-    INSERT INTO questions (title, body, id_user) VALUES ('blabla', 'gigi dàgostino', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Consectetur Lorem ipsum dolor sit amet', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Consectetur Lorem ipsum dolor sit amet', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
+    INSERT INTO questions (title, body, id_user) VALUES ('Lorem ipsum dolor sit amet consectetur', 'Mus nam facilisis ridiculus sociosqu fringilla curae accumsan, senectus ante etiam egestas dictum mauris, cum laoreet lectus luctus justo felis. Luctus imperdiet proin dictumst est mattis integer suscipit, aliquam porttitor felis nostra conubia praesent eget, tristique magna viverra posuere vulputate curae. Nullam nisi ornare viverra mus libero nunc ultrices tincidunt urna sociosqu', 1);
     
 	CREATE TABLE answers (
 	id_answer INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -60,7 +83,7 @@ CREATE TABLE users (
     FOREIGN KEY (id_user) REFERENCES users(id_user)
     );
     
-    INSERT INTO answers (body, id_question, id_user) VALUES ('bla bla bla', 1, 1);
+    
 
     CREATE TABLE tags (
 	id_tag INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -97,16 +120,7 @@ CREATE TABLE users (
               
     );
 
-    -- CREATE TABLE comments_points (
-    --     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    --     id_comment INT,
-    --     id_user INT,
-    --     id_comment_user INT,
-    --     FOREIGN KEY (id_comment) REFERENCES answers(id_answer),
-    --     FOREIGN KEY (id_user) REFERENCES users(id_user),
-    --     FOREIGN KEY (id_comment_user) REFERENCES users (id_user)      
-    -- );
-
+    
 
 
 
@@ -295,3 +309,44 @@ SELECT SUM(puntos) user_points
 +-------------+
 |         810 |
 +-------------+
+
+------------------------------------------------------------------------------------
+UPDATE users SET rol = "expert"
+  WHERE (SELECT SUM(puntos) user_points
+    FROM (    
+        select count(*) * 15 as puntos from questions where id_user = 6
+    
+        UNION
+    
+        select count(*) * 10 as puntos from answers where id_user = 6 and id_answer_father is null
+    
+        UNION
+    
+        select count(*) * 5 as puntos from answers where id_user = 6 and id_answer_father is not null
+    
+        UNION
+    
+        SELECT COUNT(*) * 7 AS puntos FROM questions_points 
+        inner join questions ON questions.id_question = questions_points.id_question 
+        where questions.id_user = 6
+    
+        UNION
+    
+        SELECT COUNT(*) * 5 AS puntos FROM answers_points 
+        inner join answers ON answers.id_answer = answers_points.id_answer 
+        where answers.id_user = 6 and answers.id_answer_father is null    
+    
+        UNION
+    
+        SELECT COUNT(*) * 3 AS puntos FROM answers_points 
+        inner join answers ON answers.id_answer = answers_points.id_answer 
+        where answers.id_user = 6 and answers.id_answer_father is not null
+    
+        UNION
+    
+        select count(*) * 20 as puntos from questions 
+        inner join answers on answers.id_answer = questions.id_answer_acepted 
+        where answers.id_user = 6)user_points)> 1500;
+
+
+ 

@@ -3,13 +3,13 @@ import { useState, createContext, useContext } from 'react';
 const TriggerContext = createContext();
 
 function TriggerContextProvider({ children }) {
-    const [trigger, setTrigger] = useState(1);
-    console.log(trigger);
-    return (
-        <TriggerContext.Provider value={[trigger, setTrigger]}>
-            {children}
-        </TriggerContext.Provider>
-    );
+  const [trigger, setTrigger] = useState(1);
+
+  return (
+    <TriggerContext.Provider value={[trigger, setTrigger]}>
+      {children}
+    </TriggerContext.Provider>
+  );
 }
 
 export const useTrigger = () => useContext(TriggerContext)[0];
