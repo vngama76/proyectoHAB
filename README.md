@@ -26,4 +26,4 @@ GAPP - Get Answered App, un portal donde usuarios practicantes de programación 
 
 ✓ Herramientas especiales para administradores de página.
 
-La app fue diseñada con Node.Js (API Rest con Express.js) en Back y React.Js con Redux para Front. Su base de datos relacional en MySql y cuenta con librerías como SendGrid, AntD, Chart.js, JWT, Sharp, React-Quill y más. Organización de trabajo en Basecamp, wireframes, logos y otros diseños en Figma y Canva.
+Gapp fue diseñada con Node.Js (API Rest con Express.js) en Back y React.Js con Redux para Front. Su base de datos relacional en MySql y cuenta con librerías como SendGrid, AntD, Chart.js, JWT, Sharp, React-Quill y más. Organización de trabajo en Basecamp, wireframes, logos y otros diseños en Figma y Canva.
