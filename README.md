@@ -8,7 +8,7 @@ Lorenzo Prada Perez - LinkedIn: https://www.linkedin.com/in/lorenzo-prada-perez/
 
 Vasco Gama - LinkedIn: https://www.linkedin.com/in/vasco-gama/
 
-Daniel A. Farneda - LinkedIn: https://www.linkedin.com/in/alejandro-farneda/
+Daniel Alejandro Farneda - LinkedIn: https://www.linkedin.com/in/alejandro-farneda/
 
 GAPP - Get Answered App, un portal donde usuarios practicantes de programación puedan realizar sus preguntas que serán atendidas por expertos y votadas por otros usuarios. 
 
