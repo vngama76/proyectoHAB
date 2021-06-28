@@ -11,7 +11,7 @@
 
     display: grid;
     grid-template-columns: 15% 60% 25%;
-    grid-template-rows: 5rem 3rem 3rem 3rem auto;
+    grid-template-rows: 5rem 3rem auto auto auto;
     grid-template-areas:
         'titulo titulo titulo'
         'foto punto queso'
