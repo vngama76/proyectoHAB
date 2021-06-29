@@ -79,7 +79,14 @@ export default function Answers({
                                             <div
                                                 className="answer-userfoto"
                                                 style={{
-                                                    backgroundImage: `url(http://localhost:4000/uploads/${a.foto})`,
+                                                    backgroundImage: `url(${
+                                                        a.foto.startsWith(
+                                                            'http'
+                                                        )
+                                                            ? a.foto
+                                                            : 'http://localhost:4000/uploads/' +
+                                                              a.foto
+                                                    })`,
                                                 }}
                                             />
                                         ) : (

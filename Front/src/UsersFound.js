@@ -35,7 +35,12 @@ export default function UsersFound() {
                                     <div
                                         className="user-foto"
                                         style={{
-                                            backgroundImage: `url(http://localhost:4000/uploads/${u.foto})`,
+                                            backgroundImage: `url(${
+                                                u.foto.startsWith('http')
+                                                    ? u.foto
+                                                    : 'http://localhost:4000/uploads/' +
+                                                      u.foto
+                                            })`,
                                         }}
                                     />
                                     <div>

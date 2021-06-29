@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './LoginModal.css';
+import GoogleLogin from 'react-google-login';
 
 function Login({ setSignup, closeModal }) {
     const history = useHistory();
@@ -35,6 +36,37 @@ function Login({ setSignup, closeModal }) {
         }
     };
 
+    const respuestaGoogle = async (respuesta) => {
+        console.log(respuesta);
+
+        if (respuesta) {
+            const res = await fetch('http://localhost:4000/api/users/google', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name_user: respuesta.profileObj.name,
+                    email: respuesta.profileObj.email,
+                    foto: respuesta.dt.DJ,
+                    password: respuesta.Aa.slice(0, 19),
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (res.ok) {
+                const data = await res.json();
+                console.log(data);
+                dispatch({ type: 'LOGIN', token: data.token });
+                dispatch({ type: 'INFO', info: data });
+                if (data.rol === 'expert') {
+                    history.push('/notanswered');
+                } else {
+                    history.push('/');
+                }
+                closeModal();
+            } else {
+                dispatch({ type: 'NEW_ERROR', error: 'Error de Login' });
+            }
+        }
+    };
+
     return (
         <div className="login">
             <h1>Login</h1>
@@ -63,6 +95,13 @@ function Login({ setSignup, closeModal }) {
                         Regístrate
                     </button>
                 </p>
+                <GoogleLogin
+                    clientId="418069176689-du0cmjgcr96jahddmj8dq8ljpi0er7ee.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={respuestaGoogle}
+                    onFailure={respuestaGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
             </form>
         </div>
     );

@@ -42,7 +42,12 @@ export default function Article() {
                             <div
                                 className="avatar"
                                 style={{
-                                    backgroundImage: `url(http://localhost:4000/uploads/${user.foto})`,
+                                    backgroundImage: `url(${
+                                        user.foto.startsWith('http')
+                                            ? user.foto
+                                            : 'http://localhost:4000/uploads/' +
+                                              user.foto
+                                    })`,
                                 }}
                                 title="Perfil"
                             />

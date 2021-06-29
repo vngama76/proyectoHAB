@@ -47,7 +47,12 @@ export default function FindExperts() {
                                     <div
                                         className="expert-avatar"
                                         style={{
-                                            backgroundImage: `url(http://localhost:4000/uploads/${e.foto})`,
+                                            backgroundImage: `url(${
+                                                e.foto.startsWith('http')
+                                                    ? e.foto
+                                                    : 'http://localhost:4000/uploads/' +
+                                                      e.foto
+                                            })`,
                                         }}
                                     />
                                     <div>

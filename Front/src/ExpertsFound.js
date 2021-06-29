@@ -33,7 +33,12 @@ export default function ExpertsFound() {
                                     <div
                                         className="user-foto"
                                         style={{
-                                            backgroundImage: `url(http://localhost:4000/uploads/${h.foto})`,
+                                            backgroundImage: `url(${
+                                                h.foto.startsWith('http')
+                                                    ? h.foto
+                                                    : 'http://localhost:4000/uploads/' +
+                                                      h.foto
+                                            })`,
                                         }}
                                     />
                                     <div>
