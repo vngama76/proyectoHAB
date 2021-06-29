@@ -188,6 +188,55 @@ async function login(req, res, next) {
         next(err);
     }
 }
+async function loginGoogle(req, res, next) {
+    try {
+        const { email, password, name_user, foto } = req.body;
+        console.log(name_user);
+        const schema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().min(5).max(20).required(),
+            name_user: Joi.string().max(255).required(),
+            foto: Joi.string().max(100),
+        });
+        await schema.validateAsync({ email, password, name_user, foto });
+
+        let user = await userRepository.findUserByEmail(email);
+
+        if (!user) {
+            const passwordHash = await bcrypt.hash(password, 10);
+            const color = random_bg_color().toString();
+            user = await userRepository.createGoogleUser({
+                name_user,
+                email,
+                color,
+                foto,
+                password_user: passwordHash,
+            });
+        }
+
+        //Construir el jwt (json web tokens):
+        const tokenPayLoad = { id: user.id_user, rol: user.rol }; //voy a tomar el id del usuario y el rol que vienen implicito en user
+
+        //Generamos el token a partir del user.id: estos son los 3 argumentos de la funcion "jwt.sign()"
+        const token = jwt.sign(tokenPayLoad, process.env.SECRET, {
+            expiresIn: '30d',
+        });
+
+        res.send({
+            id: user.id_user,
+            name: user.name_user,
+            rol: user.rol,
+            foto: user.foto,
+            color: user.color,
+            email: user.email,
+            show_mail: user.show_mail,
+            description: user.descritpion,
+            token,
+        }); //un token es ese codigo giante
+    } catch (err) {
+        next(err);
+    }
+}
 
 async function getUserById(req, res, next) {
     try {
@@ -465,4 +514,5 @@ module.exports = {
     unBlockUser,
     getVerifySituation,
     promoteToExpert,
+    loginGoogle,
 };

@@ -124,6 +124,19 @@ async function ascenderUsuarioAExperto(id_user) {
     await database.pool.query(query, id_user);
     return;
 }
+async function createGoogleUser(data) {
+    const query =
+        'INSERT INTO users (name_user, email, color, password_user, foto, isVerify = 1) VALUES (?, ?, ?, ?, ?)';
+    await database.pool.query(query, [
+        data.name_user,
+        data.email,
+        data.color,
+        data.password_user,
+        data.foto,
+    ]);
+
+    return findUserByEmail(data.email);
+}
 
 module.exports = {
     findUserByEmail,
@@ -143,4 +156,5 @@ module.exports = {
     unBlockUserById,
     findVerifySituation,
     ascenderUsuarioAExperto,
+    createGoogleUser,
 };

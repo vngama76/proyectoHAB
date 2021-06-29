@@ -26,6 +26,7 @@ app.use('/uploads', express.static('static'));
 //User
 app.post('/api/users/register', usersController.register);
 app.post('/api/users/login', usersController.login);
+app.post('/api/users/google', usersController.loginGoogle);
 app.get(
   '/api/users/:id_user',
   validateAuthorization,

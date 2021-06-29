@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
 import './LoginModal.css';
 
 function Login({ setSignup, closeModal }) {
@@ -34,7 +35,9 @@ function Login({ setSignup, closeModal }) {
             dispatch({ type: 'NEW_ERROR', error: 'Error de Login' });
         }
     };
-
+    const responseGoogle = (respuesta) => {
+        console.log(respuesta);
+    };
     return (
         <div className="login">
             <h1>Login</h1>
@@ -52,7 +55,16 @@ function Login({ setSignup, closeModal }) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+
+                <GoogleLogin
+                    clientId="1032923664830-4vg993217ktoo0ccep88ksvdml92t4r2.apps.googleusercontent.com"
+                    buttonText="Iniciar Sesión"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
                 <button className="button-login">Entrar</button>
+
                 <p className="no-account">
                     Aún no tienes cuenta?
                     <button
