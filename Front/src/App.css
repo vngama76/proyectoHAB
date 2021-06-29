@@ -10,7 +10,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-columns: 15rem 70% auto;
-  grid-template-rows: 5rem 30rem 18rem auto 3rem;
+  grid-template-rows: 5rem 25rem auto auto 3rem;
   grid-template-areas:
     'header header header'
     'article main toptags'

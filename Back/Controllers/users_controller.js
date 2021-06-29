@@ -11,7 +11,7 @@ const {
 const { nanoid } = require('nanoid');
 
 const userRepository = require('../Repositories/users_repository');
-const { tagsRepository, scoresRepository } = require('../Repositories');
+const { tagsRepository } = require('../Repositories');
 
 async function register(req, res, next) {
   try {
