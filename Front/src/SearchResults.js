@@ -3,10 +3,32 @@ import useFetch from './useFetch';
 
 function SearchResults({ q }) {
     const results = useFetch(`http://localhost:4000/api/questions/tags/${q}`);
+    console.log(results);
     return (
         <>
             <div className="home-results">
-                {results?.questions.slice(0, 8).map((e) => (
+                {!results?.questions?.length && (
+                    <div className="no-question">
+                        <div>Al parecer no pudimos encontrar tu pregunta</div>
+                        <div>
+                            puedes realizar una{' '}
+                            <Link
+                                to="/addQuestion"
+                                style={{
+                                    color: 'black',
+                                    borderRadius: 5,
+                                    padding: 5,
+                                    textAlign: 'center',
+                                    fontWeight: 600,
+                                }}
+                            >
+                                Aqui
+                            </Link>
+                        </div>
+                    </div>
+                )}
+
+                {results?.questions?.slice(0, 8).map((e) => (
                     <Link
                         key={e.id_question}
                         to={`/questions/${e.id_question}`}
@@ -30,26 +52,6 @@ function SearchResults({ q }) {
                     </Link>
                 ))}
                 {!results && <div>Loading...</div>}
-                {!results?.questions.length && (
-                    <div className="no-question">
-                        <div>Al parecer no pudimos encontrar tu pregunta</div>
-                        <div>
-                            puedes realizar una{' '}
-                            <Link
-                                to="/addQuestion"
-                                style={{
-                                    color: 'black',
-                                    borderRadius: 5,
-                                    padding: 5,
-                                    textAlign: 'center',
-                                    fontWeight: 600,
-                                }}
-                            >
-                                Aqui
-                            </Link>
-                        </div>
-                    </div>
-                )}
             </div>
         </>
     );

@@ -88,7 +88,12 @@ function Questions() {
                                         <div
                                             className="question-userfoto"
                                             style={{
-                                                backgroundImage: `url(http://localhost:4000/uploads/${user.foto})`,
+                                                backgroundImage: `url(${
+                                                    user.foto.startsWith('http')
+                                                        ? user.foto
+                                                        : 'http://localhost:4000/uploads/' +
+                                                          user.foto
+                                                })`,
                                             }}
                                         />
                                     ) : (

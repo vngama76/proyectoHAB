@@ -57,7 +57,12 @@ export default function Comments({ id_answer_father, id_target_user }) {
                                     <div
                                         className="comment-userfoto"
                                         style={{
-                                            backgroundImage: `url(http://localhost:4000/uploads/${a.foto})`,
+                                            backgroundImage: `url(${
+                                                a.foto.startsWith('http')
+                                                    ? a.foto
+                                                    : 'http://localhost:4000/uploads/' +
+                                                      a.foto
+                                            })`,
                                         }}
                                     />
                                 ) : (

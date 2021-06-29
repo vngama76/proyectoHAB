@@ -13,6 +13,7 @@ export default function Answers({
     const trigger = useTrigger();
     const [res, setRes] = useState();
     const rol = useSelector((u) => u.user.info.rol);
+    console.log(res);
 
     const token = useSelector((s) => s.user?.token);
     const dispatch = useDispatch();
@@ -79,7 +80,14 @@ export default function Answers({
                                             <div
                                                 className="answer-userfoto"
                                                 style={{
-                                                    backgroundImage: `url(http://localhost:4000/uploads/${a.foto})`,
+                                                    backgroundImage: `url(${
+                                                        a.foto.startsWith(
+                                                            'http'
+                                                        )
+                                                            ? a.foto
+                                                            : 'http://localhost:4000/uploads/' +
+                                                              a.foto
+                                                    })`,
                                                 }}
                                             />
                                         ) : (
@@ -170,7 +178,14 @@ export default function Answers({
                                             <div
                                                 className="answer-userfoto"
                                                 style={{
-                                                    backgroundImage: `url(http://localhost:4000/uploads/${a.foto})`,
+                                                    backgroundImage: `url(${
+                                                        a.foto.startsWith(
+                                                            'http'
+                                                        )
+                                                            ? a.foto
+                                                            : 'http://localhost:4000/uploads/' +
+                                                              a.foto
+                                                    })`,
                                                 }}
                                             />
                                         ) : (

@@ -10,7 +10,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-columns: 15rem 70% auto;
-  grid-template-rows: 5rem 25rem auto auto 3rem;
+  grid-template-rows: 5rem 22rem auto auto 3rem;
   grid-template-areas:
     'header header header'
     'article main toptags'
@@ -65,8 +65,9 @@
 }
 
 .footer {
-  grid-area: footer;
+  position: fixed;
   opacity: 50%;
+  bottom: 1rem;
   min-width: 100%;
   background-color: #111;
   align-self: center;
