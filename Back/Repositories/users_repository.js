@@ -126,7 +126,7 @@ async function ascenderUsuarioAExperto(id_user) {
 }
 async function createGoogleUser(data) {
     const query =
-        'INSERT INTO users (name_user, email, color, password_user, foto, isVerify = 1) VALUES (?, ?, ?, ?, ?)';
+        'INSERT INTO users (name_user, email, color, password_user, foto, isVerify) VALUES (?, ?, ?, ?, ?, 1)';
     await database.pool.query(query, [
         data.name_user,
         data.email,

@@ -94,7 +94,7 @@ async function addAvatar(req, res, next) {
 
         const user = await userRepository.findUserById(id);
 
-        if (user.foto) {
+        if (!user.foto.startsWith('http')) {
             await deleteAvatar({ file: user.foto });
         }
 
@@ -191,7 +191,6 @@ async function login(req, res, next) {
 async function loginGoogle(req, res, next) {
     try {
         const { email, password, name_user, foto } = req.body;
-        console.log(name_user);
         const schema = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string().min(5).max(20).required(),

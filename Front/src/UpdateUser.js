@@ -8,7 +8,9 @@ function UpdateUser({ closeModal }) {
 
     const [username, setUsername] = useState(user.info.name);
 
-    const [description, setDescription] = useState(user.info.description);
+    const [description, setDescription] = useState(
+        !user.info.description ? ' ' : user.info.description
+    );
 
     const [showMail, setShowMail] = useState(user.info.show_mail);
 
@@ -18,10 +20,9 @@ function UpdateUser({ closeModal }) {
     const setTrigger = useSetTrigger();
     const trigger = useTrigger();
 
-    const foto = user.info.foto
-        ? `http://localhost:4000/uploads/${user.info.foto}`
-        : null;
-
+    const foto = user.info.foto.startsWith('http')
+        ? user.info.foto
+        : `http://localhost:4000/uploads/${user.info.foto}`;
     const [preview, setPreview] = useState(foto);
 
     const handleFile = (e) => {

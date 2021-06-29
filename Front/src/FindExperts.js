@@ -56,8 +56,8 @@ export default function FindExperts() {
                                         }}
                                     />
                                     <div>
-                                        {e.descritpion.length >= 50
-                                            ? e.descritpion.slice(0, 50) + '...'
+                                        {e.descritpion.length >= 40
+                                            ? e.descritpion.slice(0, 40) + '...'
                                             : e.descritpion}
                                     </div>
                                 </div>
